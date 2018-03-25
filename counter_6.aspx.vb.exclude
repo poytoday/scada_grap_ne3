@@ -1,0 +1,19 @@
+﻿Imports System.Data
+Imports System.Data.OleDb
+Imports System.IO
+Partial Class counter_6
+    Inherits System.Web.UI.Page
+    Dim MSQL1 As New MISSQL
+    Dim MSQL2 As New MISSQL
+    Protected Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        Me.Chart4.Visible = True
+        Me.Chart5.Visible = True
+        Me.Chart4.DataBind()
+        Me.Chart5.DataBind()
+    End Sub
+   
+
+    Protected Sub GridView3_SelectedIndexChanged(sender As Object, e As EventArgs) Handles GridView3.SelectedIndexChanged
+
+    End Sub
+End Class

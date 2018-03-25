@@ -1,0 +1,285 @@
+﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="communication.aspx.vb" Inherits="communication" %>
+
+<!DOCTYPE html>
+<%@ Register TagPrefix="poy" TagName="header" Src="~/UCghead2.ascx" %>
+<%@ Register TagPrefix="poy" TagName="footer" Src="~/UCgfooter.ascx" %>
+<%@ Register TagPrefix="poy" TagName="css" Src="~/UCgcss.ascx" %>
+<%@ Register TagPrefix="poy" TagName="js" Src="~/UCgjs.ascx" %>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <poy:css ID="UCcss" runat="server" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>SCADA Graph</title>
+    <meta name="keywords" content="free css templates, grid system" />
+    <meta name="description" content="Grid System is a free website template provided by templatemo.com" />
+    <link href="templatemo_style.css" rel="stylesheet" type="text/css" />
+    <script language="javascript" type="text/javascript">
+        function clearText(field) {
+            if (field.defaultValue == field.value) field.value = '';
+            else if (field.value == '') field.value = field.defaultValue;
+        }
+
+    </script>
+    <style type="text/css">
+  
+    </style>
+</head>
+<body>
+     <div class="col-md-12" align="center">
+                                  <h2 > SCADA Communication 
+                        </h2>
+                                      </div> 
+    <poy:header ID="UCmenu1" runat="server" />
+    <div class="container">
+        <form id="form1" runat="server">
+            <div id="templatemo_content_wrapper_inner">
+                <div id="templatemo_content_top">
+                </div>
+                <div id="templatemo_content">
+                    <div class="section_w860">
+                        <div class="section_w860 float_l">
+                            <asp:ScriptManager ID="ScriptManager1" runat="server">
+                            </asp:ScriptManager>
+                           
+                             
+                        <table border="1">
+                                <tr>
+                                    <td class="auto-style1">
+                                        <asp:Chart ID="Chart1" runat="server" DataSourceID="SqlDataSource1" Width="569px" Height="358px" Palette="None" PaletteCustomColors="Lime; Red; Blue" RightToLeft="Yes">
+                                            <Series>
+
+
+                                                <asp:Series Name="MW" XValueMember="status" LabelFormat="{0}" BorderWidth="5" XValueType="UInt64" ChartArea="ChartArea1" IsValueShownAsLabel="True" ChartType="Pie" Legend="Legend1" YValueMembers="Expr1" YValueType="UInt64" Font="Microsoft Sans Serif, 15.75pt, style=Bold" LabelBorderWidth="3" LabelUrl="http://smartdata.pea.co.th/scada/up_down_sub.aspx" Url="http://smartdata.pea.co.th/scada/up_down_sub.aspx">
+                                                </asp:Series>
+
+                                            </Series>
+                                            <ChartAreas>
+                                                <asp:ChartArea Name="ChartArea1">
+                                                </asp:ChartArea>
+                                            </ChartAreas>
+                                            <Legends>
+                                                <asp:Legend Name="Legend1">
+                                                </asp:Legend>
+                                            </Legends>
+                                            <Titles>
+                                                <asp:Title Name="Substation" Font="Microsoft Sans Serif, 18pt" ForeColor="Blue" Text="กราฟแสดงสถานะจำนวนระบบสื่อสารของสถานีไฟฟ้า">
+                                                </asp:Title>
+                                            </Titles>
+                                        </asp:Chart>
+                                    </td>
+                                    <td>
+                                        <asp:Chart ID="Chart2" runat="server" DataSourceID="SqlDataSource3" Width="530px" Height="354px" Palette="None" PaletteCustomColors="Lime; Red; Blue" RightToLeft="Yes">
+                                            <Series>
+
+
+                                                <asp:Series Name="MW" XValueMember="status" LabelFormat="{0}{%}" BorderWidth="2" XValueType="UInt64" ChartArea="ChartArea1" IsValueShownAsLabel="True" ChartType="Pie" Legend="Legend1" YValueMembers="Expr4" YValueType="UInt64" Font="Microsoft Sans Serif, 15.75pt, style=Bold" LabelUrl="http://smartdata.pea.co.th/scada/up_down_sub.aspx" Url="http://smartdata.pea.co.th/scada/up_down_sub.aspx">
+                                                </asp:Series>
+
+                                            </Series>
+                                            <ChartAreas>
+                                                <asp:ChartArea Name="ChartArea1">
+                                                </asp:ChartArea>
+                                            </ChartAreas>
+                                            <Legends>
+                                                <asp:Legend Name="Legend1">
+                                                </asp:Legend>
+                                            </Legends>
+                                            <Titles>
+                                                <asp:Title Name="Substation" Font="Microsoft Sans Serif, 18pt" ForeColor="blue" Text="กราฟแสดงเปอร์เซ็นต์ระบบสื่อสารของสถานีไฟฟ้า">
+                                                </asp:Title>
+                                            </Titles>
+                                        </asp:Chart>
+                                    </td>
+                                </tr>
+                            </table>
+
+
+
+
+
+                            <table border="1">
+                                <tr>
+                                    <td class="auto-style1">
+                                        <asp:Chart ID="Chart3" runat="server" DataSourceID="SqlDataSource2" Width="569px" Height="358px" Palette="None" PaletteCustomColors="Lime; Red; Blue" RightToLeft="Yes">
+                                            <Series>
+
+
+                                                <asp:Series Name="MW" XValueMember="status" LabelFormat="{0}" BorderWidth="5" XValueType="UInt64" ChartArea="ChartArea1" IsValueShownAsLabel="True" ChartType="Pie" Legend="Legend1" YValueMembers="Expr1" YValueType="UInt64" Font="Microsoft Sans Serif, 15.75pt, style=Bold" LabelBorderWidth="3" LabelUrl="http://smartdata.pea.co.th/scada/up_down_now.aspx" Url="http://smartdata.pea.co.th/scada/up_down_now.aspx">
+                                                </asp:Series>
+
+                                            </Series>
+                                            <ChartAreas>
+                                                <asp:ChartArea Name="ChartArea1">
+                                                </asp:ChartArea>
+                                            </ChartAreas>
+                                            <Legends>
+                                                <asp:Legend Name="Legend1">
+                                                </asp:Legend>
+                                            </Legends>
+                                            <Titles>
+                                                <asp:Title Name="Substation" Font="Microsoft Sans Serif, 18pt" ForeColor="Blue" Text="กราฟแสดงสถานะจำนวนระบบสื่อสารของ RCS">
+                                                </asp:Title>
+                                            </Titles>
+                                        </asp:Chart>
+                                    </td>
+                                    <td>
+                                        <asp:Chart ID="Chart4" runat="server" DataSourceID="SqlDataSource4" Width="530px" Height="354px" Palette="None" PaletteCustomColors="Lime; Red; Blue" RightToLeft="Yes">
+                                            <Series>
+
+
+                                                <asp:Series Name="MW" XValueMember="status" LabelFormat="{0}{%}" BorderWidth="2" XValueType="UInt64" ChartArea="ChartArea1" IsValueShownAsLabel="True" ChartType="Pie" Legend="Legend1" YValueMembers="Expr4" YValueType="UInt64" Font="Microsoft Sans Serif, 15.75pt, style=Bold" LabelUrl="http://smartdata.pea.co.th/scada/up_down_now.aspx" Url="http://smartdata.pea.co.th/scada/up_down_now.aspx">
+                                                </asp:Series>
+
+                                            </Series>
+                                            <ChartAreas>
+                                                <asp:ChartArea Name="ChartArea1">
+                                                </asp:ChartArea>
+                                            </ChartAreas>
+                                            <Legends>
+                                                <asp:Legend Name="Legend1">
+                                                </asp:Legend>
+                                            </Legends>
+                                            <Titles>
+                                                <asp:Title Name="Substation" Font="Microsoft Sans Serif, 18pt" ForeColor="blue" Text="กราฟแสดงเปอร์เซ็นต์ระบบสื่อสารของ RCS">
+                                                </asp:Title>
+                                            </Titles>
+                                        </asp:Chart>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <table border="1">
+                                <tr>
+                                    <td class="auto-style1">
+                                        <asp:Chart ID="Chart5" runat="server" DataSourceID="SqlDataSource5" Width="569px" Height="358px" Palette="None" PaletteCustomColors="Lime; Red; Blue" RightToLeft="Yes">
+                                            <Series>
+
+
+                                                <asp:Series LabelUrl="http://smartdata.pea.co.th/scada/up_down_now.aspx" Url="http://smartdata.pea.co.th/scada/up_down_now.aspx" Name="MW" XValueMember="status" LabelFormat="{0}" BorderWidth="5" XValueType="UInt64" ChartArea="ChartArea1" IsValueShownAsLabel="True" ChartType="Pie" Legend="Legend1" YValueMembers="Expr1" YValueType="UInt64" Font="Microsoft Sans Serif, 15.75pt, style=Bold" LabelBorderWidth="3">
+                                                </asp:Series>
+
+                                            </Series>
+                                            <ChartAreas>
+                                                <asp:ChartArea Name="ChartArea1">
+                                                </asp:ChartArea>
+                                            </ChartAreas>
+                                            <Legends>
+                                                <asp:Legend Name="Legend1">
+                                                </asp:Legend>
+                                            </Legends>
+                                            <Titles>
+                                                <asp:Title Name="Substation" Font="Microsoft Sans Serif, 18pt" ForeColor="Blue" Text="กราฟแสดงสถานะจำนวนระบบสื่อสารของ REC">
+                                                </asp:Title>
+                                            </Titles>
+                                        </asp:Chart>
+                                    </td>
+                                    <td>
+                                        <asp:Chart ID="Chart6" runat="server" DataSourceID="SqlDataSource6" Width="530px" Height="354px" Palette="None" PaletteCustomColors="Lime; Red; Blue" RightToLeft="Yes">
+                                            <Series>
+
+
+                                                <asp:Series LabelUrl="http://smartdata.pea.co.th/scada/up_down_now.aspx" Url="http://smartdata.pea.co.th/scada/up_down_now.aspx" Name="MW" XValueMember="status" LabelFormat="{0}{%}" BorderWidth="2" XValueType="UInt64" ChartArea="ChartArea1" IsValueShownAsLabel="True" ChartType="Pie" Legend="Legend1" YValueMembers="Expr4" YValueType="UInt64" Font="Microsoft Sans Serif, 15.75pt, style=Bold">
+                                                </asp:Series>
+
+                                            </Series>
+                                            <ChartAreas>
+                                                <asp:ChartArea Name="ChartArea1">
+                                                </asp:ChartArea>
+                                            </ChartAreas>
+                                            <Legends>
+                                                <asp:Legend Name="Legend1">
+                                                </asp:Legend>
+                                            </Legends>
+                                            <Titles>
+                                                <asp:Title Name="Substation" Font="Microsoft Sans Serif, 18pt" ForeColor="blue" Text="กราฟแสดงเปอร์เซ็นต์ระบบสื่อสารของ Recloser">
+                                                </asp:Title>
+                                            </Titles>
+                                        </asp:Chart>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <table border="1">
+                                <tr>
+                                    <td class="auto-style1">
+                                        <asp:Chart ID="Chart7" runat="server" DataSourceID="SqlDataSource7" Width="569px" Height="358px" Palette="None" PaletteCustomColors="Lime; Red; Blue" RightToLeft="Yes">
+                                            <Series>
+
+
+                                                <asp:Series Name="MW" LabelUrl="http://smartdata/scada/up_down_now.aspx" Url="http://smartdata/scada/up_down_now.aspx" XValueMember="status" LabelFormat="{0}" BorderWidth="5" XValueType="UInt64" ChartArea="ChartArea1" IsValueShownAsLabel="True" ChartType="Pie" Legend="Legend1" YValueMembers="Expr1" YValueType="UInt64" Font="Microsoft Sans Serif, 15.75pt, style=Bold" LabelBorderWidth="3">
+                                                </asp:Series>
+
+                                            </Series>
+                                            <ChartAreas>
+                                                <asp:ChartArea Name="ChartArea1">
+                                                </asp:ChartArea>
+                                            </ChartAreas>
+                                            <Legends>
+                                                <asp:Legend Name="Legend1">
+                                                </asp:Legend>
+                                            </Legends>
+                                            <Titles>
+                                                <asp:Title Name="Substation" Font="Microsoft Sans Serif, 18pt" ForeColor="Blue" Text="กราฟแสดงสถานะจำนวนระบบสื่อสารของ AVR">
+                                                </asp:Title>
+                                            </Titles>
+                                        </asp:Chart>
+                                    </td>
+                                    <td>
+                                        <asp:Chart ID="Chart8" runat="server" DataSourceID="SqlDataSource8" Width="530px" Height="354px" Palette="None" PaletteCustomColors="Lime; Red; Blue" RightToLeft="Yes">
+                                            <Series>
+
+
+                                                <asp:Series Name="MW" LabelUrl="http://smartdata/scada/up_down_now.aspx" Url="http://smartdata/scada/up_down_now.aspx" XValueMember="status" LabelFormat="{0}{%}" BorderWidth="2" XValueType="UInt64" ChartArea="ChartArea1" IsValueShownAsLabel="True" ChartType="Pie" Legend="Legend1" YValueMembers="Expr4" YValueType="UInt64" Font="Microsoft Sans Serif, 15.75pt, style=Bold">
+                                                </asp:Series>
+
+                                            </Series>
+                                            <ChartAreas>
+                                                <asp:ChartArea Name="ChartArea1">
+                                                </asp:ChartArea>
+                                            </ChartAreas>
+                                            <Legends>
+                                                <asp:Legend Name="Legend1">
+                                                </asp:Legend>
+                                            </Legends>
+                                            <Titles>
+                                                <asp:Title Name="Substation" Font="Microsoft Sans Serif, 18pt" ForeColor="blue" Text="กราฟแสดงเปอร์เซ็นต์ระบบสื่อสารของ AVR">
+                                                </asp:Title>
+                                            </Titles>
+                                        </asp:Chart>
+                                    </td>
+                                </tr>
+                            </table>
+                            </div>
+                        <div class="section_w860">
+                        </div>
+                        <div class="cleaner">
+                        </div>
+                    </div>
+                    <div id="templatemo_content_bottom">
+
+         <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:SA_System_N3_ConnectionString %>" SelectCommand="SELECT COUNT(*) AS Expr1, status FROM scada.online_commun WHERE (dbname LIKE '%_S') GROUP BY status ORDER BY status DESC"></asp:SqlDataSource>
+                            <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:SA_System_N3_ConnectionString %>" SelectCommand="SELECT COUNT(*) AS Expr1, status FROM scada.online_commun WHERE (dbname LIKE 'N3RCS%') GROUP BY status ORDER BY status DESC"></asp:SqlDataSource>
+                            <asp:SqlDataSource ID="SqlDataSource3" runat="server" ConnectionString="<%$ ConnectionStrings:SA_System_N3_ConnectionString %>" SelectCommand="SELECT derivedtbl_3.Expr1, derivedtbl_3.Expr2, derivedtbl_3.Expr4, derivedtbl_3.status FROM (SELECT TOP (100) PERCENT derivedtbl_2.Expr1, derivedtbl_2.Expr2, derivedtbl_2.Expr1 * 100 / derivedtbl_2.Expr2 AS Expr4, derivedtbl_2.status FROM (SELECT TOP (100) PERCENT COUNT(*) AS Expr1, online_commun_1.status, derivedtbl_1.Expr1 AS Expr2 FROM (SELECT COUNT(*) AS Expr1 FROM scada.online_commun WHERE (dbname LIKE '%_S')) AS derivedtbl_1 CROSS JOIN scada.online_commun AS online_commun_1 WHERE (online_commun_1.dbname LIKE '%_S') GROUP BY online_commun_1.status, derivedtbl_1.Expr1 ORDER BY online_commun_1.status DESC) AS derivedtbl_2 CROSS JOIN scada.online_commun AS online_commun_2 WHERE (online_commun_2.dbname LIKE '%_S') GROUP BY derivedtbl_2.status, derivedtbl_2.Expr1, derivedtbl_2.Expr2 ORDER BY derivedtbl_2.status DESC) AS derivedtbl_3 CROSS JOIN scada.online_commun AS online_commun_3 WHERE (online_commun_3.dbname LIKE '%_S') GROUP BY derivedtbl_3.status, derivedtbl_3.Expr1, derivedtbl_3.Expr2, derivedtbl_3.Expr4 ORDER BY derivedtbl_3.status DESC"></asp:SqlDataSource>
+
+                            <asp:SqlDataSource ID="SqlDataSource4" runat="server" ConnectionString="<%$ ConnectionStrings:SA_System_N3_ConnectionString %>" SelectCommand="SELECT derivedtbl_3.Expr1, derivedtbl_3.Expr2, derivedtbl_3.Expr4, derivedtbl_3.status FROM (SELECT TOP (100) PERCENT derivedtbl_2.Expr1, derivedtbl_2.Expr2, derivedtbl_2.Expr1 * 100 / derivedtbl_2.Expr2 AS Expr4, derivedtbl_2.status FROM (SELECT TOP (100) PERCENT COUNT(*) AS Expr1, online_commun_1.status, derivedtbl_1.Expr1 AS Expr2 FROM (SELECT COUNT(*) AS Expr1 FROM scada.online_commun WHERE (dbname LIKE '%N3RCS%')) AS derivedtbl_1 CROSS JOIN scada.online_commun AS online_commun_1 WHERE (online_commun_1.dbname LIKE '%N3RCS%') GROUP BY online_commun_1.status, derivedtbl_1.Expr1 ORDER BY online_commun_1.status DESC) AS derivedtbl_2 CROSS JOIN scada.online_commun AS online_commun_2 WHERE (online_commun_2.dbname LIKE '%N3RCS%') GROUP BY derivedtbl_2.status, derivedtbl_2.Expr1, derivedtbl_2.Expr2 ORDER BY derivedtbl_2.status DESC) AS derivedtbl_3 CROSS JOIN scada.online_commun AS online_commun_3 WHERE (online_commun_3.dbname LIKE '%N3RCS%') GROUP BY derivedtbl_3.status, derivedtbl_3.Expr1, derivedtbl_3.Expr2, derivedtbl_3.Expr4 ORDER BY derivedtbl_3.status DESC"></asp:SqlDataSource>
+
+                            <asp:SqlDataSource ID="SqlDataSource5" runat="server" ConnectionString="<%$ ConnectionStrings:SA_System_N3_ConnectionString %>" SelectCommand="SELECT COUNT(*) AS Expr1, status FROM scada.online_commun WHERE (dbname LIKE 'N3REC%') GROUP BY status ORDER BY status DESC"></asp:SqlDataSource>
+
+                            <asp:SqlDataSource ID="SqlDataSource6" runat="server" ConnectionString="<%$ ConnectionStrings:SA_System_N3_ConnectionString %>" SelectCommand="SELECT derivedtbl_3.Expr1, derivedtbl_3.Expr2, derivedtbl_3.Expr4, derivedtbl_3.status FROM (SELECT TOP (100) PERCENT derivedtbl_2.Expr1, derivedtbl_2.Expr2, derivedtbl_2.Expr1 * 100 / derivedtbl_2.Expr2 AS Expr4, derivedtbl_2.status FROM (SELECT TOP (100) PERCENT COUNT(*) AS Expr1, online_commun_1.status, derivedtbl_1.Expr1 AS Expr2 FROM (SELECT COUNT(*) AS Expr1 FROM scada.online_commun WHERE (dbname LIKE '%N3REC%')) AS derivedtbl_1 CROSS JOIN scada.online_commun AS online_commun_1 WHERE (online_commun_1.dbname LIKE '%N3REC%') GROUP BY online_commun_1.status, derivedtbl_1.Expr1 ORDER BY online_commun_1.status DESC) AS derivedtbl_2 CROSS JOIN scada.online_commun AS online_commun_2 WHERE (online_commun_2.dbname LIKE '%N3REC%') GROUP BY derivedtbl_2.status, derivedtbl_2.Expr1, derivedtbl_2.Expr2 ORDER BY derivedtbl_2.status DESC) AS derivedtbl_3 CROSS JOIN scada.online_commun AS online_commun_3 WHERE (online_commun_3.dbname LIKE '%N3REC%') GROUP BY derivedtbl_3.status, derivedtbl_3.Expr1, derivedtbl_3.Expr2, derivedtbl_3.Expr4 ORDER BY derivedtbl_3.status DESC"></asp:SqlDataSource>
+                            <asp:SqlDataSource ID="SqlDataSource7" runat="server" ConnectionString="<%$ ConnectionStrings:SA_System_N3_ConnectionString %>" SelectCommand="SELECT COUNT(*) AS Expr1, status FROM scada.online_commun WHERE (dbname LIKE 'N3AVR%') GROUP BY status ORDER BY status DESC"></asp:SqlDataSource>
+                            <asp:SqlDataSource ID="SqlDataSource8" runat="server" ConnectionString="<%$ ConnectionStrings:SA_System_N3_ConnectionString %>" SelectCommand="SELECT derivedtbl_3.Expr1, derivedtbl_3.Expr2, derivedtbl_3.Expr4, derivedtbl_3.status FROM (SELECT TOP (100) PERCENT derivedtbl_2.Expr1, derivedtbl_2.Expr2, derivedtbl_2.Expr1 * 100 / derivedtbl_2.Expr2 AS Expr4, derivedtbl_2.status FROM (SELECT TOP (100) PERCENT COUNT(*) AS Expr1, online_commun_1.status, derivedtbl_1.Expr1 AS Expr2 FROM (SELECT COUNT(*) AS Expr1 FROM scada.online_commun WHERE (dbname LIKE '%N3AVR%')) AS derivedtbl_1 CROSS JOIN scada.online_commun AS online_commun_1 WHERE (online_commun_1.dbname LIKE '%N3AVR%') GROUP BY online_commun_1.status, derivedtbl_1.Expr1 ORDER BY online_commun_1.status DESC) AS derivedtbl_2 CROSS JOIN scada.online_commun AS online_commun_2 WHERE (online_commun_2.dbname LIKE '%N3AVR%') GROUP BY derivedtbl_2.status, derivedtbl_2.Expr1, derivedtbl_2.Expr2 ORDER BY derivedtbl_2.status DESC) AS derivedtbl_3 CROSS JOIN scada.online_commun AS online_commun_3 WHERE (online_commun_3.dbname LIKE '%N3AVR%') GROUP BY derivedtbl_3.status, derivedtbl_3.Expr1, derivedtbl_3.Expr2, derivedtbl_3.Expr4 ORDER BY derivedtbl_3.status DESC"></asp:SqlDataSource>
+
+        </div>
+                </div>
+                 </div>
+             </div>
+     </div>
+        </form>
+
+   
+    <poy:footer ID="UCfooter" runat="server" />
+    <poy:js ID="UCjs" runat="server" />
+</body>
+</html>
+
+                       

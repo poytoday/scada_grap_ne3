@@ -1,0 +1,160 @@
+﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="Realtime_inform.aspx.vb" Inherits="Default2" %>
+
+
+<!DOCTYPE html>
+<%@ Register TagPrefix="poy" TagName="header" Src="~/UCghead2.ascx" %>
+<%@ Register TagPrefix="poy" TagName="footer" Src="~/UCgfooter.ascx" %>
+<%@ Register TagPrefix="poy" TagName="css" Src="~/UCgcss.ascx" %>
+<%@ Register TagPrefix="poy" TagName="js" Src="~/UCgjs.ascx" %>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title>Scada Graph</title>
+    <poy:css ID="UCcss" runat="server" />
+    <style type="text/css">
+        .auto-style1 {
+            width: 400px;
+        }
+
+        </style>
+</head>
+<body>
+    <div class="col-md-12" align="center">
+        <h2>Load realtime </h2>
+    </div>
+    <poy:header ID="UCmenu1" runat="server" />
+    <div class="container">
+
+        <form id="form1" runat="server">
+            <br />
+            <div class="col-md-12">
+                Point name  :&nbsp;&nbsp;&nbsp; 
+            <asp:DropDownList ID="DropDownList1" runat="server" Height="30px" Width="200px" AutoPostBack="True"
+                DataSourceID="SqlDataSource2" DataTextField="pointname" DataValueField="pointname">
+            </asp:DropDownList>
+
+            </div>
+            <br />
+            <div class="col-md-9">
+                
+
+                    <label class="control-label col-md-3">
+                        วันที่ :
+                <asp:Label ID="LabelDate" runat="server"></asp:Label>
+                    </label>
+                    <div class="col-md-3">
+                        <div class="input-group">
+                            <input value="00:00" id="textbox1" runat="server" type="text" class="form-control timepicker timepicker-24" />
+                            <span class="input-group-btn">
+                                <button class="btn default" type="button"><i class="fa fa-clock-o"></i></button>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="input-group">
+                            <input id="textbox2" runat="server" type="text" class="form-control timepicker timepicker-24" />
+
+                            <span class="input-group-btn">
+                                <button class="btn default" type="button"><i class="fa fa-clock-o"></i></button>
+                            </span>
+
+                        </div>
+
+                    </div>
+                 <div class="col-md-3">
+                    <asp:Button ID="Button1" runat="server" Text="ตกลง" Width="96px" Height="35px" />
+                </div>
+
+
+            </div>
+
+
+            &nbsp;&nbsp;
+                                            <asp:Label ID="Label1" runat="server" Visible="False"></asp:Label>
+            <asp:Label ID="Label2" runat="server" Visible="False"></asp:Label>
+            <br />
+              <br />
+              <br />
+    <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+            <table align="center">
+                <tr>
+                    <td class="auto-style1">
+
+                        <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#E7E7FF" BorderStyle="None" BorderWidth="1px" CellPadding="3" DataSourceID="SqlDataSource1" GridLines="Horizontal" Width="101%" DataKeyNames="pointname,date_data" HorizontalAlign="Center" AllowPaging="True" PageSize="20">
+                            <AlternatingRowStyle BackColor="#F7F7F7" />
+                            <Columns>
+                                <asp:BoundField DataField="pointname" HeaderText="Point Name" SortExpression="pointname">
+                                    <ItemStyle HorizontalAlign="Center" />
+                                </asp:BoundField>
+                                <asp:BoundField DataField="data_values" HeaderText="Active Power(MW)" SortExpression="data_values" DataFormatString="{0:F2}">
+                                    <ItemStyle HorizontalAlign="Center" />
+                                </asp:BoundField>
+                                <asp:BoundField DataField="date_data" HeaderText="Date/Time" ReadOnly="True" SortExpression="date_data" DataFormatString="{0:dd-MMM-yyyy HH:mm:ss}">
+                                    <ItemStyle HorizontalAlign="Center" />
+                                </asp:BoundField>
+                            </Columns>
+                            <FooterStyle BackColor="#B5C7DE" ForeColor="#4A3C8C" />
+                            <HeaderStyle BackColor="#4A3C8C" Font-Bold="True" ForeColor="#F7F7F7" />
+                            <PagerStyle BackColor="#E7E7FF" ForeColor="#4A3C8C" HorizontalAlign="Right" />
+                            <RowStyle BackColor="#E7E7FF" ForeColor="#4A3C8C" />
+                            <SelectedRowStyle BackColor="#738A9C" Font-Bold="True" ForeColor="#F7F7F7" />
+                            <SortedAscendingCellStyle BackColor="#F4F4FD" />
+                            <SortedAscendingHeaderStyle BackColor="#5A4C9D" />
+                            <SortedDescendingCellStyle BackColor="#D8D8F0" />
+                            <SortedDescendingHeaderStyle BackColor="#3E3277" />
+                        </asp:GridView>
+                    </td>
+
+                    <td>
+
+                        <asp:Chart ID="Chart1" runat="server" DataSourceID="SqlDataSource1" Width="687px" Height="401px" Palette="EarthTones" Visible="False">
+                            <Series>
+                                <asp:Series ChartType="Spline" Name="Series1" XValueMember="date_data" XValueType="Time" YValueMembers="data_values" YValueType="UInt64" ChartArea="ChartArea1">
+                                </asp:Series>
+                            </Series>
+                            <ChartAreas>
+                                <asp:ChartArea Name="ChartArea1">
+                                    <AxisX Title="Date">
+                                    </AxisX>
+                                    <AxisY Title="Active Power(MW)" TextOrientation="Auto">
+                                    </AxisY>
+                                </asp:ChartArea>
+                            </ChartAreas>
+                            <Titles>
+                                <asp:Title Name="Title1" Text="กราฟแสดงข้อมูลแบบ Real Time ของ Feeder" Font="Angsana New, 16pt">
+                                </asp:Title>
+                            </Titles>
+                        </asp:Chart>
+                    </td>
+                </tr>
+
+            </table>
+
+
+
+            <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:stagingConnectionString %>" SelectCommand="SELECT pointname, desception, data_values, date_data, subname FROM stg.load_inform WHERE (pointname = @pointname1) AND (date_data &gt; CONVERT (DATETIME, @date1, 102)) AND (date_data &lt; CONVERT (DATETIME, @date2, 102)) ORDER BY date_data DESC">
+                <SelectParameters>
+                    <asp:ControlParameter ControlID="DropDownList1" Name="pointname1" PropertyName="SelectedValue" />
+                    <asp:ControlParameter ControlID="Label1" Name="date1" PropertyName="Text" />
+                    <asp:ControlParameter ControlID="Label2" Name="date2" PropertyName="Text" />
+                </SelectParameters>
+            </asp:SqlDataSource>
+            <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:stagingConnectionString %>" SelectCommand="SELECT pointname FROM stg.load_inform GROUP BY pointname HAVING (pointname LIKE '%MW') ORDER BY pointname"></asp:SqlDataSource>
+        </form>
+
+
+
+    </div>
+    <poy:footer ID="UCfooter" runat="server" />
+    <poy:js ID="UCjs" runat="server" />
+</body>
+</html>
+
+
+
+

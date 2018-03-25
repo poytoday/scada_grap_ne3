@@ -1,0 +1,330 @@
+﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="commu_daily.aspx.vb" Inherits="commu_daily" %>
+
+<!DOCTYPE html>
+
+<%@ Register TagPrefix="poy" TagName="header" Src="~/UCghead2.ascx" %>
+<%@ Register TagPrefix="poy" TagName="footer" Src="~/UCgfooter.ascx" %>
+<%@ Register TagPrefix="poy" TagName="css" Src="~/UCgcss.ascx" %>
+<%@ Register TagPrefix="poy" TagName="js" Src="~/UCgjs.ascx" %>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <poy:css ID="UCcss" runat="server" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>SCADA Graph</title>
+    <meta name="keywords" content="free css templates, grid system" />
+    <meta name="description" content="Grid System is a free website template provided by templatemo.com" />
+    <link href="templatemo_style.css" rel="stylesheet" type="text/css" />
+    <script language="javascript" type="text/javascript">
+        function clearText(field) {
+            if (field.defaultValue == field.value) field.value = '';
+            else if (field.value == '') field.value = field.defaultValue;
+        }
+
+    </script>
+    <style type="text/css">
+        .auto-style1 {
+            width: 620px;
+        }
+
+        .auto-style2 {
+            width: 620px;
+        }
+
+        .auto-style3 {
+            width: 620px;
+        }
+
+        .auto-style4 {
+            width: 620px;
+        }
+
+        .auto-style5 {
+            width: 747px;
+        }
+    </style>
+</head>
+<body>
+    <div class="col-md-12" align="center">
+        <h2>SCADA Communication 
+        </h2>
+    </div>
+    <poy:header ID="UCmenu1" runat="server" />
+    <div class="container">
+        <form id="form1" runat="server">
+            <div id="templatemo_content_wrapper_inner">
+                <div id="templatemo_content_top">
+                </div>
+                <div id="templatemo_content">
+
+                    <asp:ScriptManager ID="ScriptManager1" runat="server">
+                    </asp:ScriptManager>
+
+                    <div class="form-group">
+                        <div class="col-md-1">
+                            เลือกวันที่ : 
+                        </div>
+                        <div class="col-md-4">
+
+                            <div class="input-group input-large date-picker input-daterange" data-date="10/11/2012" data-date-format="mm/dd/yyyy">
+                                <input id="textbox1" name="textbox1" runat="server" type="text" class="form-control" placeholder="จากวันที่" />
+                                <span class="input-group-addon">to </span>
+                                <input id="textbox2" name="textbox2" runat="server" type="text" class="form-control" placeholder="ถึงวันที่" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <asp:Button ID="Button1" runat="server" Text="ตกลง" Width="96px" Height="35px" />
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+    <br />
+    <br />
+    <br />
+    <asp:Label ID="Label1" runat="server" Visible="False"></asp:Label>
+    &nbsp;
+                                                &nbsp;
+                                            <asp:Label ID="Label2" runat="server" Visible="False"></asp:Label>
+    <asp:Label ID="Label3" runat="server" Visible="False"></asp:Label>
+    &nbsp;
+                                                &nbsp;
+                                            <asp:Label ID="Label4" runat="server" Visible="False"></asp:Label>
+    <asp:Panel ID="Panel1" runat="server" Visible="False">
+        <table align="center">
+            <tr>
+                <td>
+                    <table border="1">
+
+                        <tr>
+                            <td class="auto-style2">
+                                <asp:Chart ID="Chart9" runat="server" DataSourceID="SqlDataSource9" Width="590px" BackColor="Transparent" BackImageTransparentColor="White" BackSecondaryColor="White" BorderlineDashStyle="DashDot" Palette="None" PaletteCustomColors="Lime" Visible="False">
+                                    <Series>
+                                        <asp:Series ChartType="FastLine" Name="Series1" XValueMember="date_status" YValueMembers="percent_commu" Url="http://172.19.3.199/scada/up_down_sub.aspx" ToolTip="#VAL{N2} %">
+                                        </asp:Series>
+                                    </Series>
+                                    <ChartAreas>
+                                        <asp:ChartArea Name="ChartArea1">
+
+                                            <AxisY Title="Percent(%)">
+                                            </AxisY>
+                                            <AxisX Title="Date">
+                                            </AxisX>
+
+                                        </asp:ChartArea>
+                                    </ChartAreas>
+                                    <Titles>
+                                        <asp:Title Name="Title1" Text="กราฟแสดงเปอร์เซ็นต์ Up ของสถานีไฟฟ้า" Font="Angsana New, 16pt">
+                                        </asp:Title>
+                                    </Titles>
+                                </asp:Chart>
+                                <asp:SqlDataSource ID="SqlDataSource9" runat="server" ConnectionString="<%$ ConnectionStrings:dw_scadaConnectionString %>" SelectCommand="SELECT type, percent_commu, date_status FROM scada.percent_commu WHERE (type = 'Substation') AND (status = 'Up') AND (date_status &gt; CONVERT (DATETIME, @date1, 102)) AND (date_status &lt; CONVERT (DATETIME, @date2, 102)) ORDER BY date_status">
+                                    <SelectParameters>
+                                        <asp:ControlParameter ControlID="Label1" Name="date1" PropertyName="Text" />
+                                        <asp:ControlParameter ControlID="Label2" Name="date2" PropertyName="Text" />
+                                    </SelectParameters>
+                                </asp:SqlDataSource>
+                            </td>
+
+                        </tr>
+                    </table>
+
+
+
+
+
+                    <table border="1">
+                        <tr>
+                            <td class="auto-style3">
+                                <asp:Chart ID="Chart10" runat="server" DataSourceID="SqlDataSource10" Width="590px" BackColor="Transparent" BackImageTransparentColor="White" BackSecondaryColor="White" BorderlineDashStyle="DashDot" Palette="None" PaletteCustomColors="Fuchsia" Visible="False">
+                                    <Series>
+                                        <asp:Series ChartType="FastLine" Name="Series1" XValueMember="date_status" YValueMembers="percent_commu" Url="http://172.19.3.199/scada/up_down_now.aspx" ToolTip="#VAL{N2} %" >
+                                        </asp:Series>
+                                    </Series>
+                                    <ChartAreas>
+                                        <asp:ChartArea Name="ChartArea1">
+                                            <AxisX Title="Date">
+                                            </AxisX>
+                                            <AxisY Title="Percent(%)" TextOrientation="Auto">
+                                            </AxisY>
+                                        </asp:ChartArea>
+                                    </ChartAreas>
+                                    <Titles>
+                                        <asp:Title Name="Title1" Text="กราฟแสดงเปอร์เซ็นต์ Up ของ RCS" Font="Angsana New, 16pt">
+                                        </asp:Title>
+                                    </Titles>
+                                </asp:Chart>
+
+                                <asp:SqlDataSource ID="SqlDataSource10" runat="server" ConnectionString="<%$ ConnectionStrings:dw_scadaConnectionString %>" SelectCommand="SELECT type, percent_commu, date_status FROM scada.percent_commu WHERE (type = 'RCS') AND (status = 'Up') AND (date_status &gt; CONVERT (DATETIME, @date1, 102)) AND (date_status &lt; CONVERT (DATETIME, @date2, 102)) ORDER BY date_status">
+                                    <SelectParameters>
+                                        <asp:ControlParameter ControlID="Label1" Name="date1" PropertyName="Text" />
+                                        <asp:ControlParameter ControlID="Label2" Name="date2" PropertyName="Text" />
+                                    </SelectParameters>
+                                </asp:SqlDataSource>
+                            </td>
+                            <td>
+                    </table>
+
+                    <table border="1">
+                        <tr>
+                            <td class="auto-style4">
+                                <asp:Chart ID="Chart11" runat="server" DataSourceID="SqlDataSource11" Width="590px" BackColor="Transparent" BackImageTransparentColor="White" BackSecondaryColor="White" BorderlineDashStyle="DashDot" Palette="None" PaletteCustomColors="Blue" Visible="False">
+                                    <Series>
+                                        <asp:Series ChartType="FastLine" Name="Series1" XValueMember="date_status" YValueMembers="percent_commu" Url="http://172.19.3.199/scada/up_down_now.aspx" ToolTip="#VAL{N2} %">
+                                        </asp:Series>
+                                    </Series>
+                                    <ChartAreas>
+                                        <asp:ChartArea Name="ChartArea1">
+                                            <AxisY Title="Percent(%)">
+                                            </AxisY>
+                                            <AxisX Title="Date">
+                                            </AxisX>
+                                        </asp:ChartArea>
+
+                                    </ChartAreas>
+                                    <Titles>
+                                        <asp:Title Name="Title1" Text="กราฟแสดงเปอร์เซ็นต์ Up ของ Recloser" Font="Angsana New, 16pt">
+                                        </asp:Title>
+                                    </Titles>
+                                </asp:Chart>
+                                <asp:SqlDataSource ID="SqlDataSource11" runat="server" ConnectionString="<%$ ConnectionStrings:dw_scadaConnectionString %>" SelectCommand="SELECT type, percent_commu, date_status FROM scada.percent_commu WHERE (type = 'Recloser') AND (status = 'Up') AND (date_status &gt; CONVERT (DATETIME, @date1, 102)) AND (date_status &lt; CONVERT (DATETIME, @date2, 102)) ORDER BY date_status">
+                                    <SelectParameters>
+                                        <asp:ControlParameter ControlID="Label1" Name="date1" PropertyName="Text" />
+                                        <asp:ControlParameter ControlID="Label2" Name="date2" PropertyName="Text" />
+                                    </SelectParameters>
+                                </asp:SqlDataSource>
+                            </td>
+
+                        </tr>
+                    </table>
+
+                    <table border="1">
+                        <tr>
+                            <td class="auto-style1">
+                                <asp:Chart ID="Chart12" runat="server" DataSourceID="SqlDataSource12" Width="590px" BackColor="Transparent" BackImageTransparentColor="White" BackSecondaryColor="White" BorderlineDashStyle="DashDot" Palette="None" PaletteCustomColors="192, 192, 0" Visible="False">
+                                    <Series>
+                                        <asp:Series ChartType="FastLine" Name="Series1" XValueMember="date_status" YValueMembers="percent_commu" Url="http://172.19.3.199/scada/up_down_now.aspx" ToolTip="#VAL{N2} %">
+                                        </asp:Series>
+                                    </Series>
+                                    <ChartAreas>
+                                        <asp:ChartArea Name="ChartArea1">
+                                            <AxisX Title="Date">
+                                            </AxisX>
+                                            <AxisY Title="Percent(%)" TextOrientation="Auto">
+                                            </AxisY>
+                                        </asp:ChartArea>
+
+                                    </ChartAreas>
+                                    <Titles>
+                                        <asp:Title Name="Title1" Text="กราฟแสดงเปอร์เซ็นต์ Up ของ AVR" Font="Angsana New, 16pt">
+                                        </asp:Title>
+                                    </Titles>
+                                </asp:Chart>
+                                <asp:SqlDataSource ID="SqlDataSource12" runat="server" ConnectionString="<%$ ConnectionStrings:dw_scadaConnectionString %>" SelectCommand="SELECT type, percent_commu, date_status FROM scada.percent_commu WHERE (type = 'AVR') AND (status = 'Up') AND (date_status &gt; CONVERT (DATETIME, @date1, 102)) AND (date_status &lt; CONVERT (DATETIME, @date2, 102)) ORDER BY date_status">
+                                    <SelectParameters>
+                                        <asp:ControlParameter ControlID="Label1" Name="date1" PropertyName="Text" />
+                                        <asp:ControlParameter ControlID="Label2" Name="date2" PropertyName="Text" />
+                                    </SelectParameters>
+                                </asp:SqlDataSource>
+                            </td>
+
+                        </tr>
+                    </table>
+
+
+
+
+                </td>
+
+                <td class="auto-style5">
+                    <h3 align="center">ตารางแสดงระบบสื่อสารที่ Swing เรียงลำดับจากมากไปหาน้อย
+
+                    </h3>
+                    <asp:SqlDataSource ID="SqlDataSource13" runat="server" ConnectionString="<%$ ConnectionStrings:SA_System_N3_ConnectionString %>" SelectCommand="his_online_commu_swing" SelectCommandType="StoredProcedure">
+                        <SelectParameters>
+                            <asp:ControlParameter ControlID="Label3" Name="P_date_before_down" PropertyName="Text" Type="DateTime" />
+                            <asp:ControlParameter ControlID="Label4" Name="P_date_after_down" PropertyName="Text" Type="DateTime" />
+                            <asp:ControlParameter ControlID="Label3" Name="P_date_before_up" PropertyName="Text" Type="DateTime" />
+                            <asp:ControlParameter ControlID="Label4" Name="P_date_after_up" PropertyName="Text" Type="DateTime" />
+                        </SelectParameters>
+                    </asp:SqlDataSource>
+
+                    <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="False" CellPadding="4"
+                        DataSourceID="SqlDataSource13" ForeColor="#333333" GridLines="None" Height="88px"
+                        HorizontalAlign="Left" Style="margin-top: 1px" Width="109%" Visible="False" EmptyDataText="Not Found Data" AllowPaging="True" PageSize="65" AllowSorting="True">
+                        <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+                        <Columns>
+                            <asp:BoundField DataField="sub" HeaderText="DBName" SortExpression="sub">
+                                <ItemStyle HorizontalAlign="Center" />
+                            </asp:BoundField>
+                            <asp:BoundField DataField="op_id" HeaderText="Operation ID" SortExpression="op_id">
+                                <ItemStyle HorizontalAlign="Center" />
+                            </asp:BoundField>
+                            <asp:BoundField DataField="location" HeaderText="Location" SortExpression="location"></asp:BoundField>
+                            <asp:BoundField DataField="f_down" HeaderText="Down" SortExpression="f_down" ReadOnly="True">
+                                <ItemStyle HorizontalAlign="Center" />
+                            </asp:BoundField>
+                            <asp:BoundField DataField="f_up" HeaderText="Up" ReadOnly="True" SortExpression="f_up">
+                                <ItemStyle HorizontalAlign="Center" />
+                            </asp:BoundField>
+                            <asp:BoundField DataField="time_commu" DataFormatString="{0:dd-MMM-yyyy  HH:mm:ss}" HeaderText="Date/Time(Last Status)"
+                                SortExpression="time_commu">
+                                <ItemStyle HorizontalAlign="Center" />
+                            </asp:BoundField>
+                            <asp:HyperLinkField DataTextField="status" DataNavigateUrlFields="op_id" DataNavigateUrlFormatString="http://172.19.3.199/scada/up_down_list.aspx?description={0}"
+                                HeaderText="Last Status(Click detail)" ItemStyle-Width="150">
+                                <ItemStyle HorizontalAlign="Center" Width="150px" />
+                            </asp:HyperLinkField>
+                        </Columns>
+                        <EditRowStyle BackColor="#999999" />
+                        <EmptyDataRowStyle BorderStyle="Solid" HorizontalAlign="Center" />
+                        <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
+                        <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
+                        <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
+                        <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
+                        <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+                        <SortedAscendingCellStyle BackColor="#E9E7E2" />
+                        <SortedAscendingHeaderStyle BackColor="#506C8C" />
+                        <SortedDescendingCellStyle BackColor="#FFFDF8" />
+                        <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
+                    </asp:GridView>
+
+
+
+                </td>
+
+            </tr>
+
+
+        </table>
+    </asp:Panel>
+
+
+    <div class="cleaner">
+    </div>
+
+    <div id="templatemo_content_bottom">
+
+        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:dw_scadaConnectionString %>" SelectCommand="SELECT status, percent_commu, type, device_commu, date_status FROM scada.percent_commu WHERE (type = 'RCS') ORDER BY date_status"></asp:SqlDataSource>
+        <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:SA_System_N3_ConnectionString %>" SelectCommand="SELECT COUNT(*) AS Expr1, status FROM scada.online_commun WHERE (dbname LIKE 'N3RCS%') GROUP BY status ORDER BY status DESC"></asp:SqlDataSource>
+        <asp:SqlDataSource ID="SqlDataSource3" runat="server" ConnectionString="<%$ ConnectionStrings:SA_System_N3_ConnectionString %>" SelectCommand="SELECT derivedtbl_3.Expr1, derivedtbl_3.Expr2, derivedtbl_3.Expr4, derivedtbl_3.status FROM (SELECT TOP (100) PERCENT derivedtbl_2.Expr1, derivedtbl_2.Expr2, derivedtbl_2.Expr1 * 100 / derivedtbl_2.Expr2 AS Expr4, derivedtbl_2.status FROM (SELECT TOP (100) PERCENT COUNT(*) AS Expr1, online_commun_1.status, derivedtbl_1.Expr1 AS Expr2 FROM (SELECT COUNT(*) AS Expr1 FROM scada.online_commun WHERE (dbname LIKE '%_S')) AS derivedtbl_1 CROSS JOIN scada.online_commun AS online_commun_1 WHERE (online_commun_1.dbname LIKE '%_S') GROUP BY online_commun_1.status, derivedtbl_1.Expr1 ORDER BY online_commun_1.status DESC) AS derivedtbl_2 CROSS JOIN scada.online_commun AS online_commun_2 WHERE (online_commun_2.dbname LIKE '%_S') GROUP BY derivedtbl_2.status, derivedtbl_2.Expr1, derivedtbl_2.Expr2 ORDER BY derivedtbl_2.status DESC) AS derivedtbl_3 CROSS JOIN scada.online_commun AS online_commun_3 WHERE (online_commun_3.dbname LIKE '%_S') GROUP BY derivedtbl_3.status, derivedtbl_3.Expr1, derivedtbl_3.Expr2, derivedtbl_3.Expr4 ORDER BY derivedtbl_3.status DESC"></asp:SqlDataSource>
+
+        <asp:SqlDataSource ID="SqlDataSource4" runat="server" ConnectionString="<%$ ConnectionStrings:SA_System_N3_ConnectionString %>" SelectCommand="SELECT derivedtbl_3.Expr1, derivedtbl_3.Expr2, derivedtbl_3.Expr4, derivedtbl_3.status FROM (SELECT TOP (100) PERCENT derivedtbl_2.Expr1, derivedtbl_2.Expr2, derivedtbl_2.Expr1 * 100 / derivedtbl_2.Expr2 AS Expr4, derivedtbl_2.status FROM (SELECT TOP (100) PERCENT COUNT(*) AS Expr1, online_commun_1.status, derivedtbl_1.Expr1 AS Expr2 FROM (SELECT COUNT(*) AS Expr1 FROM scada.online_commun WHERE (dbname LIKE '%N3RCS%')) AS derivedtbl_1 CROSS JOIN scada.online_commun AS online_commun_1 WHERE (online_commun_1.dbname LIKE '%N3RCS%') GROUP BY online_commun_1.status, derivedtbl_1.Expr1 ORDER BY online_commun_1.status DESC) AS derivedtbl_2 CROSS JOIN scada.online_commun AS online_commun_2 WHERE (online_commun_2.dbname LIKE '%N3RCS%') GROUP BY derivedtbl_2.status, derivedtbl_2.Expr1, derivedtbl_2.Expr2 ORDER BY derivedtbl_2.status DESC) AS derivedtbl_3 CROSS JOIN scada.online_commun AS online_commun_3 WHERE (online_commun_3.dbname LIKE '%N3RCS%') GROUP BY derivedtbl_3.status, derivedtbl_3.Expr1, derivedtbl_3.Expr2, derivedtbl_3.Expr4 ORDER BY derivedtbl_3.status DESC"></asp:SqlDataSource>
+
+        <asp:SqlDataSource ID="SqlDataSource5" runat="server" ConnectionString="<%$ ConnectionStrings:SA_System_N3_ConnectionString %>" SelectCommand="SELECT COUNT(*) AS Expr1, status FROM scada.online_commun WHERE (dbname LIKE 'N3REC%') GROUP BY status ORDER BY status DESC"></asp:SqlDataSource>
+
+        <asp:SqlDataSource ID="SqlDataSource6" runat="server" ConnectionString="<%$ ConnectionStrings:SA_System_N3_ConnectionString %>" SelectCommand="SELECT derivedtbl_3.Expr1, derivedtbl_3.Expr2, derivedtbl_3.Expr4, derivedtbl_3.status FROM (SELECT TOP (100) PERCENT derivedtbl_2.Expr1, derivedtbl_2.Expr2, derivedtbl_2.Expr1 * 100 / derivedtbl_2.Expr2 AS Expr4, derivedtbl_2.status FROM (SELECT TOP (100) PERCENT COUNT(*) AS Expr1, online_commun_1.status, derivedtbl_1.Expr1 AS Expr2 FROM (SELECT COUNT(*) AS Expr1 FROM scada.online_commun WHERE (dbname LIKE '%N3REC%')) AS derivedtbl_1 CROSS JOIN scada.online_commun AS online_commun_1 WHERE (online_commun_1.dbname LIKE '%N3REC%') GROUP BY online_commun_1.status, derivedtbl_1.Expr1 ORDER BY online_commun_1.status DESC) AS derivedtbl_2 CROSS JOIN scada.online_commun AS online_commun_2 WHERE (online_commun_2.dbname LIKE '%N3REC%') GROUP BY derivedtbl_2.status, derivedtbl_2.Expr1, derivedtbl_2.Expr2 ORDER BY derivedtbl_2.status DESC) AS derivedtbl_3 CROSS JOIN scada.online_commun AS online_commun_3 WHERE (online_commun_3.dbname LIKE '%N3REC%') GROUP BY derivedtbl_3.status, derivedtbl_3.Expr1, derivedtbl_3.Expr2, derivedtbl_3.Expr4 ORDER BY derivedtbl_3.status DESC"></asp:SqlDataSource>
+        <asp:SqlDataSource ID="SqlDataSource7" runat="server" ConnectionString="<%$ ConnectionStrings:SA_System_N3_ConnectionString %>" SelectCommand="SELECT COUNT(*) AS Expr1, status FROM scada.online_commun WHERE (dbname LIKE 'N3AVR%') GROUP BY status ORDER BY status DESC"></asp:SqlDataSource>
+        <asp:SqlDataSource ID="SqlDataSource8" runat="server" ConnectionString="<%$ ConnectionStrings:SA_System_N3_ConnectionString %>" SelectCommand="SELECT derivedtbl_3.Expr1, derivedtbl_3.Expr2, derivedtbl_3.Expr4, derivedtbl_3.status FROM (SELECT TOP (100) PERCENT derivedtbl_2.Expr1, derivedtbl_2.Expr2, derivedtbl_2.Expr1 * 100 / derivedtbl_2.Expr2 AS Expr4, derivedtbl_2.status FROM (SELECT TOP (100) PERCENT COUNT(*) AS Expr1, online_commun_1.status, derivedtbl_1.Expr1 AS Expr2 FROM (SELECT COUNT(*) AS Expr1 FROM scada.online_commun WHERE (dbname LIKE '%N3AVR%')) AS derivedtbl_1 CROSS JOIN scada.online_commun AS online_commun_1 WHERE (online_commun_1.dbname LIKE '%N3AVR%') GROUP BY online_commun_1.status, derivedtbl_1.Expr1 ORDER BY online_commun_1.status DESC) AS derivedtbl_2 CROSS JOIN scada.online_commun AS online_commun_2 WHERE (online_commun_2.dbname LIKE '%N3AVR%') GROUP BY derivedtbl_2.status, derivedtbl_2.Expr1, derivedtbl_2.Expr2 ORDER BY derivedtbl_2.status DESC) AS derivedtbl_3 CROSS JOIN scada.online_commun AS online_commun_3 WHERE (online_commun_3.dbname LIKE '%N3AVR%') GROUP BY derivedtbl_3.status, derivedtbl_3.Expr1, derivedtbl_3.Expr2, derivedtbl_3.Expr4 ORDER BY derivedtbl_3.status DESC"></asp:SqlDataSource>
+
+    </div>
+
+    </form>
+
+   
+    <poy:footer ID="UCfooter" runat="server" />
+    <poy:js ID="UCjs" runat="server" />
+</body>
+</html>
+

@@ -1,0 +1,17 @@
+﻿
+Partial Class ops_load_compair
+    Inherits System.Web.UI.Page
+
+    Protected Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        Label1.Text = textbox1.Value + " 00:00"
+        Label2.Text = textbox1.Value + " 23:59"
+        Label3.Text = textbox2.Value + " 00:00"
+        Label4.Text = textbox2.Value + " 23:59"
+        Chart1.Series(0).Name = textbox1.Value
+        Chart1.Series(1).Name = textbox2.Value
+        Me.Chart1.Series(1).IsValueShownAsLabel = True
+        Me.Chart1.Series(0).IsValueShownAsLabel = True
+    End Sub
+
+   
+End Class

@@ -1,0 +1,73 @@
+﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="amr_list.aspx.vb" Inherits="amr_list" %>
+<%@ Register TagPrefix="poy" TagName="header" Src="~/UCghead2.ascx" %>
+<%@ Register TagPrefix="poy" TagName="footer" Src="~/UCgfooter.ascx" %>
+<%@ Register TagPrefix="poy" TagName="css" Src="~/UCgcss.ascx" %>
+<%@ Register TagPrefix="poy" TagName="js" Src="~/UCgjs.ascx" %>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title>SCADA Graph</title>
+     <poy:css ID="UCcss" runat="server" />
+</head>
+<body>  <div class="col-md-12" align="center">
+                                    <h2>VSPP from AMR</h2>
+                                </div>
+    <poy:header ID="UCmenu1" runat="server" />
+    <div class="container">
+    
+        </div>
+        
+    <form id="form1" runat="server">
+  
+
+        <table align="center">
+            <tr>
+
+                <td>
+  <asp:Chart ID="Chart2" runat="server" DataSourceID="SqlDataSource3" Width="1200px" Height="500px" Palette="None" PaletteCustomColors="Lime" RightToLeft="Yes">
+            <series>
+
+                   
+                           <asp:Series Name="MW" XValueMember="name_amr" YValueMembers="MW" BorderWidth="2" Legend="Legend1" XValueType="String" ChartArea="ChartArea1" IsValueShownAsLabel="True" LabelUrl="~/realtime_inform_feeder.aspx?feedername=#VALX" Url="~/realtime_inform_feeder.aspx?feedername=#VALX" Label=" #VAL{N2}">
+                               <SmartLabelStyle IsMarkerOverlappingAllowed="True" IsOverlappedHidden="False" />
+                </asp:Series>
+                       
+            </series>
+            <chartareas>
+                <asp:ChartArea Name="ChartArea1">
+                     <AxisX Title="Feeder Name" Interval="1" IsLabelAutoFit="False">
+                         <LabelStyle Angle="-45" />
+                    </AxisX>
+                      <AxisY Title="Active Power(MW)" TextOrientation="Auto">
+                    </AxisY>
+                </asp:ChartArea>
+            </chartareas>
+            <Legends>
+                <asp:Legend Name="Legend1" Title="Active Power">
+
+                </asp:Legend>
+            </Legends>
+            <Titles>
+                <asp:Title Name="VSPP With AMR" Text="กราฟแสดง ปริมาณทางไฟฟ้าของ VAPP ที่ติดตั้งมิเตอร์ AMR"  Font="Angsana New, 16pt">
+                </asp:Title>
+            </Titles>
+        </asp:Chart>
+
+                </td>
+            </tr>
+        </table>
+      
+
+
+        <asp:SqlDataSource ID="SqlDataSource3" runat="server" ConnectionString="<%$ ConnectionStrings:SA_System_N3_ConnectionString %>" SelectCommand="SELECT ADDC, region_eng, meter_point, substation, Date1, MW, feeder + '_' + name_amr AS name_amr, Date_insert1, feeder FROM scada.View_amr_to_scada WHERE (region_eng = 'N3') ORDER BY MW DESC, ADDC, region_eng, substation"></asp:SqlDataSource>
+       
+       
+       
+    </form>
+
+
+    </div>
+    <poy:footer ID="UCfooter" runat="server" />
+    <poy:js ID="UCjs" runat="server" />
+</body>
+</html>
+

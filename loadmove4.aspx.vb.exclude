@@ -1,0 +1,109 @@
+﻿
+Partial Class loadmove4
+
+    Inherits System.Web.UI.Page
+    Protected Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        Me.Chart1.Visible = True
+
+
+        Me.Panel1.Visible = True
+        Me.Panel2.Visible = True
+        Me.Panel3.Visible = True
+        Me.Panel4.Visible = True
+        Chart1.Series(0).Name = Me.DropDownList1.SelectedValue.ToString & Me.DropDownList2.SelectedValue.ToString
+        Chart1.Series(1).Name = Me.DropDownList3.SelectedValue.ToString & Me.DropDownList4.SelectedValue.ToString
+        Chart1.Series(2).Name = Me.DropDownList5.SelectedValue.ToString & Me.DropDownList6.SelectedValue.ToString
+        Chart1.Series(3).Name = Me.DropDownList7.SelectedValue.ToString & Me.DropDownList7.SelectedValue.ToString
+        Chart1.Series(4).Name = Me.DropDownList1.SelectedValue.ToString & Me.DropDownList2.SelectedValue.ToString & " + " & Me.DropDownList3.SelectedValue.ToString & Me.DropDownList4.SelectedValue.ToString & " + " & Me.DropDownList5.SelectedValue.ToString & Me.DropDownList6.SelectedValue.ToString & " + " & Me.DropDownList7.SelectedValue.ToString & Me.DropDownList8.SelectedValue.ToString
+        Me.Chart1.Series(4).IsValueShownAsLabel = True
+    End Sub
+    Protected Sub data_bind()
+        Label1.Text = textbox1.Value + " " + " 00:00"
+        Label2.Text = textbox1.Value + " " + " 23:59"
+        Label3.Text = textbox2.Value + " " + " 00:00"
+        Label4.Text = textbox2.Value + " " + " 23:59"
+
+        Label9.Text = text22.Value + " " + " 00:00"
+        Label10.Text = text22.Value + " " + " 23:59"
+        Label15.Text = text44.Value + " " + " 00:00"
+        Label16.Text = text44.Value + " " + " 23:59"
+
+
+        Chart1.Series(0).Name = Me.DropDownList1.SelectedValue.ToString & Me.DropDownList2.SelectedValue.ToString
+        Chart1.Series(1).Name = Me.DropDownList3.SelectedValue.ToString & Me.DropDownList4.SelectedValue.ToString
+        Chart1.Series(2).Name = Me.DropDownList5.SelectedValue.ToString & Me.DropDownList6.SelectedValue.ToString
+        Chart1.Series(3).Name = Me.DropDownList7.SelectedValue.ToString & Me.DropDownList7.SelectedValue.ToString
+        Chart1.Series(4).Name = Me.DropDownList1.SelectedValue.ToString & Me.DropDownList2.SelectedValue.ToString & " + " & Me.DropDownList3.SelectedValue.ToString & Me.DropDownList4.SelectedValue.ToString & " + " & Me.DropDownList5.SelectedValue.ToString & Me.DropDownList6.SelectedValue.ToString & " + " & Me.DropDownList7.SelectedValue.ToString & Me.DropDownList8.SelectedValue.ToString
+
+        Me.Panel1.Visible = True
+        Me.Panel2.Visible = True
+        Me.Panel3.Visible = True
+        Me.Panel4.Visible = True
+
+        Label5.Text = DropDownList1.Text
+        Label6.Text = DropDownList2.Text
+        Label7.Text = DropDownList3.Text
+        Label8.Text = DropDownList4.Text
+        Label11.Text = DropDownList5.Text
+        Label12.Text = DropDownList6.Text
+        Label13.Text = DropDownList7.Text
+        Label14.Text = DropDownList8.Text
+    End Sub
+
+    Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
+        'If Page.IsPostBack = True Then
+        '    data_bind()
+        'End If
+        'Me.Panel2.Visible = False
+        'Me.Panel1.Visible = False
+    End Sub
+
+    Protected Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        data_bind()
+        Me.Chart1.Visible = True
+        Me.Panel1.Visible = True
+        Me.Panel2.Visible = True
+        Me.Panel3.Visible = True
+        Me.Panel4.Visible = True
+    End Sub
+
+    Protected Sub DropDownList1_TextChanged(sender As Object, e As EventArgs) Handles DropDownList1.TextChanged
+        Me.DropDownList2.DataBind()
+        Me.Chart1.Visible = False
+        Me.Panel1.Visible = False
+        Me.Panel2.Visible = False
+        Me.Panel3.Visible = False
+        Me.Panel4.Visible = False
+    End Sub
+
+    Protected Sub DropDownList3_TextChanged(sender As Object, e As EventArgs) Handles DropDownList3.TextChanged
+        Me.SqlDataSource7.DataBind()
+        Me.DropDownList4.DataBind()
+        Me.Chart1.Visible = False
+        Me.Panel1.Visible = False
+        Me.Panel2.Visible = False
+        Me.Panel3.Visible = False
+        Me.Panel4.Visible = False
+    End Sub
+
+    Protected Sub DropDownList4_TextChanged(sender As Object, e As EventArgs) Handles DropDownList4.TextChanged
+        Me.Panel1.Visible = False
+        Me.Panel2.Visible = False
+        Me.Panel3.Visible = False
+        Me.Panel4.Visible = False
+    End Sub
+
+    Protected Sub DropDownList5_TextChanged(sender As Object, e As EventArgs) Handles DropDownList5.TextChanged
+        Me.Panel1.Visible = False
+        Me.Panel2.Visible = False
+        Me.Panel3.Visible = False
+        Me.Panel4.Visible = False
+    End Sub
+
+    Protected Sub DropDownList7_TextChanged(sender As Object, e As EventArgs) Handles DropDownList7.TextChanged
+        Me.Panel1.Visible = False
+        Me.Panel2.Visible = False
+        Me.Panel3.Visible = False
+        Me.Panel4.Visible = False
+    End Sub
+End Class

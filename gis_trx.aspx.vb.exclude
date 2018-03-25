@@ -1,0 +1,36 @@
+﻿
+Partial Class gis_trx
+    Inherits System.Web.UI.Page
+
+    Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
+        'If Page.IsPostBack = True Then
+        'Else
+        If Request.QueryString("feedername") <> "" Then
+            Dim sub_string As String = Request.QueryString("feedername").ToString
+            Me.DropDownList1.DataBind()
+            Me.DropDownList1.SelectedValue = Mid(sub_string, 1, 3)
+            Me.DropDownList2.DataBind()
+            Me.DropDownList2.SelectedValue = Mid(sub_string, 1, 3) & Mid(sub_string, 5, 2)
+            Me.SqlDataSource7.DataBind()
+            Me.SqlDataSource3.DataBind()
+            Me.GridView7.DataBind()
+            Me.GridView4.DataBind()
+        End If
+
+        'End If
+    End Sub
+
+    Protected Sub DropDownList1_TextChanged(sender As Object, e As EventArgs) Handles DropDownList1.TextChanged
+        Me.SqlDataSource7.DataBind()
+        Me.SqlDataSource3.DataBind()
+        Me.GridView1.DataBind()
+        Me.GridView7.DataBind()
+        Me.GridView4.DataBind()
+    End Sub
+    Protected Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        Label1.Text = CStr(textbox1.Value) + " 00:00:00"
+        Label2.Text = CStr(textbox2.Value) + " 23:59:00"
+        Label3.Text = DropDownList1.Text
+        Label4.Text = Mid(DropDownList2.SelectedValue, 4, 2) & "VB01"
+    End Sub
+End Class

@@ -1,0 +1,412 @@
+﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="gis_trf_2.aspx.vb" Inherits="gis_trf_2" %>
+
+
+
+<!DOCTYPE html>
+<%@ Register TagPrefix="poy" TagName="header" Src="~/UCghead2.ascx" %>
+<%@ Register TagPrefix="poy" TagName="footer" Src="~/UCgfooter.ascx" %>
+<%@ Register TagPrefix="poy" TagName="css" Src="~/UCgcss.ascx" %>
+<%@ Register TagPrefix="poy" TagName="js" Src="~/UCgjs.ascx" %>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title>Scada Graph</title>
+     <poy:css ID="UCcss" runat="server" />
+</head>
+<body>
+     <div class="col-md-12" align="center">
+                                 <h2 align="center">
+                                     Monthly Report
+                                </h2>
+                                      </div> 
+        <poy:header ID="UCmenu1" runat="server" EnableViewState="False" /> 
+    <div class="container">
+   
+
+        <form id="form1" runat="server">
+          
+
+
+                <div class="form-group">
+                    <br />
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            Substation :
+            <asp:DropDownList ID="DropDownList1" runat="server" Height="23px" Width="103px" AutoPostBack="True" DataSourceID="SqlDataSource2" DataTextField="Substation" DataValueField="Substation">
+            </asp:DropDownList>
+
+                        </div>
+                        <div class="col-md-3">
+                            Feeder : 
+            <asp:DropDownList ID="DropDownList2" runat="server" Height="23px" Width="121px"
+                DataSourceID="SqlDataSource3" DataTextField="Feeder" DataValueField="Feeder">
+            </asp:DropDownList>
+
+                        </div>
+
+
+                        <div class="col-md-2">
+                            Year
+                                :&nbsp;
+                                <asp:DropDownList ID="DropDownList3" runat="server" Height="23px" Width="96px">
+                                        
+                                        <asp:ListItem Value="2016">2559</asp:ListItem>
+                                         <asp:ListItem Value="2015">2558</asp:ListItem>
+                 <asp:ListItem Value="2014">2557</asp:ListItem>
+                 <asp:ListItem Value="2013">2556</asp:ListItem>
+                 <asp:ListItem Value="2012">2555</asp:ListItem>
+                 <asp:ListItem Value="2011">2554</asp:ListItem>
+                 <asp:ListItem Value="2010">2553</asp:ListItem>
+                                        </asp:DropDownList>
+                            <!-- /input-group -->
+                        </div>
+
+                        <div  class="col-md-3">
+                            Month
+                                :&nbsp;
+                                <asp:DropDownList ID="DropDownList4" runat="server" Height="23px" Width="96px">
+               
+                 <asp:ListItem Value="1">มกราคม</asp:ListItem>
+                 <asp:ListItem Value="2">กุมภาพันธ์</asp:ListItem>
+                 <asp:ListItem Value="3">มีนาคม</asp:ListItem>
+                 <asp:ListItem Value="4">เมษายน</asp:ListItem>
+                 <asp:ListItem Value="5">พฤษภาคม</asp:ListItem>
+                                        <asp:ListItem Value="6">มิถุนายน</asp:ListItem>
+                                         <asp:ListItem Value="7">กรกฎาคม</asp:ListItem>
+                  <asp:ListItem Value="8">สิงหาคม</asp:ListItem>
+                 <asp:ListItem Value="9">กันยายน</asp:ListItem>
+                 <asp:ListItem Value="10">ตุลาคม</asp:ListItem>
+                 <asp:ListItem Value="11">พฤษจิกายน</asp:ListItem>
+                 <asp:ListItem Value="12">ธีนวาคม</asp:ListItem>
+                                        </asp:DropDownList>
+                        </div>
+                        <div class="col-md-1">
+
+                            <asp:Button ID="Button1" runat="server" Text="ตกลง" Width="71px" Height="35px" />
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+              </div>
+                 <asp:GridView ID="GridView1" align="center" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#CCCCCC" BorderWidth="1px" CellPadding="3" DataSourceID="SqlDataSource1" Width="976px" BorderStyle="None" DataKeyNames="date1">
+                        <Columns>
+                            <asp:BoundField DataField="S" HeaderText="S" SortExpression="S" HeaderStyle-HorizontalAlign="Center" ReadOnly="True"  DataFormatString="{0:F2}"> 
+<HeaderStyle HorizontalAlign="Center"></HeaderStyle>
+                            <ItemStyle HorizontalAlign="Center" />
+                            </asp:BoundField>
+                            <asp:BoundField DataField="MW" HeaderText="MW" SortExpression="MW" HeaderStyle-HorizontalAlign="Center" DataFormatString="{0:F2}" > 
+<HeaderStyle HorizontalAlign="Center"></HeaderStyle>
+                            <ItemStyle HorizontalAlign="Center" />
+                            </asp:BoundField>
+                            <asp:BoundField DataField="MVAR" HeaderText="MVAR" SortExpression="MVAR" HeaderStyle-HorizontalAlign="Center" DataFormatString="{0:F2}" > 
+<HeaderStyle HorizontalAlign="Center"></HeaderStyle>
+                            <ItemStyle HorizontalAlign="Center" />
+                            </asp:BoundField>
+                            <asp:BoundField DataField="Ia" HeaderText="Ia" SortExpression="Ia" HeaderStyle-HorizontalAlign="Center" DataFormatString="{0:F2}" > 
+<HeaderStyle HorizontalAlign="Center"></HeaderStyle>
+                            <ItemStyle HorizontalAlign="Center" />
+                            </asp:BoundField>
+                            <asp:BoundField DataField="Ib" HeaderText="Ib" SortExpression="Ib" HeaderStyle-HorizontalAlign="Center" DataFormatString="{0:F2}" > 
+<HeaderStyle HorizontalAlign="Center"></HeaderStyle>
+                            <ItemStyle HorizontalAlign="Center" />
+                            </asp:BoundField>
+                            <asp:BoundField DataField="Ic" HeaderText="Ic" SortExpression="Ic" HeaderStyle-HorizontalAlign="Center" DataFormatString="{0:F2}" > 
+<HeaderStyle HorizontalAlign="Center"></HeaderStyle>
+                            <ItemStyle HorizontalAlign="Center" />
+                            </asp:BoundField>
+                            <asp:BoundField DataField="PF" HeaderText="PF" SortExpression="PF" HeaderStyle-HorizontalAlign="Center" DataFormatString="{0:F2}" > 
+<HeaderStyle HorizontalAlign="Center"></HeaderStyle>
+                            <ItemStyle HorizontalAlign="Center" />
+                            </asp:BoundField>
+                            <asp:BoundField DataField="UN" HeaderText="UN" SortExpression="UN" HeaderStyle-HorizontalAlign="Center" DataFormatString="{0:F2}" > 
+<HeaderStyle HorizontalAlign="Center"></HeaderStyle>
+                            <ItemStyle HorizontalAlign="Center" />
+                            </asp:BoundField>
+                            <asp:BoundField DataField="Date1" HeaderText="Date1" SortExpression="Date1" HeaderStyle-HorizontalAlign="Center"> 
+<HeaderStyle HorizontalAlign="Center"></HeaderStyle>
+                            <ItemStyle HorizontalAlign="Center" />
+                            </asp:BoundField>
+                        </Columns>
+                        <FooterStyle BackColor="White" ForeColor="#000066" />
+                        <HeaderStyle BackColor="#006699" Font-Bold="True" ForeColor="White" />
+                        <PagerStyle BackColor="White" ForeColor="#000066" HorizontalAlign="Left" />
+                        <RowStyle ForeColor="#000066" />
+                        <SelectedRowStyle BackColor="#669999" ForeColor="White" Font-Bold="True" />
+                        <SortedAscendingCellStyle BackColor="#F1F1F1" />
+                        <SortedAscendingHeaderStyle BackColor="#007DBB" />
+                        <SortedDescendingCellStyle BackColor="#CAC9C9" />
+                        <SortedDescendingHeaderStyle BackColor="#00547E" />
+                    </asp:GridView>
+                <br />
+            
+                <table  align="center" >
+                    <tr>
+                        <td>
+
+                    <asp:Chart ID="Chart1" runat="server" Width="540px" Height="500px" DataSourceID="SqlDataSource1" SuppressExceptions="True" TextAntiAliasingQuality="SystemDefault" Palette="None" PaletteCustomColors="Fuchsia; Lime; 64, 64, 0; Red; Blue; Yellow; 255, 192, 255; Maroon; 255, 128, 128; 128, 128, 255; 255, 255, 128" Visible="False">
+                        <Series>
+                            <asp:Series Name="S" XValueMember="Date1" YValueMembers="S" ChartArea="ChartArea1" LabelFormat="{0:F1}" IsValueShownAsLabel="True" XValueType="Date" ToolTip="#SERIESNAME">
+                            </asp:Series>
+                            <asp:Series Name="MW" XValueMember="Date1" YValueMembers="MW" ChartArea="ChartArea1" LabelFormat="{0:F1}" IsValueShownAsLabel="True" XValueType="Date" ToolTip="#SERIESNAME">
+                            </asp:Series>
+                            <asp:Series ChartArea="ChartArea1" LabelFormat="{0:F1}" Legend="Legend1" Name="MVAR" XValueMember="Date1" YValueMembers="MVAR" IsValueShownAsLabel="True" XValueType="Date" YValueType="Int64" ToolTip="#SERIESNAME">
+                            </asp:Series>
+                              <asp:Series Name="Ia" XValueMember="Date1" YValueMembers="Ia" ChartArea="ChartArea1" LabelFormat="{0:F1}" IsValueShownAsLabel="True" XValueType="Date" ToolTip="#SERIESNAME">
+                            </asp:Series>
+                              <asp:Series Name="Ib" XValueMember="Date1" YValueMembers="Ib" ChartArea="ChartArea1" LabelFormat="{0:F1}" IsValueShownAsLabel="True" XValueType="Date" ToolTip="#SERIESNAME">
+                            </asp:Series>
+                              <asp:Series Name="Ic" XValueMember="Date1" YValueMembers="Ic" ChartArea="ChartArea1" LabelFormat="{0:F1}" IsValueShownAsLabel="True" XValueType="Date" ToolTip="#SERIESNAME">
+                            </asp:Series>
+                             
+                              <asp:Series Name="PF" XValueMember="Date1" YValueMembers="PF" ChartArea="ChartArea1" LabelFormat="{0:F1}" IsValueShownAsLabel="True" XValueType="Date" ToolTip="#SERIESNAME">
+                            </asp:Series>
+                            <asp:Series ChartArea="ChartArea1" LabelFormat="{0:F1}" Legend="Legend1" Name="UN" XValueMember="Date1" YValueMembers="UN" IsValueShownAsLabel="True" XValueType="Date" YValueType="Int64" ToolTip="#SERIESNAME">
+                            </asp:Series>
+                           
+                              <asp:Series Name="Va" XValueMember="Date1" YValueMembers="Va" ChartArea="ChartArea1" LabelFormat="{0:F1}" IsValueShownAsLabel="True" XValueType="Date" ToolTip="#SERIESNAME">
+                            </asp:Series>
+                              <asp:Series Name="Vb" XValueMember="Date1" YValueMembers="Vb" ChartArea="ChartArea1" LabelFormat="{0:F1}" IsValueShownAsLabel="True" XValueType="Date" ToolTip="#SERIESNAME">
+                            </asp:Series>
+                              <asp:Series Name="Vc" XValueMember="Date1" YValueMembers="Vc" ChartArea="ChartArea1" LabelFormat="{0:F1}" IsValueShownAsLabel="True" XValueType="Date" ToolTip="#SERIESNAME">
+                            </asp:Series>
+                        </Series>
+                        <ChartAreas>
+                            <asp:ChartArea Name="ChartArea1">
+                                 <AxisX Title="Date">
+                    </AxisX>
+                      <AxisY Title="Power" TextOrientation="Auto">
+                    </AxisY>
+                            </asp:ChartArea>
+                        </ChartAreas>
+                        <Legends>
+                            <asp:Legend Name="Legend1">
+                            </asp:Legend>
+                        </Legends>
+                    </asp:Chart>
+
+
+
+                        </td>
+                        <td>
+
+
+                            
+                       <asp:Chart ID="Chart2" runat="server" DataSourceID="SqlDataSource4" Width="560px" Height="500px" Palette="None" PaletteCustomColors="Lime; Blue; Aqua; DarkMagenta" Visible="False">
+                <Series>
+
+
+                    <asp:Series ChartType="Spline" Name="MW" XValueMember="Date1" YValueMembers="MW" LabelFormat="{0:dd/MM/yy  mm : SS}" BorderWidth="2" Legend="Legend1" XValueType="DateTime" ChartArea="ChartArea1" ToolTip="#VALX{HH:mm} น. = #VAL{N2} MW" >
+                        <Points>
+                            <asp:DataPoint YValues="0" />
+                        </Points>
+                    </asp:Series>
+                       <asp:Series ChartType="Spline" Name="MVAR" XValueMember="Date1" YValueMembers="MVAR" LabelFormat="{0:F2}" BorderWidth="2" Legend="Legend1" XValueType="DateTime" ChartArea="ChartArea1" ToolTip="#VALX{HH:mm} น. = #VAL{N2} MVAR"  >
+                    </asp:Series>
+                   
+                    <asp:Series BorderWidth="2" ChartArea="ChartArea1" ChartType="Spline" LabelFormat="{0:F2}" Legend="Legend1" Name="UN" XValueType="DateTime" XValueMember="Date1" YValueMembers="UN" ToolTip="#VALX{HH:mm} น. = #VAL{N2} %" >
+                    </asp:Series>
+                       <%--<asp:Series ChartType="Spline" Name="S" XValueMember="Date1" YValueMembers="S" LabelFormat="{0:F2}" BorderWidth="2" Legend="Legend1" XValueType="DateTime" ChartArea="ChartArea1">
+                    </asp:Series>--%>
+                </Series>
+                <ChartAreas>
+                    <asp:ChartArea Name="ChartArea1">
+                         <AxisX Title="Date">
+                    </AxisX>
+                      <AxisY Title="Power" TextOrientation="Auto">
+                    </AxisY>
+                    </asp:ChartArea>
+                </ChartAreas>
+                <Legends>
+                    <asp:Legend Name="Legend1">
+                    </asp:Legend>
+                </Legends>
+                <Titles>
+                    <asp:Title Name="Real Power">
+                    </asp:Title>
+                </Titles>
+            </asp:Chart>
+                        </td>
+                   
+                        <td>
+                            
+            <asp:Chart ID="Chart3" runat="server" DataSourceID="SqlDataSource4" Width="560px" Height="500px" Palette="None" PaletteCustomColors="Red; Yellow; Blue" Visible="False">
+                <Series>
+
+
+                    <asp:Series BorderWidth="2" ChartArea="ChartArea1" ChartType="Spline" LabelFormat="{0:F2}" Legend="Legend1" Name="Current(A)" XValueMember="Date1" XValueType="DateTime" YValueMembers="Ia" ToolTip="#VALX{HH:mm} น. = #VAL{N2} A">
+                    </asp:Series>
+
+                    <asp:Series BorderWidth="2" ChartArea="ChartArea1" ChartType="Spline" LabelFormat="{0:F2}" Legend="Legend1" Name="Current(B)" XValueType="DateTime" XValueMember="Date1" YValueMembers="Ib" ToolTip="#VALX{HH:mm} น. = #VAL{N2} A">
+                    </asp:Series>
+
+                    <asp:Series BorderWidth="2" ChartArea="ChartArea1" ChartType="Spline" LabelFormat="{0:F2}" Legend="Legend1" Name="Current(C)" XValueType="DateTime" XValueMember="Date1" YValueMembers="Ic" ToolTip="#VALX{HH:mm} น. = #VAL{N2} A">
+                    </asp:Series>
+
+                </Series>
+                <ChartAreas>
+                    <asp:ChartArea Name="ChartArea1">
+                         <AxisX Title="Date">
+                    </AxisX>
+                      <AxisY Title="Current(A)" TextOrientation="Auto">
+                    </AxisY>
+                    </asp:ChartArea>
+                </ChartAreas>
+                <Legends>
+                    <asp:Legend Name="Legend1">
+                    </asp:Legend>
+                </Legends>
+                <Titles>
+                    <asp:Title Name="Current">
+                    </asp:Title>
+                </Titles>
+            </asp:Chart>
+
+
+                        </td>
+                    </tr>
+
+
+                </table>
+               
+
+     <table align="center" >
+
+        <tr>
+            <td>
+                <asp:GridView ID="GridView2" align="center" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource5" BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" AllowSorting="True" DataKeyNames="trf_tag">
+                    <Columns>
+                        <asp:BoundField DataField="trf_feeder" HeaderText="trf_feeder" SortExpression="trf_feeder" />
+                        <asp:BoundField DataField="trf_tag" HeaderText="trf_tag" SortExpression="trf_tag" />
+                        <asp:BoundField DataField="trf_peano" HeaderText="trf_peano" SortExpression="trf_peano" />
+                        <asp:BoundField DataField="trf_rate_kva" HeaderText="trf_rate_kva" SortExpression="trf_rate_kva" />
+                        <asp:BoundField DataField="trf_Phase" HeaderText="trf_Phase" SortExpression="trf_Phase" />
+                        <asp:BoundField DataField="sum_meter_kwatt" HeaderText="sum_meter_kwatt" SortExpression="sum_meter_kwatt" />
+                        <asp:BoundField DataField="sum_meter_kwatt_48_KVA" HeaderText="sum_meter_kwatt_48_KVA" SortExpression="sum_meter_kwatt_48_KVA" />
+                        <asp:BoundField DataField="count_meter" HeaderText="count_meter" SortExpression="count_meter" />
+                        <asp:BoundField DataField="percent_rate" HeaderText="percent_rate" SortExpression="percent_rate" />
+                        <asp:CommandField ShowSelectButton="True" />
+                    </Columns>
+                    <FooterStyle BackColor="#FFFFCC" ForeColor="#330099" />
+                    <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="#FFFFCC" />
+                    <PagerStyle BackColor="#FFFFCC" ForeColor="#330099" HorizontalAlign="Center" />
+                    <RowStyle BackColor="White" ForeColor="#330099" />
+                    <SelectedRowStyle BackColor="#FFCC66" Font-Bold="True" ForeColor="#663399" />
+                    <SortedAscendingCellStyle BackColor="#FEFCEB" />
+                    <SortedAscendingHeaderStyle BackColor="#AF0101" />
+                    <SortedDescendingCellStyle BackColor="#F6F0C0" />
+                    <SortedDescendingHeaderStyle BackColor="#7E0000" />
+                </asp:GridView>
+
+
+                <asp:SqlDataSource ID="SqlDataSource5" runat="server" ConnectionString="<%$ ConnectionStrings:dw_scadaConnectionString %>" SelectCommand="SELECT trf_feeder, trf_tag, trf_peano, trf_rate_kva, trf_Phase, sum_meter_kwatt, sum_meter_kwatt_48_KVA, count_meter, percent_rate FROM gis.trf_sum_trf_meter WHERE (trf_feeder = @feeder)">
+                    <SelectParameters>
+                        <asp:ControlParameter ControlID="Label5" Name="feeder" PropertyName="Text" DefaultValue="" />
+                    </SelectParameters>
+                </asp:SqlDataSource>
+
+
+            </td>
+             <td>
+                 <asp:GridView ID="GridView3" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="White" BorderStyle="Ridge" BorderWidth="2px" CellPadding="3" CellSpacing="1" DataSourceID="SqlDataSource6" GridLines="None">
+                     <Columns>
+                         <asp:BoundField DataField="trx_tag" HeaderText="trx_tag" SortExpression="trx_tag" />
+                         <asp:BoundField DataField="tag_meter_gis" HeaderText="tag_meter_gis" SortExpression="tag_meter_gis" />
+                         <asp:BoundField DataField="peano_lowvolte" HeaderText="peano_lowvolte" SortExpression="peano_lowvolte" />
+                         <asp:BoundField DataField="location_lowvolate" HeaderText="location_lowvolate" SortExpression="location_lowvolate" />
+                         <asp:BoundField DataField="customername" HeaderText="customername" SortExpression="customername" />
+                         <asp:BoundField DataField="feeder_trf" HeaderText="feeder_trf" SortExpression="feeder_trf" />
+                         <asp:BoundField DataField="phase" HeaderText="phase" SortExpression="phase" />
+                         <asp:BoundField DataField="meter_ca" HeaderText="meter_ca" SortExpression="meter_ca" />
+                         <asp:BoundField DataField="meter_wbs" HeaderText="meter_wbs" SortExpression="meter_wbs" />
+                         <asp:BoundField DataField="meter_currdate" HeaderText="meter_currdate" SortExpression="meter_currdate" />
+                         <asp:BoundField DataField="meter_code" HeaderText="meter_code" SortExpression="meter_code" />
+                         <asp:BoundField DataField="meter_rount" HeaderText="meter_rount" SortExpression="meter_rount" />
+                         <asp:BoundField DataField="meter_accountnum" HeaderText="meter_accountnum" SortExpression="meter_accountnum" />
+                         <asp:BoundField DataField="meter_address" HeaderText="meter_address" SortExpression="meter_address" />
+                         <asp:BoundField DataField="meter_kwatt" HeaderText="meter_kwatt" SortExpression="meter_kwatt" />
+                         <asp:BoundField DataField="meter_peano" HeaderText="meter_peano" SortExpression="meter_peano" />
+                     </Columns>
+                     <FooterStyle BackColor="#C6C3C6" ForeColor="Black" />
+                     <HeaderStyle BackColor="#4A3C8C" Font-Bold="True" ForeColor="#E7E7FF" />
+                     <PagerStyle BackColor="#C6C3C6" ForeColor="Black" HorizontalAlign="Right" />
+                     <RowStyle BackColor="#DEDFDE" ForeColor="Black" />
+                     <SelectedRowStyle BackColor="#9471DE" Font-Bold="True" ForeColor="White" />
+                     <SortedAscendingCellStyle BackColor="#F1F1F1" />
+                     <SortedAscendingHeaderStyle BackColor="#594B9C" />
+                     <SortedDescendingCellStyle BackColor="#CAC9C9" />
+                     <SortedDescendingHeaderStyle BackColor="#33276A" />
+                 </asp:GridView>
+
+
+                 <asp:SqlDataSource ID="SqlDataSource6" runat="server" ConnectionString="<%$ ConnectionStrings:stagingConnectionString %>" SelectCommand="SELECT stg.View_gis_isu_total.trx_tag, stg.View_gis_isu_total.tag_meter AS tag_meter_gis, stg.View_gis_isu_total.peano_lowvolte, stg.View_gis_isu_total.location_lowvolate, stg.View_gis_isu_total.customername, stg.View_gis_isu_total.feeder_trf, stg.gis_phase.phase, stg.View_gis_isu_total.meter_ca, stg.View_gis_isu_total.meter_wbs, stg.View_gis_isu_total.meter_currdate, stg.View_gis_isu_total.meter_code, stg.View_gis_isu_total.meter_rount, stg.View_gis_isu_total.meter_accountnum, stg.View_gis_isu_total.meter_address, stg.View_gis_isu_total.meter_kwatt, stg.View_gis_isu_total.meter_peano FROM stg.View_gis_isu_total INNER JOIN stg.gis_phase ON stg.View_gis_isu_total.meter_phase = stg.gis_phase.phase_dising WHERE (stg.View_gis_isu_total.trx_tag = @tag_trf)">
+                     <SelectParameters>
+                         <asp:ControlParameter ControlID="GridView2" Name="tag_trf" PropertyName="SelectedValue" />
+                     </SelectParameters>
+                 </asp:SqlDataSource>
+
+
+                </td>
+
+        </tr>
+
+
+    </table>
+           
+             
+                  <br />
+                    <br />
+
+
+    
+               
+                <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:stagingConnectionString %>" SelectCommand="SELECT stg.View_feeder_peak_month.year1, stg.View_feeder_peak_month.month1, stg.View_feeder_peak_month.Feeder, stg.View_feeder_peak_month.Substation, stg.View_feeder_peak_month_all.S, stg.View_feeder_peak_month_all.MW, stg.View_feeder_peak_month_all.MVAR, stg.View_feeder_peak_month_all.Ia, stg.View_feeder_peak_month_all.Ib, stg.View_feeder_peak_month_all.Ic, stg.View_feeder_peak_month_all.PF, stg.View_feeder_peak_month_all.UN, stg.View_feeder_peak_month_all.Va, stg.View_feeder_peak_month_all.Vb, stg.View_feeder_peak_month_all.Vc, stg.View_feeder_peak_month_all.Date1 FROM stg.View_feeder_peak_month INNER JOIN stg.View_feeder_peak_month_all ON stg.View_feeder_peak_month.Substation = stg.View_feeder_peak_month_all.Substation AND stg.View_feeder_peak_month.MW = stg.View_feeder_peak_month_all.MW AND stg.View_feeder_peak_month.Feeder = stg.View_feeder_peak_month_all.Feeder AND stg.View_feeder_peak_month.S = stg.View_feeder_peak_month_all.S AND stg.View_feeder_peak_month.month1 = stg.View_feeder_peak_month_all.month1 AND stg.View_feeder_peak_month.year1 = stg.View_feeder_peak_month_all.year1 WHERE (stg.View_feeder_peak_month.year1 = @year) AND (stg.View_feeder_peak_month.month1 = @month) AND (stg.View_feeder_peak_month.Feeder = @feeder) AND (stg.View_feeder_peak_month.Substation = @sub)">
+                    <SelectParameters>
+                        <asp:ControlParameter ControlID="Label1" Name="year" PropertyName="Text" />
+                        <asp:ControlParameter ControlID="Label2" Name="month" PropertyName="Text" />
+                        <asp:ControlParameter ControlID="DropDownList2" Name="feeder" PropertyName="SelectedValue" />
+                        <asp:ControlParameter ControlID="DropDownList1" Name="sub" PropertyName="SelectedValue" />
+                    </SelectParameters>
+                </asp:SqlDataSource>
+                <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:dw_scadaConnectionString %>" SelectCommand="SELECT        Substation
+FROM            scada.View_subname"></asp:SqlDataSource>
+
+                <asp:SqlDataSource ID="SqlDataSource3" runat="server" ConnectionString="<%$ ConnectionStrings:stagingConnectionString %>" SelectCommand="SELECT Feeder, Substation FROM stg.feeder_peak GROUP BY Feeder, Substation HAVING (Substation LIKE + @sub + '%') ORDER BY Feeder">
+                    <SelectParameters>
+                        <asp:ControlParameter ControlID="DropDownList1" Name="sub" PropertyName="SelectedValue" />
+                    </SelectParameters>
+                </asp:SqlDataSource>
+            <asp:SqlDataSource ID="SqlDataSource4" runat="server" ConnectionString="<%$ ConnectionStrings:stagingConnectionString %>" SelectCommand="SELECT Area, Substation, Type, Feeder, Date1, Ia, Iaq, Ib, Ibq, Ic, Icq, MW, MWq, MVAR, MVARq, PF, PFq, UN, UNq FROM stg.feeder_daily WHERE (Substation = @subname) AND (Feeder = @feeder) AND (Date1 &gt;= CONVERT (DATETIME, @date1, 102)) AND (Date1 &lt; CONVERT (DATETIME, @date2, 102))">
+                <SelectParameters>
+                    <asp:ControlParameter ControlID="DropDownList1" DefaultValue="BSH" Name="subname" PropertyName="SelectedValue" />
+                    <asp:ControlParameter ControlID="DropDownList2" Name="feeder" PropertyName="SelectedValue" />
+                    <asp:ControlParameter ControlID="Label3" DefaultValue="" Name="date1" PropertyName="Text" />
+                    <asp:ControlParameter ControlID="Label4" Name="date2" PropertyName="Text" DefaultValue="" />
+                </SelectParameters>
+            </asp:SqlDataSource>
+
+          
+
+                        &nbsp;&nbsp;
+                                            <asp:Label ID="Label1" runat="server" Visible="False"></asp:Label>
+                        &nbsp;&nbsp;
+                                            <asp:Label ID="Label2" runat="server" Visible="False"></asp:Label>
+
+
+                        <asp:Label ID="Label3" runat="server" Text="Label" Visible="False"></asp:Label>
+
+                        <asp:Label ID="Label4" runat="server" Text="Label" Visible="False"></asp:Label>
+                        <asp:Label ID="Label5" runat="server" Text="Label" Visible="False"></asp:Label>   
+
+                    
+
+        </form>
+
+
+
+    <poy:footer ID="UCfooter" runat="server" />
+    <poy:js ID="UCjs" runat="server" />
+</body>
+</html>

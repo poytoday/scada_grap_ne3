@@ -1,0 +1,480 @@
+﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="gis_trx.aspx.vb" Inherits="gis_trx" %>
+
+
+<!DOCTYPE html>
+<%@ Register TagPrefix="poy" TagName="header" Src="~/UCghead2.ascx" %>
+<%@ Register TagPrefix="poy" TagName="footer" Src="~/UCgfooter.ascx" %>
+<%@ Register TagPrefix="poy" TagName="css" Src="~/UCgcss.ascx" %>
+<%@ Register TagPrefix="poy" TagName="js" Src="~/UCgjs.ascx" %>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title>Scada Graph</title>
+    <poy:css ID="UCcss" runat="server" />
+    <style type="text/css">
+        .auto-style1 {
+            width: 1098px;
+        }
+
+        .auto-style3 {
+            width: 707px;
+        }
+
+        .auto-style4 {
+            width: 785px;
+        }
+    </style>
+</head>
+<body>
+    <div class="col-md-12" align="center">
+        <h2>GIS-Tranformer
+        </h2>
+    </div>
+    <poy:header ID="UCmenu1" runat="server" />
+           <form id="form1" runat="server">
+                       <br />
+
+              <table align="center">
+                  <tr>
+                      <td>
+ Sunstation : 
+            <asp:DropDownList ID="DropDownList1" runat="server" Height="28px" AutoPostBack="True"
+                DataSourceID="SqlDataSource4" DataTextField="Expr1" DataValueField="Expr1" Width="114px">
+            </asp:DropDownList>
+
+                      </td>
+                        <td>
+
+                    Feeder Name : 
+            <asp:DropDownList ID="DropDownList2" runat="server" Height="23px" AutoPostBack="True"
+                DataSourceID="SqlDataSource2" DataTextField="feeder" DataValueField="feeder" Width="111px">
+            </asp:DropDownList>
+
+                      </td>
+                        <td>
+                            &nbsp;</td>
+                        <td>
+                    
+             
+
+                      </td>
+                       
+                  </tr>
+
+              </table>
+                   
+                <table  align="center" >
+                    <tr>
+                        <td>
+Load Inform
+
+                        </td>
+ <td>
+     Gis(Trf,Meter)
+
+                        </td>
+
+                    <tr>
+                        <td >
+                        
+                                <div class="input-group input-large date-picker input-daterange" data-date="10/11/2012" data-date-format="mm/dd/yyyy">
+                                    <input id="textbox1" name="textbox1" runat="server" type="text" class="form-control" placeholder="จากวันที่" />
+                                    <span class="input-group-addon">to </span>
+                                    <input id="textbox2" name="textbox2" runat="server" type="text" class="form-control" placeholder="ถึงวันที่" />
+                           </div>
+                            <asp:Button ID="Button1" runat="server" Text="ตกลง" Width="96px" Height="35px" />
+                            <asp:Label ID="Label1" runat="server" Visible="False"></asp:Label>
+                            <asp:Label ID="Label2" runat="server" Visible="False"></asp:Label>
+                        </td>
+                        <td>
+
+                      
+
+                                             <asp:GridView ID="GridView7" runat="server" AutoGenerateColumns="False" CellPadding="4" DataSourceID="SqlDataSource7" GridLines="None" Width="30%" ForeColor="#333333">
+                                            <AlternatingRowStyle BackColor="White" />
+                                                 <Columns>
+                                                     <asp:BoundField DataField="feeder" HeaderText="feeder" SortExpression="feeder" />
+                                                     <asp:BoundField DataField="MVA" HeaderText="MVA" ReadOnly="True" SortExpression="MVA" />
+                                                     <asp:BoundField DataField="count_tag" HeaderText="count_tag" ReadOnly="True" SortExpression="count_tag" />
+                                                 </Columns>
+                                            <EditRowStyle BackColor="#7C6F57" />
+                                            <FooterStyle BackColor="#1C5E55" ForeColor="White" Font-Bold="True" />
+                                            <HeaderStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
+                                            <PagerStyle BackColor="#666666" ForeColor="White" HorizontalAlign="Center" />
+                                            <RowStyle BackColor="#E3EAEB" />
+                                            <SelectedRowStyle BackColor="#C5BBAF" Font-Bold="True" ForeColor="#333333" />
+                                            <SortedAscendingCellStyle BackColor="#F8FAFA" />
+                                            <SortedAscendingHeaderStyle BackColor="#246B61" />
+                                            <SortedDescendingCellStyle BackColor="#D4DFE1" />
+                                            <SortedDescendingHeaderStyle BackColor="#15524A" />
+                                        </asp:GridView>
+
+                                             trx มีกี่ลูกรวมแล้วกี่ MVA</td>
+                           <td>
+
+                      
+
+                        </td>
+                        </tr>
+                                                   
+                                    <tr>
+                                        <td>
+                                            
+                                            <asp:Chart ID="Chart1" runat="server" DataSourceID="SqlDataSource13" Width="560px" Height="500px" Palette="None" PaletteCustomColors="Lime; Aqua; Fuchsia">
+                                                <Series>
+
+                                                    <asp:Series ChartType="Spline" Name="MW" XValueMember="Date1" YValueMembers="MW" LabelFormat="{0:F2}" BorderWidth="2" Legend="Legend1" XValueType="DateTime" ChartArea="ChartArea1">
+                                                    </asp:Series>
+
+                                                    <asp:Series BorderWidth="2" ChartArea="ChartArea1" ChartType="Spline" LabelFormat="{0:F2}" Legend="Legend1" Name="UN" XValueMember="Date1" XValueType="DateTime" YValueMembers="UN">
+                                                    </asp:Series>
+                                                    <asp:Series ChartType="Spline" Name="AVG" XValueMember="Date1" YValueMembers="AVG" LabelFormat="{0:F2}" BorderWidth="2" Legend="Legend1" XValueType="DateTime" ChartArea="ChartArea1">
+                                                    </asp:Series>
+
+                                                </Series>
+                                                <ChartAreas>
+                                                    <asp:ChartArea Name="ChartArea1">
+                                                    </asp:ChartArea>
+                                                </ChartAreas>
+                                                <Legends>
+                                                    <asp:Legend Name="Legend1">
+                                                    </asp:Legend>
+                                                </Legends>
+                                                <Titles>
+                                                    <asp:Title Name="Real Power">
+                                                    </asp:Title>
+                                                </Titles>
+                                            </asp:Chart>
+                                        </td>
+                                        <td >
+ <asp:Chart ID="Chart4" runat="server" DataSourceID="SqlDataSource1" TabIndex="1" BackImageAlignment="Center" Height="263px">
+                                            <Series>
+                                                <asp:Series Name="Rate KVA" ChartType="Pie" XValueMember="rate_kva" YValueMembers="sum1" Legend="Legend1" ChartArea="ChartArea1" ToolTip="#VALX KVA" IsValueShownAsLabel="True" Label="#VAL" LegendText="#VALX = #VAL">
+                                                </asp:Series>
+                                                <%-- <asp:Series Name="T/L(Time)" ChartType="StackedColumn" XValueMember="month1" YValueMembers="tlt" Legend="Legend1" ChartArea="ChartArea1" ToolTip="#VAL">
+                                    </asp:Series>
+                                    <asp:Series Name="T/L(Ins)" ChartType="StackedColumn" XValueMember="month1" YValueMembers="tli" Legend="Legend1" ChartArea="ChartArea1" ToolTip="#VAL">
+                                    </asp:Series>--%>
+                                            </Series>
+                                            <ChartAreas>
+                                                <asp:ChartArea Name="ChartArea1">
+                                                </asp:ChartArea>
+                                            </ChartAreas>
+                                            <%--<Legends>
+                                            <asp:Legend Name="Legend1">
+                                            </asp:Legend>
+                                        </Legends>--%>
+                                            <Legends>
+                                                <asp:Legend Name="Legend1">
+                                                </asp:Legend>
+                                            </Legends>
+                                            <Titles>
+                                                <asp:Title Name="Title1" Text="Tranformer Group(KVA)">
+                                                </asp:Title>
+                                            </Titles>
+                                        </asp:Chart>
+                                       
+
+                                            from gis_trf
+                                            <br />
+                                            trf มีกี่ลูกในแต่ละประเภท</td>
+                                        <td>
+                                             <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" CellPadding="4" DataSourceID="SqlDataSource3" GridLines="None" Width="30%" ForeColor="#333333" DataKeyNames="rate_kva">
+                                            <AlternatingRowStyle BackColor="White" />
+                                            <Columns>
+                                                <%--<asp:BoundField DataField="feeder" HeaderText="feeder" SortExpression="feeder"></asp:BoundField>--%>
+                                                <asp:BoundField DataField="rate_kva" HeaderText="Rate KVA" SortExpression="rate_kva">
+                                                    <HeaderStyle HorizontalAlign="Center" />
+                                                    <ItemStyle HorizontalAlign="Center" Width="25px" />
+                                                </asp:BoundField>
+                                                <asp:BoundField DataField="Expr1" HeaderText="Sum" SortExpression="Expr1" ReadOnly="True">
+                                                    <HeaderStyle HorizontalAlign="Center" />
+                                                    <ItemStyle HorizontalAlign="Center" Width="15px" />
+                                                </asp:BoundField>
+                                                <asp:CommandField ShowSelectButton="True" />
+
+                                            </Columns>
+                                            <EditRowStyle BackColor="#7C6F57" />
+                                            <FooterStyle BackColor="#1C5E55" ForeColor="White" Font-Bold="True" />
+                                            <HeaderStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
+                                            <PagerStyle BackColor="#666666" ForeColor="White" HorizontalAlign="Center" />
+                                            <RowStyle BackColor="#E3EAEB" />
+                                            <SelectedRowStyle BackColor="#C5BBAF" Font-Bold="True" ForeColor="#333333" />
+                                            <SortedAscendingCellStyle BackColor="#F8FAFA" />
+                                            <SortedAscendingHeaderStyle BackColor="#246B61" />
+                                            <SortedDescendingCellStyle BackColor="#D4DFE1" />
+                                            <SortedDescendingHeaderStyle BackColor="#15524A" />
+                                        </asp:GridView>
+
+                                             from gis_trf</td><td>
+                                              &nbsp;</td>
+                                    </tr>
+                                    <tr>
+
+
+                                        <td class="auto-style4">
+
+                                            <asp:Chart ID="Chart2" runat="server" DataSourceID="SqlDataSource13" Width="560px" Height="500px" Palette="None" PaletteCustomColors="Red; Yellow; Blue">
+                                                <Series>
+
+                                                    <asp:Series BorderWidth="2" ChartArea="ChartArea1" ChartType="Spline" LabelFormat="{0:F2}" Legend="Legend1" Name="CTA" XValueMember="Date1" XValueType="DateTime" YValueMembers="Ia">
+                                                    </asp:Series>
+
+                                                    <asp:Series BorderWidth="2" ChartArea="ChartArea1" ChartType="Spline" LabelFormat="{0:F2}" Legend="Legend1" Name="CTB" XValueMember="Date1" XValueType="DateTime" YValueMembers="Ib">
+                                                    </asp:Series>
+
+                                                    <asp:Series BorderWidth="2" ChartArea="ChartArea1" ChartType="Spline" LabelFormat="{0:F2}" Legend="Legend1" Name="CTC" XValueMember="Date1" XValueType="DateTime" YValueMembers="Ic">
+                                                    </asp:Series>
+                                                </Series>
+                                                <ChartAreas>
+                                                    <asp:ChartArea Name="ChartArea1">
+                                                    </asp:ChartArea>
+                                                </ChartAreas>
+                                                <Legends>
+                                                    <asp:Legend Name="Legend1">
+                                                    </asp:Legend>
+                                                </Legends>
+                                                <Titles>
+                                                    <asp:Title Name="Current">
+                                                    </asp:Title>
+                                                </Titles>
+                                            </asp:Chart>
+
+
+
+                                        </td>
+                                        <td class="auto-style3">
+                                            <asp:GridView ID="GridView4" runat="server" AutoGenerateColumns="False" BackColor="LightGoldenrodYellow" BorderColor="Tan" BorderWidth="1px" CellPadding="2" DataSourceID="SqlDataSource8" GridLines="None" ForeColor="Black">
+                        <AlternatingRowStyle BackColor="PaleGoldenrod" />
+                        <Columns>
+                            <%--<asp:BoundField DataField="feeder" HeaderText="feeder" SortExpression="feeder" />--%>
+                            <asp:BoundField DataField="feeder" HeaderText="feeder" SortExpression="feeder" />
+                            <asp:BoundField DataField="count_meter" HeaderText="count_meter" ReadOnly="True" SortExpression="count_meter" />
+                            <asp:BoundField DataField="sum_MWhr_meter_48" HeaderText="sum_MWhr_meter_48" ReadOnly="True" SortExpression="sum_MWhr_meter_48" />
+                      </Columns>
+                        <FooterStyle BackColor="Tan" />
+                        <HeaderStyle BackColor="Tan" Font-Bold="True" />
+                        <PagerStyle BackColor="PaleGoldenrod" ForeColor="DarkSlateBlue" HorizontalAlign="Center" />
+                        <SelectedRowStyle BackColor="DarkSlateBlue" ForeColor="GhostWhite" />
+                        <SortedAscendingCellStyle BackColor="#FAFAE7" />
+                        <SortedAscendingHeaderStyle BackColor="#DAC09E" />
+                        <SortedDescendingCellStyle BackColor="#E1DB9C" />
+                        <SortedDescendingHeaderStyle BackColor="#C2A47B" />
+                    </asp:GridView>
+
+                                              <asp:Chart ID="Chart5" runat="server" DataSourceID="SqlDataSource6" TabIndex="1" BackImageAlignment="Center">
+                                            <Series>
+                                                <asp:Series Name="Phase" ChartType="Pie" Legend="Legend1" ChartArea="ChartArea1" ToolTip=" #VAL  #VALX" IsValueShownAsLabel="True" Label="#VAL" LegendText="#VALX = #VAL " XValueMember="phase" YValueMembers="count1">
+                                                </asp:Series>
+
+                                            </Series>
+                                            <ChartAreas>
+                                                <asp:ChartArea Name="ChartArea1">
+                                                </asp:ChartArea>
+                                            </ChartAreas>
+                                            <Legends>
+                                                <asp:Legend Name="Legend1">
+                                                </asp:Legend>
+                                            </Legends>
+                                            <Titles>
+                                                <asp:Title Name="Title1" Text="Phase">
+                                                </asp:Title>
+                                            </Titles>
+                                        </asp:Chart>
+                                            
+
+                                            <br />
+                                            ใน feeder มีมิเตอร์กี่ลูก เฟสอะไบ้าง</td>
+                                         <td class="auto-style3">
+                                            
+
+                                        </td>
+                                         <td class="auto-style3">
+                                            
+
+                                        </td>
+                                    </tr>
+                              </tr>
+                
+                        <td class="auto-style4">
+                          
+                        </td>
+                </table>
+
+
+
+
+    <asp:SqlDataSource ID="SqlDataSource9" runat="server" ConnectionString="<%$ ConnectionStrings:SA_SystemConnectionString %>" SelectCommand="SELECT Feedername, Feeder FROM scada.View_feedername"></asp:SqlDataSource>
+    <asp:SqlDataSource ID="SqlDataSource10" runat="server" ConnectionString="<%$ ConnectionStrings:dw_scadaConnectionString %>" SelectCommand="SELECT        Substation
+FROM            scada.View_subname"></asp:SqlDataSource>
+    <asp:SqlDataSource ID="SqlDataSource11" runat="server" ConnectionString="<%$ ConnectionStrings:stagingConnectionString %>" SelectCommand="SELECT Area, Substation, Type, Feeder, Date1, Ia, Iaq, Ib, Ibq, Ic, Icq, MW, MWq, MVAR, MVARq, PF, PFq, UN, UNq FROM stg.feeder_daily WHERE (Substation = @subname) AND (Feeder = @feeder) AND (Date1 &gt; CONVERT (DATETIME, @date1, 102)) AND (Date1 &lt; CONVERT (DATETIME, @date2, 102))">
+        <SelectParameters>
+            <asp:ControlParameter ControlID="DropDownList1" DefaultValue="BSH" Name="subname" PropertyName="SelectedValue" />
+            <asp:ControlParameter ControlID="DropDownList2" Name="feeder" PropertyName="SelectedValue" />
+            <asp:ControlParameter ControlID="Label1" DefaultValue="" Name="date1" PropertyName="Text" />
+            <asp:ControlParameter ControlID="Label2" Name="date2" PropertyName="Text" />
+        </SelectParameters>
+    </asp:SqlDataSource>
+
+    <asp:SqlDataSource ID="SqlDataSource12" runat="server" ConnectionString="<%$ ConnectionStrings:SA_SystemConnectionString %>" SelectCommand="SELECT Feedername, Feeder FROM scada.View_feedername WHERE (Feedername LIKE + @feeder + '%') ORDER BY Feedername">
+        <SelectParameters>
+            <asp:ControlParameter ControlID="DropDownList1" Name="feeder" PropertyName="SelectedValue" />
+        </SelectParameters>
+    </asp:SqlDataSource>
+
+
+        <table align="center">
+            <tr>
+                <td class="auto-style1">Substation&nbsp; :
+                 <asp:Label ID="Label3" runat="server" ForeColor="Red"></asp:Label>
+                    &nbsp;&nbsp;&nbsp;&nbsp; Feeder :
+                 <asp:Label ID="Label4" runat="server" ForeColor="Red"></asp:Label>
+                    <br />
+                    <table>
+                        <tr>
+
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+
+
+                    </table></td>
+</tr></table>
+
+
+                    <asp:SqlDataSource ID="SqlDataSource3" runat="server" ConnectionString="<%$ ConnectionStrings:stagingConnectionString %>" SelectCommand="SELECT COUNT(*) AS Expr1, rate_kva, feeder FROM stg.gis_trx GROUP BY rate_kva, feeder HAVING (feeder = @feeder)">
+                        <SelectParameters>
+                            <asp:ControlParameter ControlID="DropDownList2" Name="feeder" PropertyName="SelectedValue" />
+                        </SelectParameters>
+                    </asp:SqlDataSource>
+
+
+                    <asp:SqlDataSource ID="SqlDataSource8" runat="server" ConnectionString="<%$ ConnectionStrings:stagingConnectionString %>" SelectCommand="SELECT stg.gis_trx.feeder, COUNT(stg.View_gis_isu_total.meter_peano) AS count_meter, SUM(stg.View_gis_isu_total.meter_kwatt / 48 / 30 / .8 / 1000) AS sum_MWhr_meter_48 FROM stg.gis_trx LEFT OUTER JOIN stg.View_gis_isu_total ON stg.gis_trx.tag = stg.View_gis_isu_total.trx_tag GROUP BY stg.gis_trx.feeder HAVING (stg.gis_trx.feeder = @feeder)">
+                        <SelectParameters>
+                            <asp:ControlParameter ControlID="DropDownList2" Name="feeder" PropertyName="SelectedValue" />
+                        </SelectParameters>
+                    </asp:SqlDataSource>
+                    <asp:SqlDataSource ID="SqlDataSource7" runat="server" ConnectionString="<%$ ConnectionStrings:stagingConnectionString %>" SelectCommand="SELECT SUM(rate_kva / 1000) AS MVA, feeder, COUNT(tag) AS count_tag FROM stg.gis_trx GROUP BY feeder HAVING (feeder = @feeder)">
+                        <SelectParameters>
+                            <asp:ControlParameter ControlID="DropDownList2" DefaultValue="" Name="feeder" PropertyName="SelectedValue" />
+                        </SelectParameters>
+                    </asp:SqlDataSource>
+ 
+
+
+
+
+
+
+
+
+        <asp:SqlDataSource ID="SqlDataSource6" runat="server" ConnectionString="<%$ ConnectionStrings:stagingConnectionString %>" SelectCommand="SELECT stg.gis_trx.feeder, COUNT(stg.View_gis_isu_total.meter_peano) AS count1, stg.gis_phase.phase FROM stg.gis_phase INNER JOIN stg.View_gis_isu_total ON stg.gis_phase.phase_dising = stg.View_gis_isu_total.meter_phase INNER JOIN stg.gis_trx ON stg.View_gis_isu_total.trx_tag = stg.gis_trx.tag GROUP BY stg.gis_phase.phase, stg.gis_trx.feeder HAVING (stg.gis_trx.feeder = @feeder)">
+            <SelectParameters>
+                <asp:ControlParameter ControlID="DropDownList2" Name="feeder" PropertyName="SelectedValue" />
+            </SelectParameters>
+        </asp:SqlDataSource>
+    </div>
+
+
+        <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="False" CellPadding="4" DataSourceID="SqlDataSource5" GridLines="None" Width="100%" ForeColor="#333333" DataKeyNames="tag">
+            <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+            <Columns>
+                <asp:CommandField ShowSelectButton="True" />
+                <asp:BoundField DataField="tag" HeaderText="tag" SortExpression="tag"></asp:BoundField>
+                <asp:BoundField DataField="peano" HeaderText="peano" SortExpression="peano"></asp:BoundField>
+                <asp:BoundField DataField="rate_kva" HeaderText="rate_kva" SortExpression="rate_kva"></asp:BoundField>
+                <asp:BoundField DataField="Phase" HeaderText="Phase" SortExpression="Phase" />
+                <asp:BoundField DataField="owner" HeaderText="owner" SortExpression="owner" />
+                <asp:BoundField DataField="wbs" HeaderText="wbs" SortExpression="wbs" />
+                <%--<asp:BoundField DataField="feeder" HeaderText="feeder" SortExpression="feeder" />--%>
+                <asp:BoundField DataField="feeder" HeaderText="feeder" SortExpression="feeder" />
+                <asp:BoundField DataField="count_meter" HeaderText="count_meter" ReadOnly="True" SortExpression="count_meter" />
+                <asp:BoundField DataField="sum_kwatt" HeaderText="sum_kwatt" ReadOnly="True" SortExpression="sum_kwatt" />
+            </Columns>
+            <EditRowStyle BackColor="#999999" />
+            <FooterStyle BackColor="#5D7B9D" ForeColor="White" Font-Bold="True" />
+            <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
+            <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
+            <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
+            <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+            <SortedAscendingCellStyle BackColor="#E9E7E2" />
+            <SortedAscendingHeaderStyle BackColor="#506C8C" />
+            <SortedDescendingCellStyle BackColor="#FFFDF8" />
+            <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
+        </asp:GridView>
+
+ 
+        <asp:GridView ID="GridView5" runat="server" AutoGenerateColumns="False" CellPadding="4" DataSourceID="SqlDataSource14" GridLines="None" Width="100%" ForeColor="#333333">
+            <AlternatingRowStyle BackColor="White" />
+            <Columns>
+                <%--<asp:BoundField DataField="feeder" HeaderText="feeder" SortExpression="feeder" />--%>
+                <asp:BoundField DataField="peano_lowvolte" HeaderText="peano_lowvolte" SortExpression="peano_lowvolte" />
+                <asp:BoundField DataField="meter_peano" HeaderText="meter_peano" SortExpression="meter_peano"></asp:BoundField>
+                <asp:BoundField DataField="meter_kwatt" HeaderText="meter_kwatt" SortExpression="meter_kwatt"></asp:BoundField>
+                <asp:BoundField DataField="meter_code" HeaderText="meter_code" SortExpression="meter_code"></asp:BoundField>
+                <asp:BoundField DataField="meter_rount" HeaderText="meter_rount" SortExpression="meter_rount" />
+                <asp:BoundField DataField="meter_accountnum" HeaderText="meter_accountnum" SortExpression="meter_accountnum" />
+                <asp:BoundField DataField="meter_address" HeaderText="meter_address" SortExpression="meter_address" />
+                <asp:BoundField DataField="meter_currdate" HeaderText="meter_currdate" SortExpression="meter_currdate" />
+                <asp:BoundField DataField="meter_ca" HeaderText="meter_ca" SortExpression="meter_ca" />
+                <asp:BoundField DataField="meter_wbs" HeaderText="meter_wbs" SortExpression="meter_wbs" />
+                <asp:BoundField DataField="meter_phase" HeaderText="meter_phase" SortExpression="meter_phase" />
+                <asp:BoundField DataField="meter_feeder" HeaderText="meter_feeder" SortExpression="meter_feeder" />
+                <asp:BoundField DataField="customername" HeaderText="customername" SortExpression="customername" />
+                <asp:BoundField DataField="trx_rate" HeaderText="trx_rate" SortExpression="trx_rate" />
+                <asp:BoundField DataField="location_lowvolate" HeaderText="location_lowvolate" SortExpression="location_lowvolate" />
+            </Columns>
+            <FooterStyle BackColor="#990000" ForeColor="White" Font-Bold="True" />
+            <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
+            <PagerStyle BackColor="#FFCC66" ForeColor="#333333" HorizontalAlign="Center" />
+            <RowStyle BackColor="#FFFBD6" ForeColor="#333333" />
+            <SelectedRowStyle BackColor="#FFCC66" Font-Bold="True" ForeColor="Navy" />
+            <SortedAscendingCellStyle BackColor="#FDF5AC" />
+            <SortedAscendingHeaderStyle BackColor="#4D0000" />
+            <SortedDescendingCellStyle BackColor="#FCF6C0" />
+            <SortedDescendingHeaderStyle BackColor="#820000" />
+        </asp:GridView>
+        <asp:SqlDataSource ID="SqlDataSource14" runat="server" ConnectionString="<%$ ConnectionStrings:stagingConnectionString %>" SelectCommand="SELECT meter_peano, meter_kwatt, meter_code, meter_rount, meter_accountnum, meter_address, meter_currdate, meter_ca, meter_wbs, meter_phase, meter_feeder, customername, trx_rate, location_lowvolate, peano_lowvolte FROM stg.View_gis_isu_total WHERE (trx_tag = @tag_trf)">
+            <SelectParameters>
+                <asp:ControlParameter ControlID="GridView2" Name="tag_trf" PropertyName="SelectedValue" />
+            </SelectParameters>
+        </asp:SqlDataSource>
+ 
+
+    <asp:SqlDataSource ID="SqlDataSource5" runat="server" ConnectionString="<%$ ConnectionStrings:stagingConnectionString %>" SelectCommand="SELECT stg.gis_trx.tag, stg.gis_trx.peano, stg.gis_trx.rate_kva, stg.gis_trx.Phase, stg.gis_trx.owner, stg.gis_trx.wbs, stg.gis_trx.feeder, COUNT(stg.View_gis_isu_total.meter_peano) AS count_meter, SUM(stg.View_gis_isu_total.meter_kwatt / .8) AS sum_kwatt FROM stg.gis_trx LEFT OUTER JOIN stg.View_gis_isu_total ON stg.gis_trx.tag = stg.View_gis_isu_total.trx_tag GROUP BY stg.gis_trx.tag, stg.gis_trx.peano, stg.gis_trx.rate_kva, stg.gis_trx.Phase, stg.gis_trx.owner, stg.gis_trx.wbs, stg.gis_trx.feeder HAVING (stg.gis_trx.rate_kva = @rate) AND (stg.gis_trx.feeder = @feeder)">
+        <SelectParameters>
+            <asp:ControlParameter ControlID="GridView1" Name="rate" PropertyName="SelectedValue" />
+            <asp:ControlParameter ControlID="DropDownList2" Name="feeder" PropertyName="SelectedValue" />
+        </SelectParameters>
+    </asp:SqlDataSource>
+
+
+
+    <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:stagingConnectionString %>" SelectCommand="SELECT DISTINCT feeder, SUBSTRING(feeder, 1, 3) AS sub FROM stg.gis_trx WHERE (SUBSTRING(feeder, 1, 3) = @sub) ORDER BY feeder">
+        <SelectParameters>
+            <asp:ControlParameter ControlID="DropDownList1" Name="sub" PropertyName="SelectedValue" />
+        </SelectParameters>
+    </asp:SqlDataSource>
+    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:stagingConnectionString %>" SelectCommand="SELECT rate_kva, sum1, feeder FROM stg.View_gis_trx_sum WHERE (feeder = @feeder)">
+        <SelectParameters>
+            <asp:ControlParameter ControlID="DropDownList2" Name="feeder" PropertyName="SelectedValue" />
+        </SelectParameters>
+    </asp:SqlDataSource>
+
+    <asp:SqlDataSource ID="SqlDataSource4" runat="server" ConnectionString="<%$ ConnectionStrings:stagingConnectionString %>" SelectCommand="SELECT DISTINCT SUBSTRING(feeder, 1, 3) AS Expr1 FROM stg.gis_trx ORDER BY Expr1"></asp:SqlDataSource>
+    <asp:SqlDataSource ID="SqlDataSource13" runat="server" ConnectionString="<%$ ConnectionStrings:stagingConnectionString %>" SelectCommand="SELECT Area, Substation, Type, Feeder, Date1, Ia, Iaq, Ib, Ibq, Ic, Icq, MW, MWq, MVAR, MVARq, PF, PFq, UN, UNq, AVG(MW) AS AVG FROM stg.feeder_daily GROUP BY Area, Substation, Type, Feeder, Date1, Ia, Iaq, Ib, Ibq, Ic, Icq, MW, MWq, MVAR, MVARq, PF, PFq, UN, UNq HAVING (Substation = @subname) AND (Feeder = @feeder) AND (Date1 &gt; CONVERT (DATETIME, @date1, 102)) AND (Date1 &lt; CONVERT (DATETIME, @date2, 102))">
+        <SelectParameters>
+            <asp:ControlParameter ControlID="DropDownList1" DefaultValue="BSH" Name="subname" PropertyName="SelectedValue" />
+            <asp:ControlParameter ControlID="Label4" Name="feeder" PropertyName="Text" DefaultValue="" />
+            <asp:ControlParameter ControlID="Label1" DefaultValue="" Name="date1" PropertyName="Text" />
+            <asp:ControlParameter ControlID="Label2" Name="date2" PropertyName="Text" />
+        </SelectParameters>
+    </asp:SqlDataSource>
+
+
+    </form>
+
+    <poy:footer ID="UCfooter" runat="server" />
+    <poy:js ID="UCjs" runat="server" />
+</body>
+</html>

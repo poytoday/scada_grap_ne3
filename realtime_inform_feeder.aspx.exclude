@@ -1,0 +1,476 @@
+﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="realtime_inform_feeder.aspx.vb" Inherits="realtime_inform_feeder" %>
+
+
+<!DOCTYPE html>
+<%@ Register TagPrefix="poy" TagName="header" Src="~/UCghead2.ascx" %>
+<%@ Register TagPrefix="poy" TagName="footer" Src="~/UCgfooter.ascx" %>
+<%@ Register TagPrefix="poy" TagName="css" Src="~/UCgcss.ascx" %>
+<%@ Register TagPrefix="poy" TagName="js" Src="~/UCgjs.ascx" %>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<style type="text/css">
+    
+    .auto-style2 {
+        width: 777px;
+    }
+
+    .auto-style3 {
+        width: 264px;
+    }
+
+    .auto-style5 {
+        width: 568px;
+    }
+    .auto-style6 {
+        width: 470px;
+    }
+</style>
+
+<h2 align="center" dir="ltr" style="color: #FF00FF; width: 99%"></h2>
+<head id="Head1" runat="server">
+    <title>Scada Graph</title>
+    <poy:css ID="UCcss" runat="server" />
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div class="col-md-12" align="center">
+            <h2>&nbsp;Feeder&nbsp;<asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
+                &nbsp;Storyboard 
+            </h2>
+        </div>
+        <poy:header ID="UCmenu1" runat="server" />
+
+
+
+
+        <asp:ScriptManager ID="ScriptManager1" runat="server">
+        </asp:ScriptManager>
+
+
+
+
+        <br />
+        <%--<div class="col-md-4">
+                Pointname  : 
+            <asp:DropDownList ID="DropDownList1" runat="server" Height="30px" Width="200px" AutoPostBack="True"
+                DataSourceID="SqlDataSource2" DataTextField="pointname" DataValueField="pointname">
+            </asp:DropDownList>
+
+                <asp:Label ID="Label4" runat="server" ForeColor="Blue"></asp:Label>
+
+            </div>--%>
+        <br />
+        <asp:Label ID="Label2" runat="server" Text="Label" Visible="False"></asp:Label>
+        <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
+            <ContentTemplate>
+                <table align="center">
+                    <tr>
+                        <td>
+                              <table align="center">
+                    <tr>
+                        <td class="auto-style5">
+                             <table="center">
+                                       <tr>
+                                            <td class="auto-style5">
+                                              
+                                                           <asp:Chart ID="Chart1" runat="server" DataSourceID="SqlDataSource1" Width="600px" Height="400px" Palette="None" PaletteCustomColors="Lime">
+                                                          <Series>
+                                            <asp:Series ChartType="FastLine" Name="Series1" XValueMember="date_data" XValueType="DateTime" YValueMembers="data_values" YValueType="Int32" ChartArea="ChartArea1" LabelFormat="{0:F2}" ToolTip="#VALX{dd/MM/yyyy HH:mm} = #VAL{N2} MW" IsXValueIndexed="True">
+                                               
+                                            </asp:Series>
+                                        </Series>
+                                        <ChartAreas>
+                                            <asp:ChartArea Name="ChartArea1">
+                                                <AxisY Title="Active Power(MW)">
+                                                </AxisY>
+                                                <AxisX Title="Time">
+                                                    <LabelStyle ForeColor="Blue" Format="dd/MM/yyyy HH:mm" Interval="Auto" IntervalOffset="Auto" IntervalOffsetType="Auto" IntervalType="Auto" IsStaggered="True" TruncatedLabels="True" />
+
+                                                </AxisX>
+                                            </asp:ChartArea>
+                                        </ChartAreas>
+                                        <Titles>
+                                            <asp:Title Name="Title1" Text="กราฟแสดง  Active Power แบบ Real Time"  Font="Angsana New, 16pt">
+                                            </asp:Title>
+                                        </Titles>
+                                    </asp:Chart>
+
+                            
+
+                                 </td>
+                                          <td>
+                                                  <asp:Chart ID="Chart5" runat="server" DataSourceID="SqlDataSource2" Height="400px" Palette="None" PaletteCustomColors="Red; Yellow; Blue" Width="600px">
+                                <series>
+
+                                    <asp:Series BorderWidth="2" ChartArea="ChartArea1" ChartType="Spline" LabelFormat="{0:F2}" Legend="Legend1" Name="A" ToolTip="#VALX{dd/MM/yyy HH:mm} = #VAL{N2} A" XValueMember="date_data" XValueType="DateTime" YValueMembers="CT_A">
+                                 </asp:Series>
+                                    <asp:Series BorderWidth="2" ChartArea="ChartArea1" ChartType="Spline" LabelFormat="{0:F2}" Legend="Legend1" Name="B" ToolTip="#VALX{dd/MM/yyy HH:mm} = #VAL{N2} A" XValueMember="date_data" XValueType="DateTime" YValueMembers="CT_B">
+                                   </asp:Series>
+                                    <asp:Series BorderWidth="2" ChartArea="ChartArea1" ChartType="Spline" LabelFormat="{0:F2}" Legend="Legend1" Name="C" ToolTip="#VALX{dd/MM/yyy HH:mm} = #VAL{N2} A" XValueMember="date_data" XValueType="DateTime" YValueMembers="CT_C">
+                                  </asp:Series>
+
+                                </series>
+                                <chartareas>
+                                    <asp:ChartArea Name="ChartArea1">
+                                        <axisy title="Current (A)">
+                                        </axisy>
+                                       <axisx title="Time">
+                                                    <LabelStyle ForeColor="Blue" Format="dd/MM/yyy HH:mm" Interval="Auto" IntervalOffset="Auto" IntervalOffsetType="Auto" IntervalType="Auto" IsStaggered="True" TruncatedLabels="True" />
+
+                                                </axisx>
+                                    </asp:ChartArea>
+                                </chartareas>
+                                <legends>
+                                    <asp:Legend Docking="Top" LegendStyle="Row" Name="Legend1" Title="">
+                                    </asp:Legend>
+                                </legends>
+
+                                <titles>
+                                    <asp:Title Font="Angsana New, 16pt" Name="Title1" Text="กราฟแสดงค่ากระแส 3 เฟส แบบ Real Time">
+                                    </asp:Title>
+                                </titles>
+
+                            </asp:Chart>
+                                          </td>
+                                </tr>
+                                <tr>
+                                 <td class="auto-style5">
+                                     &nbsp;</td>
+
+
+                            </tr>
+                            </table>
+                            <table>
+                                  <tr>
+                                 <td class="auto-style6">
+  <asp:Chart ID="Chart7" runat="server" DataSourceID="SqlDataSource8" Height="500px" Palette="None" PaletteCustomColors="Lime" Width="441px" RightToLeft="Yes">
+            <Series>
+
+                   
+                           <asp:Series BorderWidth="2" ChartArea="ChartArea1" Legend="Legend1" Name="MW" XValueType="String" XValueMember="name_amr" YValueMembers="MW" IsValueShownAsLabel="True" Label=" #VAL{N2}" LabelUrl="~/realtime_inform_feeder.aspx?feedername=#VALX" Url="~/realtime_inform_feeder.aspx?feedername=#VALX" >
+                               <smartlabelstyle ismarkeroverlappingallowed="True" isoverlappedhidden="False" />
+                </asp:Series>
+                       
+            </Series>
+            <ChartAreas>
+                <asp:ChartArea Name="ChartArea1">
+                     <AxisX Title="Feeder Name" interval="1" islabelautofit="False">
+                         <LabelStyle Angle="-45" />
+                    </AxisX>
+                      <AxisY Title="Active Power(MW)" textorientation="Auto">
+                    </AxisY>
+                </asp:ChartArea>
+            </ChartAreas>
+            <Legends>
+                <asp:Legend Name="Legend1" Title="Active Power">
+
+                </asp:Legend>
+            </Legends>
+            <Titles>
+                <asp:Title Name="VSPP With AMR" Text="กราฟแสดง ปริมาณทางไฟฟ้าของ VAPP ที่ติดตั้งมิเตอร์ AMR" Font="Angsana New, 16pt">
+                </asp:Title>
+            </Titles>
+        </asp:Chart>
+
+
+
+        <asp:SqlDataSource ID="SqlDataSource8" runat="server" ConnectionString="<%$ ConnectionStrings:SA_System_N3_ConnectionString %>" SelectCommand="SELECT ADDC, region_eng, meter_point, substation, Date1, MW, name_amr, Date_insert1, feeder FROM scada.View_amr_to_scada WHERE (region_eng = 'N3') AND (feeder = @feeder_name) ORDER BY MW DESC, ADDC, region_eng, substation">
+            <SelectParameters>
+                <asp:QueryStringParameter Name="feeder_name" QueryStringField="feedername" />
+            </SelectParameters>
+                                     </asp:SqlDataSource>
+       
+       
+       
+    
+
+       
+       
+                           </td>
+<td>
+    <asp:Chart ID="Chart4" runat="server" BackImageAlignment="Center" DataSourceID="SqlDataSource3" Height="400px" TabIndex="1" Width="500px">
+                                <series>
+                                    <asp:Series ChartArea="ChartArea1" ChartType="StackedColumn" Legend="Legend1" Name="T/R" ToolTip="#VAL" XValueMember="month1" YValueMembers="tr">
+                                    </asp:Series>
+                                    <asp:Series ChartArea="ChartArea1" ChartType="StackedColumn" Legend="Legend1" Name="T/L(Time)" ToolTip="#VAL" XValueMember="month1" YValueMembers="tlt">
+                                    </asp:Series>
+                                    <asp:Series ChartArea="ChartArea1" ChartType="StackedColumn" Legend="Legend1" Name="T/L(Ins)" ToolTip="#VAL" XValueMember="month1" YValueMembers="tli">
+                                    </asp:Series>
+                                </series>
+                                <chartareas>
+                                    <asp:ChartArea Name="ChartArea1">
+                                         <axisx title="Month">
+                    </axisx>
+                      <axisy textorientation="Auto" title="Counter">
+                    </axisy>
+                                    </asp:ChartArea>
+                                </chartareas>
+                                <legends>
+                                    <asp:Legend Name="Legend1">
+                                    </asp:Legend>
+                                </legends>
+                                <titles>
+                                    <asp:Title Font="Angsana New, 16pt" Name="Title1" Text="กราฟแสดงจำนวนครั้งการทำงานของอุปกรณ์">
+                                    </asp:Title>
+                                </titles>
+                            </asp:Chart>
+</td>
+                                      <td>
+
+                                          <asp:GridView ID="GridView3" runat="server" AutoGenerateColumns="False" BackColor="LightGoldenrodYellow" BorderColor="Tan" BorderWidth="1px" CellPadding="2" DataSourceID="SqlDataSource6" ForeColor="Black" GridLines="None" HorizontalAlign="Center" Width="91%">
+                                               <AlternatingRowStyle BackColor="PaleGoldenrod" />
+                                               <Columns>
+                                                   <%--<asp:BoundField DataField="feedername" HeaderText="Feedername" SortExpression="feedername">
+                                                   <ItemStyle HorizontalAlign="Center" Width="10%" />
+                                                   </asp:BoundField>--%>
+                                                   <asp:BoundField DataField="count_trf" HeaderText="Tranformer" SortExpression="count_trf">
+                                                   <HeaderStyle HorizontalAlign="Center" />
+                                                   <ItemStyle HorizontalAlign="Center" Width="10%" />
+                                                   </asp:BoundField>
+                                                   <asp:BoundField DataField="count_meter" HeaderText="Meter" ReadOnly="True" SortExpression="count_meter">
+                                                   <HeaderStyle HorizontalAlign="Center" />
+                                                   <ItemStyle HorizontalAlign="Center" Width="10%" />
+                                                   </asp:BoundField>
+                                                   <asp:HyperLinkField DataNavigateUrlFields="feedername" DataNavigateUrlFormatString="~/gis_trx.aspx?feedername={0}" DataTextField="feedername" HeaderText="GIS(click)" ItemStyle-Width="10%">
+                                                   <ItemStyle HorizontalAlign="Center" Width="150px" />
+                                                   </asp:HyperLinkField>
+                                                   <%--<asp:HyperLinkField DataNavigateUrlFields="~/gis_trx.aspx/feedername={0}" DataTextField="feedername" NavigateUrl="~/gis_trx.aspx" />--%>
+                                               </Columns>
+                                               <EmptyDataRowStyle HorizontalAlign="Center" />
+                                               <FooterStyle BackColor="Tan" />
+                                               <HeaderStyle BackColor="Tan" Font-Bold="True" />
+                                               <PagerStyle BackColor="PaleGoldenrod" ForeColor="DarkSlateBlue" HorizontalAlign="Center" />
+                                               <SelectedRowStyle BackColor="DarkSlateBlue" ForeColor="GhostWhite" />
+                                               <SortedAscendingCellStyle BackColor="#FAFAE7" />
+                                               <SortedAscendingHeaderStyle BackColor="#DAC09E" />
+                                               <SortedDescendingCellStyle BackColor="#E1DB9C" />
+                                               <SortedDescendingHeaderStyle BackColor="#C2A47B" />
+                                           </asp:GridView>
+                                          <asp:Chart ID="Chart6" runat="server" BackImageAlignment="Center" DataSourceID="SqlDataSource5" Height="400px" TabIndex="1">
+                                              <Series>
+                                                  <asp:Series ChartArea="ChartArea1" ChartType="Pie" IsValueShownAsLabel="True" Label="#VAL" Legend="Legend1" LegendText="#VALX KVA" Name="Series1" ToolTip=" #VALX KVA" XValueMember="rate_kva" YValueMembers="sum1">
+                                                  </asp:Series>
+                                              </Series>
+                                              <ChartAreas>
+                                                  <asp:ChartArea Name="ChartArea1">
+                                                  </asp:ChartArea>
+                                              </ChartAreas>
+                                              <Legends>
+                                                  <asp:Legend Name="Legend1">
+                                                  </asp:Legend>
+                                              </Legends>
+                                              <Titles>
+                                                  <asp:Title Font="Angsana New, 16pt" Name="Title1" Text="Tranformer Group(KVA)">
+                                                  </asp:Title>
+                                              </Titles>
+                                          </asp:Chart>
+
+
+                                      </td>
+
+                            </tr>
+                      
+                        </table>
+                    <tr>
+                        <td class="auto-style5">
+                            <table>
+                                <tr>
+                                    <td>
+                                           
+
+
+
+                                    </td>
+                                    <td class="auto-style3">
+
+                                        &nbsp;</td>
+
+
+                                </tr>
+
+
+
+
+                            </table>
+
+
+                        </td>
+                       <td>
+
+
+                       </td>
+                       
+                    </tr>
+                        
+                </table>
+                        
+                      
+                            </td>
+                      
+                        </tr>
+                    </table>
+
+
+
+
+              
+
+
+
+
+              
+
+
+                                     
+                                     
+                                     </ContentTemplate>
+            <Triggers>
+                <asp:AsyncPostBackTrigger ControlID="Timer1" EventName="Tick" />
+            </Triggers>
+        </asp:UpdatePanel>
+        <br />
+                  <table  align="center">
+                        <tr>
+                      
+                            <td align="center" class="auto-style2">
+                                ประวัติการบำรุงรักษา
+                                <asp:GridView ID="GridView4" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#336666" BorderStyle="Double" BorderWidth="3px" CellPadding="4" DataSourceID="SqlDataSource7" GridLines="Horizontal" DataKeyNames="pmcm_id" EmptyDataText="No PM CM Record" Width="952px">
+                                    <Columns>
+                                        <%--<asp:BoundField DataField="dbname" HeaderText="dbname" SortExpression="dbname" />--%>
+                                        <%--<asp:BoundField DataField="op_id" HeaderText="op_id" SortExpression="op_id" />--%>
+                                        <%--<asp:BoundField DataField="pmcm_id" HeaderText="pmcm_id" InsertVisible="False" ReadOnly="True" SortExpression="pmcm_id" />--%>
+                                        <asp:BoundField DataField="date_operate" HeaderText="Date Operate" SortExpression="date_operate" DataFormatString="{0:dd-MMM-yy }"/>
+                                        <asp:BoundField DataField="operation" HeaderText="Operation" SortExpression="operation" />
+                                        <asp:BoundField DataField="status_work" HeaderText="Status Work" SortExpression="status_work" />
+                                        <asp:BoundField DataField="remark" HeaderText="Remark" SortExpression="remark" />
+                                        <%--<asp:BoundField DataField="feedername" HeaderText="feedername" ReadOnly="True" SortExpression="feedername" />--%>
+                                    </Columns>
+                                    <EditRowStyle HorizontalAlign="Center" />
+                                    <EmptyDataRowStyle HorizontalAlign="Center" />
+                                    <FooterStyle BackColor="White" ForeColor="#333333" />
+                                    <HeaderStyle BackColor="#336666" Font-Bold="True" ForeColor="White" />
+                                    <PagerStyle BackColor="#336666" ForeColor="White" HorizontalAlign="Center" />
+                                    <RowStyle BackColor="White" ForeColor="#333333" />
+                                    <SelectedRowStyle BackColor="#339966" Font-Bold="True" ForeColor="White" />
+                                    <SortedAscendingCellStyle BackColor="#F7F7F7" />
+                                    <SortedAscendingHeaderStyle BackColor="#487575" />
+                                    <SortedDescendingCellStyle BackColor="#E5E5E5" />
+                                    <SortedDescendingHeaderStyle BackColor="#275353" />
+                                </asp:GridView>
+                                <asp:SqlDataSource ID="SqlDataSource7" runat="server"></asp:SqlDataSource>
+                                </td>
+                         <tr>
+                      
+                            <td align="center" class="auto-style2">
+                                 Event Real Time
+                                <asp:GridView ID="GridView2" runat="server" AllowPaging="True" AutoGenerateColumns="False" CellPadding="4" DataSourceID="SqlDataSource4" EmptyDataText="Not Found Event" ForeColor="#333333" GridLines="None" HorizontalAlign="Center" PageSize="50" Style="margin-top: 1px" Width="850px">
+                                    <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+                                    <Columns>
+                                        <asp:BoundField DataField="Date_ALM" DataFormatString="{0:dd-MMM-yy HH:mm:ss.fff}" HeaderText="Date/Time" SortExpression="Date_ALM">
+                                        <HeaderStyle HorizontalAlign="Center" />
+                                        <ItemStyle Width="25%" />
+                                        </asp:BoundField>
+                                       <%--<asp:BoundField DataField="Pri" HeaderText="Priority" SortExpression="Pri">
+                                           <HeaderStyle HorizontalAlign="Center" />
+                                           <ItemStyle HorizontalAlign="Center" Width="5%" />
+                                       </asp:BoundField>--%>
+                                       <%--<asp:BoundField DataField="sub" HeaderText="Feedername" SortExpression="sub">
+                                           <HeaderStyle HorizontalAlign="Center" />
+                                           <ItemStyle HorizontalAlign="Center" Width="13%" />
+                                       </asp:BoundField>--%>
+                                        <asp:BoundField DataField="massage" HeaderText="Evant" SortExpression="massage">
+                                        <HeaderStyle HorizontalAlign="Center" />
+                                        <ItemStyle Width="60%" />
+                                        </asp:BoundField>
+                                    </Columns>
+                                    <EditRowStyle BackColor="#999999" />
+                                    <EmptyDataRowStyle BackColor="#9999FF" BorderColor="#FFCC66" BorderStyle="Outset" HorizontalAlign="Center" Width="100%" />
+                                    <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
+                                    <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
+                                    <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
+                                    <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
+                                    <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+                                    <SortedAscendingCellStyle BackColor="#E9E7E2" />
+                                    <SortedAscendingHeaderStyle BackColor="#506C8C" />
+                                    <SortedDescendingCellStyle BackColor="#FFFDF8" />
+                                    <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
+                                </asp:GridView>
+
+
+                            </td>
+                           
+                        </tr>
+
+                    </table>
+                 
+
+
+
+
+
+
+
+
+
+                <asp:SqlDataSource ID="SqlDataSource6" runat="server" ConnectionString="<%$ ConnectionStrings:stagingConnectionString %>" SelectCommand="SELECT COUNT(stg.View_gis_total_meter_trx.tag_meter) AS count_meter, stg.View_gis_total_meter_trx.feedername, stg.View_gis_trx_total.EXPR1 AS count_trf FROM stg.View_gis_total_meter_trx INNER JOIN stg.View_gis_trx_total ON stg.View_gis_total_meter_trx.feedername = stg.View_gis_trx_total.feedername GROUP BY stg.View_gis_total_meter_trx.feedername, stg.View_gis_trx_total.EXPR1 HAVING (stg.View_gis_total_meter_trx.feedername = @feedername)">
+                    <SelectParameters>
+                        <asp:QueryStringParameter DefaultValue="PEA.08VB01" Name="feedername" QueryStringField="feedername" />
+                    </SelectParameters>
+                </asp:SqlDataSource>
+
+                <br />
+
+         
+
+
+        <asp:SqlDataSource ID="SqlDataSource4" runat="server" SelectCommand="his_online_date_grap_cb" SelectCommandType="StoredProcedure" ConnectionString="<%$ ConnectionStrings:SA_System_N3_ConnectionString %>">
+
+            <SelectParameters>
+                <asp:QueryStringParameter DefaultValue="PEA.08VB01" Name="P_sub" QueryStringField="feedername" />
+            </SelectParameters>
+
+        </asp:SqlDataSource>
+
+
+
+
+        <asp:Timer ID="Timer1" runat="server" Interval="200000">
+        </asp:Timer>
+
+
+
+        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:stagingConnectionString %>" SelectCommand="scada_graph_mw" SelectCommandType="StoredProcedure">
+            <SelectParameters>
+                <asp:QueryStringParameter DefaultValue="PEA.08VB01" Name="feedername" QueryStringField="feedername" />
+            </SelectParameters>
+        </asp:SqlDataSource>
+
+        <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:stagingConnectionString %>" SelectCommand="scada_graph_ct" SelectCommandType="StoredProcedure">
+            <SelectParameters>
+                <asp:QueryStringParameter DefaultValue="PEA.08VB01" Name="feedername" QueryStringField="feedername" />
+            </SelectParameters>
+        </asp:SqlDataSource>
+
+        <asp:SqlDataSource ID="SqlDataSource3" runat="server" ConnectionString="<%$ ConnectionStrings:SA_SystemConnectionString %>" SelectCommand="SELECT feedername, month1, tr, tlt, tli, sum1 FROM counter.View_grop_month_year_cb WHERE (year1 = 2016) AND (feedername = @feedername)">
+            <SelectParameters>
+                <asp:QueryStringParameter DefaultValue="PEA.08VB01" Name="feedername" QueryStringField="feedername" />
+            </SelectParameters>
+        </asp:SqlDataSource>
+
+        <asp:SqlDataSource ID="SqlDataSource5" runat="server" ConnectionString="<%$ ConnectionStrings:stagingConnectionString %>" SelectCommand="SELECT rate_kva, sum1 FROM stg.View_gis_trx_sum WHERE (feedername = @feedername)">
+            <SelectParameters>
+                <asp:QueryStringParameter DefaultValue="PEA.08VB01" Name="feedername" QueryStringField="feedername" />
+            </SelectParameters>
+        </asp:SqlDataSource>
+
+        <br />
+
+    </form>
+
+
+    <poy:footer ID="UCfooter" runat="server" />
+    <poy:js ID="UCjs" runat="server" />
+</body>
+</html>
+
+
+

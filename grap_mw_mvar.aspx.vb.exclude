@@ -1,0 +1,93 @@
+﻿
+#Region " Imports "
+Imports System
+Imports System.Data
+Imports System.Web.UI.WebControls
+Imports System.Collections
+Imports System.Configuration
+Imports System.Threading
+Imports System.Globalization
+Imports System.Data.OleDb
+Imports System.IO
+Imports System.Data.SqlClient
+#End Region
+Partial Class grap_mw_mvar
+    Inherits System.Web.UI.Page
+
+    Protected Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        Me.Label4.Text = ""
+        Dim date2 As Date = Date.Now
+        Try
+            'Label2.Text = date2.Year.ToString & "-" & DD_before_m.SelectedValue & "-" & DD_before_d.SelectedValue & " " & DD_before_h.SelectedValue & ":" & DD_before_mn.SelectedValue & ":00"
+            'Label3.Text = DD_after_y.SelectedItem.Text & "-" & DD_after_m.SelectedValue & "-" & DD_after_d.SelectedValue & " " & DD_after_h.SelectedValue & ":" & DD_after_mn.SelectedValue & ":00"
+            GridView2.Visible = True
+            Me.GridView2.DataBind()
+            'SqlDataSource2.DataBind()
+            'GridView2.DataBind()
+            'UpdatePanel1.Update()
+            ' Me.UpdatePanel2.Update()
+        Catch x1 As Exception
+            Dim alarm As String
+            If x1.Message = "Timeout expired.  The timeout period elapsed prior to completion of the operation or the server is not responding." Then
+                alarm = "his_online_date Database Timeout expired."
+                Me.Label4.Text = alarm
+                'UserClass.err_mass(alarm)
+            Else
+                alarm = "his_online_date " & x1.Message
+                Me.Label4.Text = alarm
+                ' UserClass.err_mass(alarm)
+            End If
+
+        End Try
+    End Sub
+    Protected Sub DropDownList1_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles DropDownList1.TextChanged
+        ' Session("scada_region") = Me.DropDownList1.SelectedValue
+        ' Session("cts") = UserClass.datasourse_select(Session("scada_region"))
+        Me.Label4.Text = ""
+        Dim date2 As Date = Date.Now
+
+        Try
+            'SqlDataSource2.DataBind()
+            ' GridView2.DataBind()
+            ' UpdatePanel1.Update()
+            ' Me.Label4.Text = date2.ToString
+            'Me.UpdatePanel2.Update()
+            Me.GridView2.Visible = False
+        Catch x1 As Exception
+            Dim alarm As String
+            If x1.Message = "Timeout expired.  The timeout period elapsed prior to completion of the operation or the server is not responding." Then
+                alarm = "his_online_date Database Timeout expired."
+                Me.Label4.Text = alarm
+                ' UserClass.err_mass(alarm)
+            Else
+                alarm = "his_online_date " & x1.Message
+                Me.Label4.Text = alarm
+                ' UserClass.err_mass(alarm)
+            End If
+
+        End Try
+    End Sub
+    Protected Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
+        Label4.Text = DateTime.Now.ToString()
+        Me.SqlDataSource5.DataBind()
+        Me.Chart1.DataBind()
+
+        ' GridView2.Visible = True
+        SqlDataSource2.DataBind()
+        GridView2.DataBind()
+        UpdatePanel1.Update()
+    End Sub
+
+    Private Sub grap_mw_mvar_Load(sender As Object, e As EventArgs) Handles Me.Load
+        If Page.IsPostBack = True Then
+        Else
+            If Request.QueryString("subname") <> "" Then
+                Me.DropDownList1.DataBind()
+                Dim sub_string As String = Request.QueryString("subname").ToString
+                Me.DropDownList1.SelectedValue = Mid(sub_string, 1, 3)
+            End If
+
+        End If
+
+    End Sub
+End Class

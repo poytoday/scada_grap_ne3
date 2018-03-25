@@ -1,0 +1,17 @@
+﻿
+Partial Class peak_load_by_date
+    Inherits System.Web.UI.Page
+
+    Protected Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        Label1.Text = CStr(textbox1.Value) + " 00:00:00"
+        Label2.Text = CStr(textbox2.Value) + " 23:59:00"
+        Me.Chart1.Visible = True
+        Me.Chart2.Visible = True
+        Me.Chart3.Visible = True
+    End Sub
+
+    Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
+        Label3.Text = DropDownList1.Text
+        Label4.Text = DropDownList2.Text
+    End Sub
+End Class

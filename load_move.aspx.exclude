@@ -1,0 +1,346 @@
+﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="load_move.aspx.vb" Inherits="load_move" %>
+
+
+<!DOCTYPE html>
+<%@ Register TagPrefix="poy" TagName="header" Src="~/UCghead2.ascx" %>
+<%@ Register TagPrefix="poy" TagName="footer" Src="~/UCgfooter.ascx" %>
+<%@ Register TagPrefix="poy" TagName="css" Src="~/UCgcss.ascx" %>
+<%@ Register TagPrefix="poy" TagName="js" Src="~/UCgjs.ascx" %>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title>Scada Graph</title>
+    <poy:css ID="UCcss" runat="server" />
+</head>
+<body>
+    <div class="col-md-12" align="center">
+        <h2>Load Move 
+            2 Feeder</h2>
+    </div>
+    <poy:header ID="UCmenu1" runat="server" EnableViewState="False" />
+    <div class="container">
+
+
+        <form id="form1" runat="server">
+         
+                <div class="form-group">
+                    <br/>
+                   <div class="row">
+                        <div class="col-md-3">
+                            <label style="color: blue">Substation1 :</label>
+                            <asp:DropDownList ID="DropDownList1" runat="server" Height="30px" Width="100px" AutoPostBack="True"
+                                DataSourceID="SqlDataSource2" DataTextField="Substation" DataValueField="Substation">
+                            </asp:DropDownList>
+
+                        </div>
+
+                        <div class="col-md-3">
+                            <label style="color: blue">Feeder1 :</label>
+                            <asp:DropDownList ID="DropDownList2" runat="server" Height="30px" Width="100px" AutoPostBack="True"
+                                DataSourceID="SqlDataSource4" DataTextField="Feeder" DataValueField="Feeder">
+                            </asp:DropDownList>
+
+                        </div>
+
+
+                        <div class="col-md-4">
+
+                            <div class="input-group input-medium date date-picker" data-date-format="mm/dd/yyyy" data-date-viewmode="years">
+                                <input id="textbox1" name="textbox1" runat="server" placeholder="วันที่" class="form-control form-control-inline input-medium" size="13" type="text" value="" />
+                                <span class="input-group-btn">
+                                    <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <asp:Button ID="Button1" runat="server" Text="OK" Width="96px" Height="35px" />
+
+                        </div>
+
+                    </div>
+                     <div class="row">
+
+                        <div class="col-md-3">
+                            <label style="color: orange">Substation2 :</label>
+                            <asp:DropDownList ID="DropDownList3" runat="server" Height="30px" Width="100px" AutoPostBack="True"
+                                DataSourceID="SqlDataSource2" DataTextField="substation" DataValueField="substation">
+                            </asp:DropDownList>
+
+                        </div>
+
+                        <div class="col-md-3">
+                            <label style="color: orange">Feeder2 :</label>
+                            <asp:DropDownList ID="DropDownList4" runat="server" Height="30px" Width="100px" AutoPostBack="True"
+                                DataSourceID="SqlDataSource7" DataTextField="Feeder" DataValueField="Feeder">
+                            </asp:DropDownList>
+
+                        </div>
+
+
+                        <div class="col-md-4">
+
+                            <div class="input-group input-medium date date-picker" data-date-format="mm/dd/yyyy" data-date-viewmode="years">
+                                <input id="textbox2" name="textbox2" runat="server" placeholder="วันที่" class="form-control form-control-inline input-medium" size="13" type="text" value="" />
+                                <span class="input-group-btn">
+                                    <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <asp:Button ID="Button2" runat="server" Text="Total MW" Width="96px" Height="35px" />
+                 
+                                          
+                         
+
+                        </div>
+
+                    </div>
+                    <br />  <br />  <br />  
+
+         <div class="col-md-12">
+            <asp:Chart ID="Chart1" runat="server" DataSourceID="SqlDataSource1" Width="1289px"  Visible="False" Height="447px">
+                <Series>
+
+
+                    <asp:Series ChartType="Spline" Name="Substation1" XValueMember="Date1" YValueMembers="MW" LabelFormat="{0:F2}" BorderWidth="2" Legend="Legend1" XValueType="Time" ToolTip="#SERIESNAME =  #VAL{D2} MW :  #VALX  ">
+                    </asp:Series>
+
+                    <asp:Series BorderWidth="2" ChartArea="ChartArea1" ChartType="Spline" LabelFormat="{0:F2}" Legend="Legend1" Name="Substation2" XValueMember="Date1" XValueType="Time" YValueMembers="MW2" ToolTip="#SERIESNAME =  #VAL{D2} MW :  #VALX  ">
+                    </asp:Series>
+
+                    <asp:Series ChartArea="ChartArea1" ChartType="Spline" LabelFormat="{0:F2}" Legend="Legend1" Name="Substation1 + Substation2" XValueMember="Date1" XValueType="Time" YValueMembers="MW3" ToolTip="Total =  #VAL{N2} MW :  #VALX  ">
+                    </asp:Series>
+
+                </Series>
+                <ChartAreas>
+                    <asp:ChartArea Name="ChartArea1">
+                             <AxisX Title="Time">
+                    </AxisX>
+                      <AxisY Title="Active Power(MW)" TextOrientation="Auto">
+                    </AxisY>
+                    </asp:ChartArea>
+                </ChartAreas>
+                <Legends>
+                    <asp:Legend Name="Legend1">
+                    </asp:Legend>
+                </Legends>
+                <Titles>
+                    <asp:Title Name="Title1" Text="กราฟแสดงข้อมูลการจำลอง ย้าย-ฝาก โหลด" Font="Angsana New, 16pt">
+                    </asp:Title>
+                </Titles>
+            </asp:Chart>
+          </div>
+                     <asp:Panel ID="Panel2" runat="server" Visible="False">
+                    <div class="col-md-8">
+                     
+
+                        Substation1 : <asp:Label ID="Label5" runat="server" ForeColor="Blue"></asp:Label>
+                            &nbsp;&nbsp;&nbsp;&nbsp; Feeder1 :
+                                <asp:Label ID="Label6" runat="server" ForeColor="Blue"></asp:Label>
+                       
+                        </div>
+                         <div class="col-md-8">
+                            <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource5" Width="789px" BackColor="White" BorderColor="#E7E7FF" BorderStyle="None" BorderWidth="1px" CellPadding="3" GridLines="Horizontal" HorizontalAlign="Center">
+                                <AlternatingRowStyle BackColor="#F7F7F7" />
+                                <Columns>
+                                    <asp:BoundField DataField="Substation" HeaderText="Substation" SortExpression="Substation">
+                                        <ItemStyle HorizontalAlign="Center" />
+                                    </asp:BoundField>
+                                    <asp:BoundField DataField="Feeder" HeaderText="Feeder" SortExpression="Feeder">
+                                        <ItemStyle HorizontalAlign="Center" />
+                                    </asp:BoundField>
+                                    <asp:BoundField DataField="Va" HeaderText="Va" DataFormatString="{0:F2}" SortExpression="Va">
+                                        <ItemStyle HorizontalAlign="Center" />
+                                    </asp:BoundField>
+                                    <asp:BoundField DataField="Vb" HeaderText="Vb" DataFormatString="{0:F2}" SortExpression="Vb">
+                                        <ItemStyle HorizontalAlign="Center" />
+                                    </asp:BoundField>
+                                    <asp:BoundField DataField="Vc" HeaderText="Vc" DataFormatString="{0:F2}" SortExpression="Vc">
+                                        <ItemStyle HorizontalAlign="Center" />
+                                    </asp:BoundField>
+                                    <asp:BoundField DataField="Ia" HeaderText="Ia" DataFormatString="{0:F2}" SortExpression="Ia">
+                                        <ItemStyle HorizontalAlign="Center" />
+                                    </asp:BoundField>
+                                    <asp:BoundField DataField="Ib" HeaderText="Ib" DataFormatString="{0:F2}" SortExpression="Ib">
+                                        <ItemStyle HorizontalAlign="Center" />
+                                    </asp:BoundField>
+                                    <asp:BoundField DataField="Ic" HeaderText="Ic" DataFormatString="{0:F2}" SortExpression="Ic">
+                                        <ItemStyle HorizontalAlign="Center" />
+                                    </asp:BoundField>
+                                    <asp:BoundField DataField="MW" HeaderText="MW" DataFormatString="{0:F2}" SortExpression="MW">
+                                        <ItemStyle HorizontalAlign="Center" />
+                                    </asp:BoundField>
+                                    <asp:BoundField DataField="MVAR" HeaderText="MVAR" DataFormatString="{0:F2}" SortExpression="MVAR">
+                                        <ItemStyle HorizontalAlign="Center" />
+                                    </asp:BoundField>
+                                    <asp:BoundField DataField="UN" HeaderText="UN" DataFormatString="{0:F2}" SortExpression="UN">
+                                        <ItemStyle HorizontalAlign="Center" />
+                                    </asp:BoundField>
+                                    <asp:BoundField DataField="PF" HeaderText="PF" DataFormatString="{0:F2}" SortExpression="PF">
+                                        <ItemStyle HorizontalAlign="Center" />
+                                    </asp:BoundField>
+                                    <asp:BoundField DataField="Date1" HeaderText="Date/Time" DataFormatString="{0:dd-MMM-yyyy HH:mm:ss}" SortExpression="Date1">
+                                        <ItemStyle HorizontalAlign="Center" />
+                                    </asp:BoundField>
+                                    <asp:BoundField DataField="MWq" HeaderText="MWq" SortExpression="MWq">
+                                        <ItemStyle HorizontalAlign="Center" />
+                                    </asp:BoundField>
+                                </Columns>
+                                <FooterStyle BackColor="#B5C7DE" ForeColor="#4A3C8C" />
+                                <HeaderStyle BackColor="#4A3C8C" Font-Bold="True" ForeColor="#F7F7F7" />
+                                <PagerStyle BackColor="#E7E7FF" ForeColor="#4A3C8C" HorizontalAlign="Right" />
+                                <RowStyle BackColor="#E7E7FF" ForeColor="#4A3C8C" />
+                                <SelectedRowStyle BackColor="#738A9C" Font-Bold="True" ForeColor="#F7F7F7" />
+                                <SortedAscendingCellStyle BackColor="#F4F4FD" />
+                                <SortedAscendingHeaderStyle BackColor="#5A4C9D" />
+                                <SortedDescendingCellStyle BackColor="#D8D8F0" />
+                                <SortedDescendingHeaderStyle BackColor="#3E3277" />
+                            </asp:GridView>
+             </div>
+              </asp:Panel> 
+ <asp:Panel ID="Panel1" runat="server" Visible="False" Height="64px">
+            <div class="col-md-8">
+                   
+                           Substation2 :
+                                <asp:Label ID="Label7" runat="server" ForeColor="Orange"></asp:Label>
+                            &nbsp;&nbsp;&nbsp;&nbsp; Feeder2 :&nbsp;
+                                <asp:Label ID="Label8" runat="server" ForeColor="Orange"></asp:Label>
+                    
+             </div>
+
+
+                          <div class="col-md-8">
+                            <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource6" Width="789px" BackColor="White" BorderColor="#E7E7FF" BorderStyle="None" BorderWidth="1px" CellPadding="3" GridLines="Horizontal" HorizontalAlign="Center">
+                                <AlternatingRowStyle BackColor="#F7F7F7" />
+                                <Columns>
+                                    <asp:BoundField DataField="Substation" HeaderText="Substation" SortExpression="Substation">
+                                        <ItemStyle HorizontalAlign="Center" />
+                                    </asp:BoundField>
+                                    <asp:BoundField DataField="Feeder" HeaderText="Feeder" SortExpression="Feeder">
+                                        <ItemStyle HorizontalAlign="Center" />
+                                    </asp:BoundField>
+                                    <asp:BoundField DataField="Va" HeaderText="Va" DataFormatString="{0:F2}" SortExpression="Va">
+                                        <ItemStyle HorizontalAlign="Center" />
+                                    </asp:BoundField>
+                                    <asp:BoundField DataField="Vb" HeaderText="Vb" DataFormatString="{0:F2}" SortExpression="Vb">
+                                        <ItemStyle HorizontalAlign="Center" />
+                                    </asp:BoundField>
+                                    <asp:BoundField DataField="Vc" HeaderText="Vc" DataFormatString="{0:F2}" SortExpression="Vc">
+                                        <ItemStyle HorizontalAlign="Center" />
+                                    </asp:BoundField>
+                                    <asp:BoundField DataField="Ia" HeaderText="Ia" DataFormatString="{0:F2}" SortExpression="Ia">
+                                        <ItemStyle HorizontalAlign="Center" />
+                                    </asp:BoundField>
+                                    <asp:BoundField DataField="Ib" HeaderText="Ib" DataFormatString="{0:F2}" SortExpression="Ib">
+                                        <ItemStyle HorizontalAlign="Center" />
+                                    </asp:BoundField>
+                                    <asp:BoundField DataField="Ic" HeaderText="Ic" DataFormatString="{0:F2}" SortExpression="Ic">
+                                        <ItemStyle HorizontalAlign="Center" />
+                                    </asp:BoundField>
+                                    <asp:BoundField DataField="MW" HeaderText="MW" DataFormatString="{0:F2}" SortExpression="MW">
+                                        <ItemStyle HorizontalAlign="Center" />
+                                    </asp:BoundField>
+                                    <asp:BoundField DataField="MVAR" HeaderText="MVAR" DataFormatString="{0:F2}" SortExpression="MVAR">
+                                        <ItemStyle HorizontalAlign="Center" />
+                                    </asp:BoundField>
+                                    <asp:BoundField DataField="UN" HeaderText="UN" DataFormatString="{0:F2}" SortExpression="UN">
+                                        <ItemStyle HorizontalAlign="Center" />
+                                    </asp:BoundField>
+                                    <asp:BoundField DataField="PF" HeaderText="PF" DataFormatString="{0:F2}" SortExpression="PF">
+                                        <ItemStyle HorizontalAlign="Center" />
+                                    </asp:BoundField>
+                                    <asp:BoundField DataField="Date1" HeaderText="Date/Time" DataFormatString="{0:dd-MMM-yyyy HH:mm:ss}" SortExpression="Date1">
+                                        <ItemStyle HorizontalAlign="Center" />
+                                    </asp:BoundField>
+                                    <asp:BoundField DataField="MWq" HeaderText="MWq" SortExpression="MWq">
+                                        <ItemStyle HorizontalAlign="Center" />
+                                    </asp:BoundField>
+                                </Columns>
+                                <FooterStyle BackColor="#B5C7DE" ForeColor="#4A3C8C" />
+                                <HeaderStyle BackColor="#4A3C8C" Font-Bold="True" ForeColor="#F7F7F7" />
+                                <PagerStyle BackColor="#E7E7FF" ForeColor="#4A3C8C" HorizontalAlign="Right" />
+                                <RowStyle BackColor="#E7E7FF" ForeColor="#4A3C8C" />
+                                <SelectedRowStyle BackColor="#738A9C" Font-Bold="True" ForeColor="#F7F7F7" />
+                                <SortedAscendingCellStyle BackColor="#F4F4FD" />
+                                <SortedAscendingHeaderStyle BackColor="#5A4C9D" />
+                                <SortedDescendingCellStyle BackColor="#D8D8F0" />
+                                <SortedDescendingHeaderStyle BackColor="#3E3277" />
+                            </asp:GridView>
+                      
+              </div>
+           </asp:Panel>
+
+               
+      <asp:Label ID="Label1" runat="server" Visible="False"></asp:Label>
+       <asp:Label ID="Label2" runat="server" Visible="False"></asp:Label>
+       <asp:Label ID="Label3" runat="server" Visible="False"></asp:Label>
+                            <asp:Label ID="Label4" runat="server" Visible="False"></asp:Label>
+                  
+
+
+            <asp:SqlDataSource ID="SqlDataSource3" runat="server" ConnectionString="<%$ ConnectionStrings:SA_SystemConnectionString %>" SelectCommand="SELECT Feeder, Feedername FROM scada.View_feedername AS View_feedername_1"></asp:SqlDataSource>
+            <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:dw_scadaConnectionString %>" SelectCommand="SELECT        Substation
+FROM            scada.View_subname"></asp:SqlDataSource>
+            <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:stagingConnectionString %>" SelectCommand="SELECT derivedtbl_1.Date1, derivedtbl_2.MW AS MW2, derivedtbl_1.Feeder, derivedtbl_1.Substation, derivedtbl_2.Substation AS sub2, derivedtbl_2.Feeder AS feed2, derivedtbl_2.Date1 AS date2, derivedtbl_1.MW, derivedtbl_1.MW + derivedtbl_2.MW AS MW3 FROM (SELECT Substation, Feeder, Date1, MW, CONVERT (TIME, Date1, 108) AS time1 FROM stg.feeder_daily WHERE (Substation = @subname1) AND (Feeder = @feeder1) AND (Date1 &gt; CONVERT (DATETIME, @date1, 102)) AND (Date1 &lt; CONVERT (DATETIME, @date2, 102))) AS derivedtbl_1 INNER JOIN (SELECT Substation, Feeder, Date1, MW, CONVERT (TIME, Date1, 108) AS time2 FROM stg.feeder_daily AS feeder_daily_1 WHERE (Substation = @subname2) AND (Feeder = @feeder2) AND (Date1 &gt; CONVERT (DATETIME, @date3, 102)) AND (Date1 &lt; CONVERT (DATETIME, @date4, 102))) AS derivedtbl_2 ON derivedtbl_1.time1 = derivedtbl_2.time2">
+                <SelectParameters>
+                    <asp:ControlParameter ControlID="DropDownList1" DefaultValue="" Name="subname1" PropertyName="SelectedValue" />
+                    <asp:ControlParameter ControlID="DropDownList2" Name="feeder1" PropertyName="SelectedValue" />
+                    <asp:ControlParameter ControlID="Label1" DefaultValue="" Name="date1" PropertyName="Text" />
+                    <asp:ControlParameter ControlID="Label2" DefaultValue="" Name="date2" PropertyName="Text" />
+                    <asp:ControlParameter ControlID="DropDownList3" Name="subname2" PropertyName="SelectedValue" />
+                    <asp:ControlParameter ControlID="DropDownList4" Name="feeder2" PropertyName="SelectedValue" />
+                    <asp:ControlParameter ControlID="Label3" Name="date3" PropertyName="Text" />
+                    <asp:ControlParameter ControlID="Label4" Name="date4" PropertyName="Text" />
+                </SelectParameters>
+            </asp:SqlDataSource>
+
+            <asp:SqlDataSource ID="SqlDataSource4" runat="server" ConnectionString="<%$ ConnectionStrings:SA_SystemConnectionString %>" SelectCommand="SELECT Feedername, Feeder FROM scada.View_feedername WHERE (Feedername LIKE + @feeder + '%') ORDER BY Feedername">
+                <SelectParameters>
+                    <asp:ControlParameter ControlID="DropDownList1" Name="feeder" PropertyName="SelectedValue" />
+                </SelectParameters>
+            </asp:SqlDataSource>
+
+
+
+            <asp:SqlDataSource ID="SqlDataSource5" runat="server" ConnectionString="<%$ ConnectionStrings:stagingConnectionString %>" SelectCommand="SELECT Substation, Feeder, Date1, Ia, Ib, Ic, MW, MWq, MVAR, PF, UN, Va, Vb, Vc FROM stg.feeder_peak WHERE (Substation = @sub) AND (Feeder = @feed) AND (Date1 &gt; CONVERT (DATETIME, @date1, 102)) AND (Date1 &lt; CONVERT (DATETIME, @date2, 102))">
+                <SelectParameters>
+                    <asp:ControlParameter ControlID="DropDownList1" Name="sub" PropertyName="SelectedValue" />
+                    <asp:ControlParameter ControlID="DropDownList2" Name="feed" PropertyName="SelectedValue" />
+                    <asp:ControlParameter ControlID="Label1" Name="date1" PropertyName="Text" />
+                    <asp:ControlParameter ControlID="Label2" Name="date2" PropertyName="Text" />
+                </SelectParameters>
+            </asp:SqlDataSource>
+
+
+
+            <asp:SqlDataSource ID="SqlDataSource7" runat="server" ConnectionString="<%$ ConnectionStrings:SA_SystemConnectionString %>" SelectCommand="SELECT Feedername, Feeder FROM scada.View_feedername WHERE (Feedername LIKE + @feeder + '%') ORDER BY Feedername">
+                <SelectParameters>
+                    <asp:ControlParameter ControlID="DropDownList3" Name="feeder" PropertyName="SelectedValue" />
+                </SelectParameters>
+            </asp:SqlDataSource>
+
+
+
+            <asp:SqlDataSource ID="SqlDataSource6" runat="server" ConnectionString="<%$ ConnectionStrings:stagingConnectionString %>" SelectCommand="SELECT Substation, Feeder, Date1, Ia, Ib, Ic, MW, MWq, MVAR, PF, UN, Va, Vb, Vc FROM stg.feeder_peak WHERE (Substation = @sub) AND (Feeder = @feed) AND (Date1 &gt; CONVERT (DATETIME, @date1, 102)) AND (Date1 &lt; CONVERT (DATETIME, @date2, 102))">
+                <SelectParameters>
+                    <asp:ControlParameter ControlID="DropDownList3" Name="sub" PropertyName="SelectedValue" />
+                    <asp:ControlParameter ControlID="DropDownList4" Name="feed" PropertyName="SelectedValue" />
+                    <asp:ControlParameter ControlID="Label3" Name="date1" PropertyName="Text" />
+                    <asp:ControlParameter ControlID="Label4" Name="date2" PropertyName="Text" />
+                </SelectParameters>
+            </asp:SqlDataSource>
+
+
+
+        </form>
+
+         </div>
+    </div>
+    <br />
+      <br />
+      <br />
+    <poy:footer ID="UCfooter" runat="server" />
+    <poy:js ID="UCjs" runat="server" />
+        
+</body>
+</html>

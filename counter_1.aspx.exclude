@@ -1,0 +1,182 @@
+﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="counter_1.aspx.vb" Inherits="counter_1" %>
+
+
+<!DOCTYPE html>
+<%@ Register TagPrefix="poy" TagName="header" Src="~/UCghead2.ascx" %>
+<%@ Register TagPrefix="poy" TagName="footer" Src="~/UCgfooter.ascx" %>
+<%@ Register TagPrefix="poy" TagName="css" Src="~/UCgcss.ascx" %>
+<%@ Register TagPrefix="poy" TagName="js" Src="~/UCgjs.ascx" %>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title>Scada Graph</title>
+     <poy:css ID="UCcss" runat="server" />
+</head>
+<body>
+     <div class="col-md-12" align="center">
+                                 <h2 align="center">
+                                    E-Counters
+                                </h2>
+                                      </div>  
+    <poy:header ID="UCmenu1" runat="server" />
+    <div class="container">
+       
+    <form id="form1" runat="server">
+                 <div>
+   
+          <div class="col-md-1">
+              </div>
+       <div class="form-group">
+             <br/>
+            <div class="col-md-3">
+                Office : 
+            <asp:DropDownList ID="DropDownList1" runat="server" Height="30px" AutoPostBack="True"
+                                            DataSourceID="SqlDataSource2" DataTextField="office1" DataValueField="office1">
+                                        </asp:DropDownList>
+            
+                </div> 
+            <div class="col-md-3">
+                 Operation ID : 
+            <asp:DropDownList ID="DropDownList2" runat="server" Height="24px" AutoPostBack="True"
+                                            DataSourceID="SqlDataSource4" DataTextField="op_id" DataValueField="dbname">
+                                        </asp:DropDownList>
+            
+                </div>
+             <div class="col-md-3">
+                 Year : 
+            <asp:DropDownList ID="DropDownList3" runat="server" Height="30px" Width="150px" AutoPostBack="True">
+                                        
+                                        <asp:ListItem Value="2016">2559</asp:ListItem>
+                                         <asp:ListItem Value="2015">2558</asp:ListItem>
+                 <asp:ListItem Value="2014">2557</asp:ListItem>
+                 <asp:ListItem Value="2013">2556</asp:ListItem>
+                 <asp:ListItem Value="2012">2555</asp:ListItem>
+                 <asp:ListItem Value="2011">2554</asp:ListItem>
+                 <asp:ListItem Value="2010">2553</asp:ListItem>
+                                        </asp:DropDownList>
+            
+                </div>
+
+        
+           <br /> <br />
+              <br /> <br />                          
+           <table align="center">
+               <tr>
+                   <td>
+  <asp:Chart ID="Chart4" runat="server" DataSourceID="SqlDataSource1" Width="910px" TabIndex="1" BackImageAlignment="Center">
+                 <Series>
+                     <asp:Series Name="T/R" ChartType="StackedColumn" XValueMember="month1" YValueMembers="tr" Legend="Legend1" ChartArea="ChartArea1" ToolTip="#VAL" >
+                       
+                     </asp:Series>
+                         <asp:Series Name="T/L(Time)"  ChartType="StackedColumn" XValueMember="month1" YValueMembers="tlt" Legend="Legend1" ChartArea="ChartArea1" ToolTip="#VAL">
+                        
+                     </asp:Series>
+                         <asp:Series Name="T/L(Ins)"  ChartType="StackedColumn" XValueMember="month1" YValueMembers="tli" Legend="Legend1" ChartArea="ChartArea1"  ToolTip="#VAL">
+                       
+                     </asp:Series>
+                                 
+                       
+                 </Series>
+                 <ChartAreas>
+                     <asp:ChartArea Name="ChartArea1">
+                             <AxisX Title="Month">
+                    </AxisX>
+                      <AxisY Title="Counter" TextOrientation="Auto">
+                    </AxisY>
+                     </asp:ChartArea>
+                 </ChartAreas>
+                 <Legends>
+                     <asp:Legend Name="Legend1">
+                     </asp:Legend>
+                 </Legends>
+                  <Titles>
+                <asp:Title Name="Title1" Text="กราฟแสดงจำนวนครั้งการทำงานของอุปกรณ์" Font="Angsana New, 16pt">
+                </asp:Title>
+            </Titles>
+             </asp:Chart>
+
+                   </td>
+
+
+               </tr>
+
+
+           </table>
+
+		   
+           
+           
+
+		</div>								
+										
+
+    </div>
+        
+                                   
+         <table  align="center">
+                        <tr>
+                            <td class="auto-style1">
+                 <br />
+  <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#E7E7FF" BorderStyle="None" BorderWidth="1px" CellPadding="3" DataSourceID="SqlDataSource1" GridLines="Horizontal" Width="792px" AllowSorting="True">
+      <AlternatingRowStyle BackColor="#F7F7F7" />
+      <Columns>
+          <asp:BoundField DataField="Operation_ID" HeaderText="Operation ID" SortExpression="Operation_ID" >
+          <ItemStyle HorizontalAlign="Center" />
+          </asp:BoundField>
+          <asp:BoundField DataField="month1" HeaderText="Month" SortExpression="month1" >
+          <ItemStyle HorizontalAlign="Center" />
+          </asp:BoundField>
+          <asp:BoundField DataField="tr" HeaderText="Trip Reclose" SortExpression="tr" >
+          <ItemStyle HorizontalAlign="Center" />
+          </asp:BoundField>
+          <asp:BoundField DataField="tlt" HeaderText="Trip Lock Time" SortExpression="tlt" >
+          <ItemStyle HorizontalAlign="Center" />
+          </asp:BoundField>
+          <asp:BoundField DataField="tli" HeaderText="Trip Lock Ins." SortExpression="tli" >
+          <ItemStyle HorizontalAlign="Center" />
+          </asp:BoundField>
+          <asp:BoundField DataField="sum1" HeaderText="Sum" SortExpression="sum1" >
+          <ItemStyle HorizontalAlign="Center" />
+          </asp:BoundField>
+      </Columns>
+      <FooterStyle BackColor="#B5C7DE" ForeColor="#4A3C8C" />
+      <HeaderStyle BackColor="#4A3C8C" Font-Bold="True" ForeColor="#F7F7F7" />
+      <PagerStyle BackColor="#E7E7FF" ForeColor="#4A3C8C" HorizontalAlign="Right" />
+      <RowStyle BackColor="#E7E7FF" ForeColor="#4A3C8C" />
+      <SelectedRowStyle BackColor="#738A9C" Font-Bold="True" ForeColor="#F7F7F7" />
+      <SortedAscendingCellStyle BackColor="#F4F4FD" />
+      <SortedAscendingHeaderStyle BackColor="#5A4C9D" />
+      <SortedDescendingCellStyle BackColor="#D8D8F0" />
+      <SortedDescendingHeaderStyle BackColor="#3E3277" />
+        </asp:GridView>
+                   </td>
+                        </tr>
+            
+        </table>
+
+
+
+
+        <asp:SqlDataSource ID="SqlDataSource3" runat="server" ConnectionString="<%$ ConnectionStrings:SA_SystemConnectionString %>" SelectCommand="SELECT Feedername, Feeder FROM scada.View_feedername"></asp:SqlDataSource>
+        <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:SA_System_N3_ConnectionString %>" SelectCommand="SELECT DISTINCT office AS office1 FROM counter.View_counter_office ORDER BY office1"></asp:SqlDataSource>
+        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:SA_SystemConnectionString %>" SelectCommand="SELECT Operation_ID, month1, tr, tlt, tli, sum1 FROM counter.View_grop_month_year WHERE (year1 = @year1) AND (id_device = @op_id1) ORDER BY month1, tr, tlt, tli">
+            <SelectParameters>
+                <asp:ControlParameter ControlID="DropDownList3" Name="year1" PropertyName="SelectedValue" />
+                <asp:ControlParameter ControlID="DropDownList2" Name="op_id1" PropertyName="SelectedValue" />
+            </SelectParameters>
+        </asp:SqlDataSource>
+       
+        <asp:SqlDataSource ID="SqlDataSource4" runat="server" ConnectionString="<%$ ConnectionStrings:SA_SystemConnectionString %>" SelectCommand="SELECT op_id, dbname FROM counter.View_counter_office WHERE (office = @office1)">
+            <SelectParameters>
+                <asp:ControlParameter ControlID="DropDownList1" Name="office1" PropertyName="SelectedValue" />
+            </SelectParameters>
+        </asp:SqlDataSource>
+       
+    </form>
+    
+
+
+    </div>
+    <poy:footer ID="UCfooter" runat="server" />
+    <poy:js ID="UCjs" runat="server" />
+</body>
+</html>

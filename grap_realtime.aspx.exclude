@@ -1,0 +1,171 @@
+﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="grap_realtime.aspx.vb" Inherits="grap_realtime" %>
+
+<!DOCTYPE html>
+<%@ Register TagPrefix="poy" TagName="header" Src="~/UCghead.ascx" %>
+<%@ Register TagPrefix="poy" TagName="footer" Src="~/UCgfooter.ascx" %>
+<%@ Register TagPrefix="poy" TagName="css" Src="~/UCgcss.ascx" %>
+<%@ Register TagPrefix="poy" TagName="js" Src="~/UCgjs.ascx" %>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <poy:css ID="UCcss" runat="server" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>SCADA Graph</title>
+    <meta name="keywords" content="free css templates, grid system" />
+    <meta name="description" content="Grid System is a free website template provided by templatemo.com" />
+    <link href="templatemo_style.css" rel="stylesheet" type="text/css" />
+    <script language="javascript" type="text/javascript">
+        function clearText(field) {
+            if (field.defaultValue == field.value) field.value = '';
+            else if (field.value == '') field.value = field.defaultValue;
+        }
+
+    </script>
+    <style type="text/css">
+  
+    </style>
+</head>
+<body>
+    <poy:header ID="UCmenu1" runat="server" />
+    <div class="container">
+    
+        </div>
+         
+    <form id="form1" runat="server">
+  <asp:ScriptManager ID="ScriptManager1" runat="server">
+                            </asp:ScriptManager>
+           
+                            <asp:Label ID="Label1" runat="server"></asp:Label>
+           
+                            <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
+                                <ContentTemplate>
+
+                                    <table align="center">
+                                        <tr>
+                                            <td align="center">
+
+
+                                                <asp:GridView ID="GridView3" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" DataSourceID="SqlDataSource3" Width="617px">
+                                                    <Columns>
+                                                        <asp:BoundField DataField="Expr1" SortExpression="Expr1" ReadOnly="True">
+                                                        <HeaderStyle HorizontalAlign="Center" />
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                        </asp:BoundField>
+                                                        <asp:BoundField DataField="max_mw" HeaderText="MAX MW" ReadOnly="True" SortExpression="max_mw" DataFormatString="{0:N4}">
+                                                        <HeaderStyle HorizontalAlign="Center" />
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                        </asp:BoundField>
+                                                        <asp:BoundField DataField="Date1" HeaderText="Date/Time" SortExpression="Date1"  DataFormatString="{0:dd-MMM-yyyy HH:mm:ss}">
+                                                        <HeaderStyle HorizontalAlign="Center" />
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                        </asp:BoundField>
+                                                    </Columns>
+                                                    <FooterStyle BackColor="#FFFFCC" ForeColor="#330099" />
+                                                    <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="#FFFFCC" />
+                                                    <PagerStyle BackColor="#FFFFCC" ForeColor="#330099" HorizontalAlign="Center" />
+                                                    <RowStyle BackColor="White" ForeColor="#330099" />
+                                                    <SelectedRowStyle BackColor="#FFCC66" Font-Bold="True" ForeColor="#663399" />
+                                                    <SortedAscendingCellStyle BackColor="#FEFCEB" />
+                                                    <SortedAscendingHeaderStyle BackColor="#AF0101" />
+                                                    <SortedDescendingCellStyle BackColor="#F6F0C0" />
+                                                    <SortedDescendingHeaderStyle BackColor="#7E0000" />
+                                                </asp:GridView>
+
+
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                            <asp:Chart ID="Chart1" runat="server" DataSourceID="SqlDataSource1" marrgin="0" Palette="Bright" PaletteCustomColors="Red" BackColor="ButtonFace" ImageStorageMode="UseImageLocation" ViewStateContent="All" BackImageAlignment="Center" Width="1141px">
+                                                <Series>
+                                                    <asp:Series Name="Load" ChartType="Spline" XValueMember="date_data" YValueMembers="tatal_all" IsXValueIndexed="True" XValueType="Time" YValueType="Int32" LabelFormat="{0:F1}" Legend="Legend1" YValuesPerPoint="10" LabelUrl="~/all_load_provindcial.aspx" ToolTip="#VALX{HH:mm} = #VAL{N2} MW" LabelToolTip="#VALX  = #VAL{N2} MW" Url="~/all_load_provindcial.aspx">
+                                                    </asp:Series>
+                                                    <asp:Series ChartArea="ChartArea1" ChartType="Spline" IsXValueIndexed="True" Legend="Legend1" Name="Genarator" XValueMember="date_data" XValueType="Time" YValueMembers="gen" YValueType="Int32" ToolTip="#VALX{HH:mm} = #VAL{N2} MW" LabelToolTip="#VALX  = #VAL{N2} MW">
+                                                    </asp:Series>
+                                                </Series>
+                                                <ChartAreas>
+                                                    <asp:ChartArea Name="ChartArea1">
+                                                        <AxisY Title="Active Power(MW)">
+                                                        </AxisY>
+                                                        <AxisX Maximum="2880" Title="Time" Interval="120" LogarithmBase="100">
+                                                            <ScaleBreakStyle BreakLineStyle="Straight" Enabled="True" />
+                                                        </AxisX>
+                                                    </asp:ChartArea>
+                                                </ChartAreas>
+
+                                                <Legends>
+                                                    <asp:Legend Name="Legend1">
+                                                    </asp:Legend>
+                                                </Legends>
+                                                <Titles>
+                                                    <asp:Title Name="Realtime " Text="กราฟแสดงโหลดรวมและกำลังผลิตรายเขตแบบ Real time" Font="Angsana New, 16pt">
+                                                    </asp:Title>
+                                                </Titles>
+                                            </asp:Chart>
+                                                <asp:SqlDataSource ID="SqlDataSource3" runat="server" ConnectionString="<%$ ConnectionStrings:stagingConnectionString %>" SelectCommand="SELECT derivedtbl_1.Area, derivedtbl_1.Substation, derivedtbl_1.Type, derivedtbl_1.Feeder, derivedtbl_1.max_mw, feeder_ops_1.Date1, 'โหลดสูงสุงประจำเขต' AS Expr1 FROM (SELECT Area, Substation, Type, Feeder, MAX(MW) AS max_mw FROM stg.feeder_ops GROUP BY Area, Substation, Type, Feeder HAVING (Substation = 'TOTAL_LOAD')) AS derivedtbl_1 INNER JOIN stg.feeder_ops AS feeder_ops_1 ON derivedtbl_1.Substation = feeder_ops_1.Substation AND derivedtbl_1.max_mw = feeder_ops_1.MW"></asp:SqlDataSource>
+                                 </td>
+
+                                        </tr>
+
+
+                                    </table>
+                                    <br />
+                                    <table align="center" width="99%">
+                                        <tr>
+                                            <td>
+                                                <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="False" CellPadding="4"
+                                                    DataSourceID="SqlDataSource2" ForeColor="#333333" Height="88px" HorizontalAlign="Center"
+                                                    Style="margin-top: 1px" Width="59%" EmptyDataText="Not Found Data" AllowPaging="True" PageSize="20" AllowSorting="True" CaptionAlign="Top">
+                                                    <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+                                                    <Columns>
+                                                        <asp:BoundField DataField="date_data" HeaderText="Date Time" SortExpression="date_data" DataFormatString="{0:dd-MMM-yyyy HH:mm:ss}">
+                                                            <HeaderStyle HorizontalAlign="Center" />
+                                                            <ItemStyle HorizontalAlign="Center" />
+                                                        </asp:BoundField>
+                                                        <asp:BoundField DataField="tatal_all" HeaderText="All Load(MW)" SortExpression="tatal_all" DataFormatString="{0:N4}">
+                                                            <ItemStyle HorizontalAlign="Center" />
+                                                        </asp:BoundField>
+                                                        <asp:BoundField DataField="gen" HeaderText="Genarator(MW)" SortExpression="gen" DataFormatString="{0:F3}">
+                                                            <ItemStyle HorizontalAlign="Center" />
+                                                        </asp:BoundField>
+                                                    </Columns>
+                                                    <EditRowStyle BackColor="#999999" />
+                                                    <EmptyDataRowStyle BorderStyle="Outset" HorizontalAlign="Center" />
+                                                    <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
+                                                    <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                                                    <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
+                                                    <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
+                                                    <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+                                                    <SortedAscendingCellStyle BackColor="#E9E7E2" />
+                                                    <SortedAscendingHeaderStyle BackColor="#506C8C" />
+                                                    <SortedDescendingCellStyle BackColor="#FFFDF8" />
+                                                    <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
+                                                </asp:GridView>
+
+                                            </td>
+
+                                        </tr>
+
+
+                                    </table>
+                                </ContentTemplate>
+                                <Triggers>
+                                    <asp:AsyncPostBackTrigger ControlID="Timer1" EventName="Tick" />
+                                </Triggers>
+                            </asp:UpdatePanel>
+                            <asp:Timer ID="Timer1" runat="server" Interval="50000">
+                            </asp:Timer>
+                     
+                 
+
+                        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:stagingConnectionString2 %>" SelectCommand="SELECT tatal_all, gen, date_data FROM stg.View_lrt_all_gen ORDER BY date_data"></asp:SqlDataSource>
+
+                        <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:stagingConnectionString2 %>" SelectCommand="SELECT TOP (1000) tatal_all, gen, date_data FROM stg.View_lrt_all_gen ORDER BY date_data DESC"></asp:SqlDataSource>
+
+             
+             
+       </form>
+     <poy:footer ID="UCfooter" runat="server" />
+    <poy:js ID="UCjs" runat="server" />
+</body>
+</html>

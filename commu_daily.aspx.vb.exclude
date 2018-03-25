@@ -1,0 +1,40 @@
+﻿
+Partial Class commu_daily
+    Inherits System.Web.UI.Page
+
+    Protected Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        databind1()
+        Me.SqlDataSource13.DataBind()
+        Me.Chart9.Visible = True
+        Me.Chart10.Visible = True
+        Me.Chart11.Visible = True
+        Me.Chart12.Visible = True
+        Me.GridView2.Visible = True
+        Me.Panel1.Visible = True
+    End Sub
+
+    Protected Sub databind1()
+        Label1.Text = CStr(textbox1.Value) + " 00:00:00"
+        Label2.Text = CStr(textbox2.Value) + " 23:59:00"
+
+        Dim aa, bb, cc As String
+        Dim ss, ssc As Object
+        ss = Label1.Text.Split("/")
+        bb = ss(0)
+        aa = ss(1)
+        ssc = ss(2).ToString.Split(" ")
+        cc = ssc(0) + 543
+
+        Label3.Text = aa & "-" & bb & "-" & cc & "  00:00:00"
+        ss = Label2.Text.Split("/")
+        bb = ss(0)
+        aa = ss(1)
+        ssc = ss(2).ToString.Split(" ")
+        cc = ssc(0) + 543
+        Label4.Text = aa & "-" & bb & "-" & cc & "  23:59:00"
+    End Sub
+
+    Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
+
+    End Sub
+End Class

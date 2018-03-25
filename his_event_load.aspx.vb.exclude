@@ -1,0 +1,27 @@
+﻿
+Partial Class his_event_load
+    Inherits System.Web.UI.Page
+    Protected Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        Me.Label7.Text = DropDownList1.Text + DropDownList2.Text
+        Label1.Text = CStr(textbox1.Value) + " 00:00:00"
+        Label2.Text = CStr(textbox2.Value) + " 23:59:00"
+
+        Me.Chart1.Visible = True
+        Me.Chart2.Visible = True
+
+        Dim arr1 As Array = Split(textbox1.Value, "/")
+        Dim arr2 As Array = Split(textbox2.Value, "/")
+        Dim date1 As Date = arr1(1) + "/" + arr1(0) + "/" + arr1(2) + " 00:00:00"
+        Dim date2 As Date = arr2(1) + "/" + arr2(0) + "/" + arr2(2) + " 12:59:00 PM"
+        date1 = date1.AddYears(543)
+        date2 = date2.AddYears(543)
+        Label3.Text = date1
+        Label4.Text = date2
+        Label5.Text = DropDownList1.Text + "%" + Mid(DropDownList2.Text, 1, 4).ToString
+
+        Label6.Text = Mid(DropDownList2.Text, 1, 4).ToString
+
+        Me.GridView2.Visible = True
+
+    End Sub
+End Class

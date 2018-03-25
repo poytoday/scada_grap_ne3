@@ -1,0 +1,5 @@
+﻿
+Partial Class mw_group
+    Inherits System.Web.UI.Page
+
+End Class

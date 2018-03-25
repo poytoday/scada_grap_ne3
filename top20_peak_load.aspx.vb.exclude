@@ -1,0 +1,5 @@
+﻿
+Partial Class top20_peak_load
+    Inherits System.Web.UI.Page
+
+End Class

@@ -1,0 +1,134 @@
+﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="mw_group.aspx.vb" Inherits="mw_group" %>
+
+
+<!DOCTYPE html>
+<%@ Register TagPrefix="poy" TagName="header" Src="~/UCghead2.ascx" %>
+<%@ Register TagPrefix="poy" TagName="footer" Src="~/UCgfooter.ascx" %>
+<%@ Register TagPrefix="poy" TagName="css" Src="~/UCgcss.ascx" %>
+<%@ Register TagPrefix="poy" TagName="js" Src="~/UCgjs.ascx" %>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title>Scada Graph</title>
+     <poy:css ID="UCcss" runat="server" />
+    <style type="text/css">
+        .auto-style1 {
+            width: 285px
+        }
+    </style>
+</head>
+<body>
+    <poy:header ID="UCmenu1" runat="server" />
+    <div class="container">
+        <div class="col-md-12">
+        <table  align="center">
+                        <tr>
+                            <td class="style6" style="color: #FF00FF">
+                                 <h2 dir="ltr" style="color:#FF00FF; width:99%" align="center">
+                                   Feeder Group MW
+                                </h2>
+                            </td>
+                        </tr>
+            
+        </table>
+            <br />
+        </div>
+    <form id="form1" runat="server">
+  			
+   
+       <table border="1">
+           <tr>
+               <td class="auto-style1">     
+        <asp:Chart ID="Chart1" runat="server" DataSourceID="SqlDataSource1" Width="569px" Height="358px" Palette="Pastel" RightToLeft="Yes">
+            <series>
+
+                   
+                           <asp:Series Name="MW" XValueMember="mw" LabelFormat="{0}" BorderWidth="5" XValueType="UInt64" ChartArea="ChartArea1" IsValueShownAsLabel="True" ChartType="Pie" Legend="Legend1" YValueMembers="count1" YValueType="UInt64" Font="Microsoft Sans Serif, 15.75pt, style=Bold" LabelBorderWidth="3" LabelUrl="http://172.19.3.199/scada/up_down_sub.aspx" Url="http://172.19.3.199/scada/up_down_sub.aspx">
+                </asp:Series>
+                       
+            </series>
+            <chartareas>
+                <asp:ChartArea Name="ChartArea1">
+                </asp:ChartArea>
+            </chartareas>
+            <Legends>
+                <asp:Legend Name="Legend1">
+                </asp:Legend>
+            </Legends>
+            <Titles>
+                <asp:Title Name="Feeder0MW " Font="Microsoft Sans Serif, 18pt" ForeColor="Red" Text="Feeder < 0 MW ">
+                </asp:Title>
+            </Titles>
+        </asp:Chart>
+    </td>
+                      <td> 
+        <asp:Chart ID="Chart2" runat="server" DataSourceID="SqlDataSource2" Width="530px" Height="354px" Palette="EarthTones" PaletteCustomColors="Lime; Red; Blue" RightToLeft="Yes">
+            <series>
+
+                   
+                           <asp:Series Name="MW" XValueMember="mw"  LabelFormat="{0}" BorderWidth="2" XValueType="UInt64" ChartArea="ChartArea1" IsValueShownAsLabel="True" ChartType="Pie" Legend="Legend1" YValueMembers="count1" YValueType="UInt64" Font="Microsoft Sans Serif, 15.75pt, style=Bold" LabelUrl="http://172.19.3.199/scada/up_down_sub.aspx" Url="http://172.19.3.199/scada/up_down_sub.aspx">
+                </asp:Series>
+                       
+            </series>
+            <chartareas>
+                <asp:ChartArea Name="ChartArea1">
+                </asp:ChartArea>
+            </chartareas>
+            <Legends>
+                <asp:Legend Name="Legend1">
+                </asp:Legend>
+            </Legends>
+            <Titles>
+                <asp:Title Name="Feeder1mw" Font="Microsoft Sans Serif, 18pt" ForeColor="Red" Text="Feeder >= 0 MW">
+                </asp:Title>
+            </Titles>
+        </asp:Chart>
+ </td>
+           </tr>
+       </table>
+                                   
+							
+										
+		
+
+<table border="1">
+           <tr>
+               <td class="auto-style1">     
+                   &nbsp;</td>
+                      <td> 
+                          &nbsp;</td>
+           </tr>
+       </table>
+
+        <table border="1">
+           <tr>
+               <td class="auto-style1">     
+                   &nbsp;</td>
+                      <td> 
+                          &nbsp;</td>
+           </tr>
+       </table>
+
+
+        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:dw_scadaConnectionString %>" SelectCommand="SELECT * FROM [View_scada_realtime_group_mw] WHERE ([mw] &lt; @mw)">
+            <SelectParameters>
+                <asp:Parameter DefaultValue="0" Name="mw" Type="Double" />
+            </SelectParameters>
+        </asp:SqlDataSource>
+
+
+        <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:dw_scadaConnectionString %>" SelectCommand="SELECT * FROM [View_scada_realtime_group_mw] WHERE ([mw] &gt;= @mw)">
+            <SelectParameters>
+                <asp:Parameter DefaultValue="0" Name="mw" Type="Double" />
+            </SelectParameters>
+        </asp:SqlDataSource>
+       
+    </form>
+    <br />
+
+
+
+    </div>
+    <poy:footer ID="UCfooter" runat="server" />
+    <poy:js ID="UCjs" runat="server" />
+</body>
+</html>

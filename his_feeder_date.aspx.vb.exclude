@@ -1,0 +1,17 @@
+﻿
+Partial Class his_feeder_date
+    Inherits System.Web.UI.Page
+
+    Protected Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        Label1.Text = textbox1.Value
+        Label2.Text = textbox2.Value
+        ' Label1.Text = LabelDate.Text.ToString & " " & Label1.Text & ":00"
+        'Label2.Text = LabelDate.Text.ToString & " " & Label2.Text & ":00"
+    End Sub
+
+    Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
+        ' LabelDate.Text = Date.Now.Year
+        ' LabelDate.Text = Date.Now.Day & "/" & Date.Now.Month & "/" & LabelDate.Text
+
+    End Sub
+End Class

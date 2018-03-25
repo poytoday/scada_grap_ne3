@@ -1,0 +1,42 @@
+﻿
+Partial Class gis_trf_2
+    Inherits System.Web.UI.Page
+
+    Protected Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        data_bind()
+ 
+    End Sub
+
+    Protected Sub data_bind()
+        Dim date_datakey As Date
+        Label1.Text = Me.DropDownList3.SelectedValue.ToString
+        Label2.Text = Me.DropDownList4.SelectedValue.ToString
+
+
+        Me.GridView1.DataBind()
+        Dim dkKeys As DataKey
+        If GridView1.DataKeys.Count > 0 Then
+            dkKeys = GridView1.DataKeys(0)
+            date_datakey = dkKeys.Value
+        End If
+
+        'Else
+        '    'dkKeys = dbGrid_upload.DataKeys(index)
+        'End If
+
+        Label3.Text = Label2.Text & "/" & date_datakey.Day & "/" & Label1.Text & " " & "00:00"
+        Label4.Text = Label2.Text & "/" & date_datakey.Day & "/" & Label1.Text & " " & "23:59"
+    
+        Me.Label5.Text = Me.DropDownList1.SelectedValue.ToString & Mid(Me.DropDownList2.SelectedValue, 1, 2)
+        Me.Chart1.DataBind()
+        Me.Chart1.Visible = True
+        Me.Chart2.Visible = True
+        Me.Chart3.Visible = True
+    End Sub
+
+   
+
+    Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
+        'data_bind()
+    End Sub
+End Class

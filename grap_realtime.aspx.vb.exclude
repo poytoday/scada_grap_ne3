@@ -1,0 +1,54 @@
+﻿
+Imports System
+Imports System.Data
+Imports System.Collections
+Imports System.Configuration
+Imports System.Threading
+Imports System.Globalization
+Imports System.Data.OleDb
+Imports System.IO
+Imports System.Data.SqlClient
+Partial Class grap_realtime
+    Inherits System.Web.UI.Page
+
+    Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
+        'Me.Chart1.DataBind()
+        ' UpdatePanel1.Update()
+        Dim ipaddress As String
+        ipaddress = Request.ServerVariables("HTTP_X_FORWARDED_FOR")
+        If ipaddress = "" Or ipaddress Is Nothing Then
+            ipaddress = Request.ServerVariables("REMOTE_ADDR")
+            insert_ip(ipaddress)
+        Else
+
+            insert_ip(ipaddress)
+        End If
+
+    End Sub
+
+    Protected Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
+
+        Label1.Text = DateTime.Now.ToString()
+        Me.Chart1.DataBind()
+        Me.GridView2.DataBind()
+        UpdatePanel1.Update()
+    End Sub
+    Private Sub insert_ip(ByRef ip As String)
+
+        Dim Ds As New DataSet
+        Dim Dt As DataTable
+        Dim Dr As DataRow
+        Dim StrCon As New SqlClient.SqlConnection("Server=172.30.203.155; uid=sa;pwd=1234; database= staging")
+        Dim Adpt As New SqlClient.SqlDataAdapter("SELECT date_time_load,ip,app_web FROM [dbo].[Admin_ip] where 1<>1", StrCon)
+        Adpt.Fill(Ds, "Admin_ip")
+        Dt = Ds.Tables("Admin_ip")
+        Dr = Dt.NewRow
+        Dr("date_time_load") = Date.Now
+        Dr("ip") = ip
+        Dr("app_web") = "scada_graph"
+        Dt.Rows.Add(Dr)
+        Dim cdb As New SqlClient.SqlCommandBuilder(Adpt)
+        Adpt.Update(Ds, "Admin_ip")
+        Ds.AcceptChanges()
+    End Sub
+End Class

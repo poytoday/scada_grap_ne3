@@ -1,0 +1,270 @@
+﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="counter_6.aspx.vb" Inherits="counter_6" %>
+
+
+<!DOCTYPE html>
+<%@ Register TagPrefix="poy" TagName="header" Src="~/UCghead2.ascx" %>
+<%@ Register TagPrefix="poy" TagName="footer" Src="~/UCgfooter.ascx" %>
+<%@ Register TagPrefix="poy" TagName="css" Src="~/UCgcss.ascx" %>
+<%@ Register TagPrefix="poy" TagName="js" Src="~/UCgjs.ascx" %>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title>Scada Graph</title>
+    <poy:css ID="UCcss" runat="server" />
+</head>
+<body>
+    <div class="col-md-12" align="center">
+        <h2 align="center">Top Trip yearly Report
+        </h2>
+               
+
+    </div>
+    <poy:header ID="UCmenu1" runat="server" />
+    <div class="container">
+
+        <form id="form1" runat="server">
+            <div>
+
+                       
+                <table style="background-color: #ccccff; width: 100%;" frame="border" align="center">
+                    <tr>
+                        <td>
+                            เขต
+                        </td>
+                        <td>
+                            <asp:Label ID="Label1" runat="server" Text="ประจำปี" Width="104px"></asp:Label></td>
+                        <td>
+                            <asp:Label ID="Label4" runat="server" Text="เริ่มจากเดือน" Width="104px"></asp:Label></td>
+                        <td>
+                            <asp:Label ID="Label5" runat="server" Text="ถึงเดือน" Width="104px"></asp:Label></td>
+                        <td>จำนวนอันดับ</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <asp:RadioButtonList ID="RadioButtonList1" runat="server" RepeatDirection="Horizontal" TabIndex="1" AutoPostBack="True">
+                    <asp:ListItem>N2</asp:ListItem>
+                    <asp:ListItem>N3</asp:ListItem>
+                </asp:RadioButtonList>
+                        </td>
+
+                        <td>&nbsp;<asp:DropDownList ID="DropDownList4" runat="server" Width="96px" AutoPostBack="True">
+                            <asp:ListItem>2016</asp:ListItem>
+                            <asp:ListItem>2015</asp:ListItem>
+                            <asp:ListItem>2014</asp:ListItem>
+                            <asp:ListItem>2013</asp:ListItem>
+                            <asp:ListItem>2012</asp:ListItem>
+                            <asp:ListItem>2011</asp:ListItem>
+                            <asp:ListItem>2010</asp:ListItem>
+                        </asp:DropDownList>
+                        </td>
+                        <td>
+                            <%--<asp:CheckBox ID="CheckBox1" Text ="Select by Substation" runat="server" AutoPostBack="True" />--%>
+                                        &nbsp;
+                                        <asp:DropDownList ID="DropDownList6" runat="server" Width="96px">
+                                            <asp:ListItem Value="1">มกราคม</asp:ListItem>
+                                            <asp:ListItem Value="2">กุมภาพันธ์</asp:ListItem>
+                                            <asp:ListItem Value="3">มีนาคม</asp:ListItem>
+                                            <asp:ListItem Value="4">เมษายน</asp:ListItem>
+                                            <asp:ListItem Value="5">พฤษภาคม</asp:ListItem>
+                                            <asp:ListItem Value="6">มิถุนายน</asp:ListItem>
+                                            <asp:ListItem Value="7">กรกฎาคม</asp:ListItem>
+                                            <asp:ListItem Value="8">สิงหาคม</asp:ListItem>
+                                            <asp:ListItem Value="9">กันยายน</asp:ListItem>
+                                            <asp:ListItem Value="10">ตุลาคม</asp:ListItem>
+                                            <asp:ListItem Value="11">พศจิกายน</asp:ListItem>
+                                            <asp:ListItem Value="12">ธันวาคม</asp:ListItem>
+                                        </asp:DropDownList></td>
+                        <td>&nbsp;<asp:DropDownList ID="DropDownList7" runat="server" Width="96px" AutoPostBack="True">
+                            <asp:ListItem Value="1">มกราคม</asp:ListItem>
+                            <asp:ListItem Value="2">กุมภาพันธ์</asp:ListItem>
+                            <asp:ListItem Value="3">มีนาคม</asp:ListItem>
+                            <asp:ListItem Value="4">เมษายน</asp:ListItem>
+                            <asp:ListItem Value="5">พฤษภาคม</asp:ListItem>
+                            <asp:ListItem Value="6">มิถุนายน</asp:ListItem>
+                            <asp:ListItem Value="7">กรกฎาคม</asp:ListItem>
+                            <asp:ListItem Value="8">สิงหาคม</asp:ListItem>
+                            <asp:ListItem Value="9">กันยายน</asp:ListItem>
+                            <asp:ListItem Value="10">ตุลาคม</asp:ListItem>
+                            <asp:ListItem Value="11">พศจิกายน</asp:ListItem>
+                            <asp:ListItem Value="12">ธันวาคม</asp:ListItem>
+                        </asp:DropDownList></td>
+                        <td>
+
+                            <asp:DropDownList ID="DropDownList8" runat="server" Width="80px" AutoPostBack="True">
+                                <asp:ListItem>5</asp:ListItem>
+                                <asp:ListItem>10</asp:ListItem>
+                                <asp:ListItem>15</asp:ListItem>
+                                <asp:ListItem>20</asp:ListItem>
+                                <asp:ListItem>30</asp:ListItem>
+                                <asp:ListItem>50</asp:ListItem>
+                                <asp:ListItem>100</asp:ListItem>
+                                <asp:ListItem>1000</asp:ListItem>
+                            </asp:DropDownList>
+
+                        </td>
+                        <td>
+                            <%--<asp:Label ID="Label1" runat="server" Text="Export To Excel2003" Width="160px"></asp:Label>
+                                        <asp:Image ID="Image1" runat="server" ImageUrl="~/images/bullet.png" />
+                                        <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/images/Excel2.jpg" />
+                            --%>
+                                        &nbsp;&nbsp;
+                                        <asp:Button ID="Button1" runat="server" Text="เรียกดูข้อมูล" Width="112px" /></td>
+                    </tr>
+                </table>
+
+                </div>    </div>
+                <table align="center">
+                    <tr>
+                        <td>
+
+
+                            <asp:Chart ID="Chart4" runat="server" DataSourceID="SqlDataSource5" Width="1100px" TabIndex="1" BackImageAlignment="Center" Palette="None" PaletteCustomColors="0, 0, 192; Red" Visible="False">
+                                <Series>
+                                    <asp:Series Name="Reclose" ChartType="StackedColumn" XValueMember="op_id" YValueMembers="Trip_R" Legend="Legend1" ChartArea="ChartArea1" ToolTip="#VAL" IsXValueIndexed="True">
+                                    </asp:Series>
+                                    <asp:Series Name="Lockout" ChartType="StackedColumn" XValueMember="op_id" YValueMembers="Trip_Lock" Legend="Legend1" ChartArea="ChartArea1" ToolTip="#VAL">
+                                    </asp:Series>
+
+
+                                </Series>
+                                <ChartAreas>
+                                    <asp:ChartArea Name="ChartArea1">
+                                        <AxisX Title="Operation ID" Interval="1" IsLabelAutoFit="False">
+                                            <LabelStyle Angle="-45" />
+                                        </AxisX>
+                                        <AxisY Title="Counter" TextOrientation="Auto">
+                                        </AxisY>
+                                    </asp:ChartArea>
+                                </ChartAreas>
+                                <Legends>
+                                    <asp:Legend Name="Legend1">
+                                    </asp:Legend>
+                                </Legends>
+                                <Titles>
+                                    <asp:Title Name="Title1" Text="กราฟแสดงจำนวนครั้งการทำงานของ Recloser" Font="Angsana New, 16pt">
+                                    </asp:Title>
+                                </Titles>
+                            </asp:Chart>
+
+                        </td>
+
+
+                    </tr>
+                    <tr>
+                        <td>
+
+
+                            <asp:Chart ID="Chart5" runat="server" DataSourceID="SqlDataSource6" Width="1100px" TabIndex="1" BackImageAlignment="Center" Palette="None" PaletteCustomColors="0, 0, 192; Red" Visible="False">
+                                <Series>
+                                   <asp:Series Name="Reclose" ChartType="StackedColumn" XValueMember="op_id" YValueMembers="Trip_R" Legend="Legend1" ChartArea="ChartArea1" ToolTip="#VAL" IsXValueIndexed="True">
+                                    </asp:Series>
+                                    <asp:Series Name="Lockout" ChartType="StackedColumn" XValueMember="op_id" YValueMembers="Trip_Lock" Legend="Legend1" ChartArea="ChartArea1" ToolTip="#VAL">
+                                    </asp:Series>
+
+
+                                </Series>
+                                <ChartAreas>
+                                    <asp:ChartArea Name="ChartArea1">
+                                        <AxisX Title="Operation ID" Interval="1" IsLabelAutoFit="False">
+                                            <LabelStyle Angle="-45" />
+                                        </AxisX>
+                                        <AxisY Title="Counter" TextOrientation="Auto">
+                                        </AxisY>
+                                    </asp:ChartArea>
+                                </ChartAreas>
+                                <Legends>
+                                    <asp:Legend Name="Legend1">
+                                    </asp:Legend>
+                                </Legends>
+                                <Titles>
+                                    <asp:Title Name="Title1" Text="กราฟแสดงจำนวนครั้งการทำงานของ Breaker" Font="Angsana New, 16pt">
+                                    </asp:Title>
+                                </Titles>
+                            </asp:Chart>
+
+
+                        </td>
+
+                    </tr>
+
+
+                </table>
+
+
+                <table>
+                    <tr>
+                        <td>&nbsp;
+                                        &nbsp;
+
+
+                                        <asp:GridView ID="GridView3" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource5" Visible="False">
+                                            <Columns>
+                                                <%--<asp:BoundField DataField="rank" HeaderText="อันดับ" SortExpression="rank" >
+                                                <ItemStyle HorizontalAlign="Center" />
+                                                </asp:BoundField>--%>
+                                                <asp:BoundField DataField="Trip_Lock" HeaderText="Trip/L"
+                                                    SortExpression="Trip_Lock">
+                                                    <ItemStyle HorizontalAlign="Center" />
+                                                </asp:BoundField>
+                                                <asp:BoundField DataField="Trip_R" HeaderText="Trip/R" SortExpression="Trip_R">
+                                                    <ItemStyle HorizontalAlign="Center" />
+                                                </asp:BoundField>
+                                                <asp:BoundField DataField="Sum_Event" HeaderText="รวมเหตุการณ์"
+                                                    SortExpression="Sum_Event">
+                                                    <ItemStyle HorizontalAlign="Center" />
+                                                </asp:BoundField>
+                                                <asp:BoundField DataField="op_id" HeaderText="รหัสสั่งการ" SortExpression="op_id" />
+                                                <asp:BoundField DataField="office2" HeaderText="กฟฟ." SortExpression="office2" />
+                                            </Columns>
+                                        </asp:GridView>
+                            <br />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;
+                                        <br />
+                            <asp:GridView ID="GridView4" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource6" Visible="False">
+                                <Columns>
+                                    <%--<asp:BoundField DataField="rank" HeaderText="อันดับ" SortExpression="rank" >
+                                                <ItemStyle HorizontalAlign="Center" />
+                                                </asp:BoundField>--%>
+                                    <asp:BoundField DataField="Trip_Lock" HeaderText="Trip/L"
+                                        SortExpression="Trip_Lock">
+                                        <ItemStyle HorizontalAlign="Center" />
+                                    </asp:BoundField>
+                                    <asp:BoundField DataField="Trip_R" HeaderText="Trip/R" SortExpression="Trip_R">
+                                        <ItemStyle HorizontalAlign="Center" />
+                                    </asp:BoundField>
+                                    <asp:BoundField DataField="Sum_Event" HeaderText="รวมเหตุการณ์"
+                                        SortExpression="Sum_Event">
+                                        <ItemStyle HorizontalAlign="Center" />
+                                    </asp:BoundField>
+                                    <asp:BoundField DataField="op_id" HeaderText="รหัสสั่งการ" SortExpression="op_id" />
+                                    <asp:BoundField DataField="office2" HeaderText="กฟฟ." SortExpression="office2" />
+                                </Columns>
+                            </asp:GridView>
+                            <asp:SqlDataSource ID="SqlDataSource6" runat="server" ConnectionString="<%$ ConnectionStrings:SA_SystemConnectionString %>" SelectCommand="counter_all_cb" SelectCommandType="StoredProcedure">
+                                <SelectParameters>
+                                    <asp:ControlParameter ControlID="DropDownList8" Name="num" PropertyName="SelectedValue" />
+                                    <asp:ControlParameter ControlID="DropDownList4" Name="year" PropertyName="SelectedValue" Type="String" />
+                                    <asp:ControlParameter ControlID="DropDownList6" Name="month1" PropertyName="SelectedValue" />
+                                    <asp:ControlParameter ControlID="DropDownList7" Name="month2" PropertyName="SelectedValue" />
+                                    <asp:ControlParameter ControlID="RadioButtonList1" Name="area" PropertyName="SelectedValue" Type="String" />
+                                </SelectParameters>
+                            </asp:SqlDataSource>
+                            <asp:SqlDataSource ID="SqlDataSource5" runat="server" ConnectionString="<%$ ConnectionStrings:SA_System_N3_ConnectionString %>" SelectCommand="counter_all_rec" SelectCommandType="StoredProcedure">
+                                <SelectParameters>
+                                    <asp:ControlParameter ControlID="DropDownList8" Name="num" PropertyName="SelectedValue" />
+                                    <asp:ControlParameter ControlID="DropDownList4" Name="year" PropertyName="SelectedValue" Type="String" />
+                                    <asp:ControlParameter ControlID="DropDownList6" Name="month1" PropertyName="SelectedValue" />
+                                    <asp:ControlParameter ControlID="DropDownList7" Name="month2" PropertyName="SelectedValue" />
+                                    <asp:ControlParameter ControlID="RadioButtonList1" Name="area" PropertyName="SelectedValue" Type="String" />
+                                </SelectParameters>
+                            </asp:SqlDataSource>
+                        </td>
+                    </tr>
+                </table>
+              </form>
+    <poy:footer ID="UCfooter" runat="server" />
+    <poy:js ID="UCjs" runat="server" />
+</body>
+</html>

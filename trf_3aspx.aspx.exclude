@@ -1,0 +1,83 @@
+﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="trf_3aspx.aspx.vb" Inherits="trf_3aspx" %>
+
+
+<!DOCTYPE html>
+<%@ Register TagPrefix="poy" TagName="header" Src="~/UCghead2.ascx" %>
+<%@ Register TagPrefix="poy" TagName="footer" Src="~/UCgfooter.ascx" %>
+<%@ Register TagPrefix="poy" TagName="css" Src="~/UCgcss.ascx" %>
+<%@ Register TagPrefix="poy" TagName="js" Src="~/UCgjs.ascx" %>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title>Scada Graph</title>
+     <poy:css ID="UCcss" runat="server" />
+    <style type="text/css">
+        .auto-style1 {
+            width: 10px;
+        }
+    </style>
+</head>
+<body>
+     <div class="col-md-12" align="center">
+                                 <h2 align="center">
+                                     Tranformer-Load
+                                </h2>
+                                      </div>  
+        <poy:header ID="UCmenu1" runat="server" />
+
+       
+    <form id="form1" runat="server">
+
+
+  			
+   <table align="center">
+               <tr>
+                  
+                   <td class="auto-style1">
+
+
+                       
+                       <asp:Chart ID="Chart2" runat="server" DataSourceID="SqlDataSource3" Palette="None" PaletteCustomColors="DarkMagenta; Lime; Blue" Width="1495px" Height="400px">
+                           <Series>
+                               <asp:Series Legend="Legend1" Name="S(%)" XValueMember="day1" YValueMembers="persent1" ToolTip="วันที่ #VALX = #VAL{N2} % " IsValueShownAsLabel="True" Label="#VAL{N2} %" LabelToolTip="#VAL{N2} %">
+                               </asp:Series>
+                           </Series>
+                           <ChartAreas>
+                               <asp:ChartArea Name="ChartArea1">
+                                    <AxisX Title="Day">
+                    </AxisX>
+                      <AxisY Title="Apparent Power(%)" TextOrientation="Auto">
+                    </AxisY>
+                               </asp:ChartArea>
+                           </ChartAreas>
+                           <Legends>
+                               <asp:Legend Name="Legend1" Title="Percentage">
+                               </asp:Legend>
+                           </Legends>
+                       </asp:Chart>
+
+
+                       
+                   </td>
+
+               </tr>
+
+
+           </table>
+
+        
+   
+
+             <asp:SqlDataSource ID="SqlDataSource3" runat="server" ConnectionString="<%$ ConnectionStrings:stagingConnectionString %>" SelectCommand="SELECT year1, month1, day1, feedername, kva, S, S / kva * 100 AS persent1 FROM (SELECT TOP (100) PERCENT stg.View_feeder_peak_month_all.year1, stg.View_feeder_peak_month_all.month1, stg.View_feeder_peak_month_all.day1, stg.View_feeder_peak_month_all.feedername, stg.View_feeder_115.kva, MAX(stg.View_feeder_peak_month_all.S) AS S FROM stg.View_feeder_peak_month_all RIGHT OUTER JOIN stg.View_feeder_115 ON stg.View_feeder_peak_month_all.feedername = stg.View_feeder_115.feedername GROUP BY stg.View_feeder_peak_month_all.feedername, stg.View_feeder_peak_month_all.year1, stg.View_feeder_peak_month_all.month1, stg.View_feeder_peak_month_all.day1, stg.View_feeder_115.kva HAVING (stg.View_feeder_peak_month_all.year1 = @year1) AND (stg.View_feeder_peak_month_all.month1 = @month1) AND (stg.View_feeder_peak_month_all.feedername = @feedername) ORDER BY stg.View_feeder_peak_month_all.feedername, stg.View_feeder_peak_month_all.year1, stg.View_feeder_peak_month_all.month1, stg.View_feeder_peak_month_all.day1) AS derivedtbl_1">
+                 <SelectParameters>
+                     <asp:QueryStringParameter Name="year1" QueryStringField="year1" DefaultValue="2016" />
+                     <asp:QueryStringParameter Name="month1" QueryStringField="month1" DefaultValue="4" />
+                     <asp:QueryStringParameter Name="feedername" QueryStringField="feedername" DefaultValue="WIR.02YB01" />
+                 </SelectParameters>
+             </asp:SqlDataSource>
+       
+    </form>
+    
+    <poy:footer ID="UCfooter" runat="server" />
+    <poy:js ID="UCjs" runat="server" />
+</body>
+</html>

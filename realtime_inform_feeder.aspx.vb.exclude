@@ -1,0 +1,29 @@
+﻿
+Partial Class realtime_inform_feeder
+    Inherits System.Web.UI.Page
+
+
+    Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
+        Try
+            If Request.QueryString("feedername").Length > 10 Then
+
+                Dim sStartPageURL As String = ""
+                sStartPageURL = "realtime_inform_feeder.aspx?feedername=" & Request.QueryString("feedername").Substring(0, 10)
+                Response.Redirect(sStartPageURL)
+
+            Else
+
+                Dim date1 As Date = Date.Now.AddDays(-1)
+                Dim str As String = date1.Date
+                Me.Label1.Text = "  " & Request.QueryString("feedername")
+                Me.Label2.Visible = False
+            End If
+            ' Me.Label2.Text = "Between Date " & str & " 00:00:00 AM TO " & Date.Now
+        Catch ex As Exception
+            Me.Label2.Text = ex.ToString
+            Me.Label2.Visible = True
+        End Try
+    End Sub
+
+ 
+End Class

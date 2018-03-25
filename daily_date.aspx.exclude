@@ -1,0 +1,147 @@
+﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="daily_date.aspx.vb" Inherits="daily_date" %>
+
+
+<!DOCTYPE html>
+<%@ Register TagPrefix="poy" TagName="header" Src="~/UCghead2.ascx" %>
+<%@ Register TagPrefix="poy" TagName="footer" Src="~/UCgfooter.ascx" %>
+<%@ Register TagPrefix="poy" TagName="css" Src="~/UCgcss.ascx" %>
+<%@ Register TagPrefix="poy" TagName="js" Src="~/UCgjs.ascx" %>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title>Scada Graph</title>
+     <poy:css ID="UCcss" runat="server" />
+</head>
+<body>
+    <div class="col-md-12" align="center">
+                                  <h2 > Daily Load Compair
+                        </h2>
+                                      </div> 
+    <poy:header ID="UCmenu1" runat="server" EnableViewState="False" />
+    <div class="container">
+      
+
+        
+    <form id="form1" runat="server">
+    <div>
+   
+
+       <div class="form-group">
+             <div class="col-md-1">
+                 </div>
+            <div class="col-md-3">
+                Substation :
+            <asp:DropDownList ID="DropDownList1" runat="server" Height="30px" Width="100px" AutoPostBack="True"
+                                            DataSourceID="SqlDataSource2" DataTextField="Substation" DataValueField="Substation">
+                                        </asp:DropDownList>
+            
+                </div>
+            
+            <div class="col-md-2">
+                Feeder : <asp:DropDownList ID="DropDownList2" runat="server" Height="30px" Width="100px" AutoPostBack="True"
+                                            DataSourceID="SqlDataSource4" DataTextField="Feeder" DataValueField="Feeder">
+                                        </asp:DropDownList>
+            
+                </div>
+        
+
+                                        <div class="col-md-4"> 
+                                            
+                                            <div class="input-group input-large date-picker input-daterange" data-date="10/11/2012" data-date-format="mm/dd/yyyy">
+                                                <input style="color:blue" id="textbox1" name="textbox1" runat="server" type="text" class="form-control" placeholder="วันที่" />
+												<span class="input-group-addon">
+												AND </span>
+												<input  style="color:red" id="textbox2" name="textbox2" runat="server" type="text" class="form-control" placeholder="วันที่" />
+											</div>
+                                            </div>
+            <div class="col-md-2"> 
+											<!-- /input-group -->
+											
+										
+                                            
+                                            <asp:Button ID="Button1" runat="server" Text="ตกลง" Width="96px" Height="35px" />
+                                            &nbsp;&nbsp;
+                                            <asp:Label ID="Label1" runat="server" Visible="False"></asp:Label>
+                                                &nbsp;
+                                             <asp:Label ID="Label3" runat="server" Visible="False"></asp:Label>
+                                             <asp:Label ID="Label2" runat="server" Visible="False"></asp:Label>
+                                             <asp:Label ID="Label4" runat="server" Visible="False"></asp:Label>
+                                          
+			</div>							
+
+           
+                                       
+
+
+		</div>								
+										
+
+    </div>
+        
+        <br />  <br />                                
+							
+			    <br />  <br />                                
+													
+								
+
+       
+       <asp:Chart ID="Chart1" runat="server" DataSourceID="SqlDataSource1" Width="1240px" Height="500px" Palette="None" PaletteCustomColors="Blue; Red" Visible="False">
+            <series>
+
+                   
+                           <asp:Series ChartType="Spline" Name="Date1" XValueMember="Date1" YValueMembers="MW" LabelFormat="{0:F2}" BorderWidth="2" Legend="Legend1" XValueType="Time" YValueType="UInt64" ToolTip="#VALX น. = #VAL{N2} MW">
+                </asp:Series>
+                       
+                            <asp:Series BorderWidth="2" ChartArea="ChartArea1" ChartType="Spline" LabelFormat="{0:F2}" Legend="Legend1" Name="Date2" XValueMember="Date1" XValueType="Time" YValueMembers="MW2" YValueType="UInt64" ToolTip="#VALX น. = #VAL{N2} MW">
+                </asp:Series>
+                      
+            </series>
+            <chartareas>
+                <asp:ChartArea Name="ChartArea1">
+                         <AxisX Title="Date">
+                    </AxisX>
+                      <AxisY Title="Active Power(MW)" TextOrientation="Auto">
+                    </AxisY>
+                </asp:ChartArea>
+            </chartareas>
+            <Legends>
+                <asp:Legend Name="Legend1">
+                </asp:Legend>
+            </Legends>
+            <Titles>
+                <asp:Title Name="Title1" Text="กราฟแสดงการเปรียบเทียบปริมาณโหลด(Active Power) ตามช่วงเวลา"  Font="Angsana New, 16pt">
+                </asp:Title>
+            </Titles>
+        </asp:Chart>
+
+
+          <br />  <br />       
+
+        <asp:SqlDataSource ID="SqlDataSource3" runat="server" ConnectionString="<%$ ConnectionStrings:SA_SystemConnectionString %>" SelectCommand="SELECT Feeder, Feedername FROM scada.View_feedername AS View_feedername_1"></asp:SqlDataSource>
+        <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:dw_scadaConnectionString %>" SelectCommand="SELECT        Substation
+FROM            scada.View_subname"></asp:SqlDataSource>
+        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:stagingConnectionString %>" SelectCommand="SELECT derivedtbl_1.Date1, derivedtbl_1.MW, derivedtbl_2.MW AS MW2, derivedtbl_1.Feeder, derivedtbl_1.Substation FROM (SELECT Substation, Feeder, Date1, MW, CONVERT (TIME, Date1, 108) AS time1 FROM stg.feeder_daily WHERE (Substation = @subname) AND (Feeder = @feeder) AND (Date1 &gt; CONVERT (DATETIME, @date1, 102)) AND (Date1 &lt; CONVERT (DATETIME, @date2, 102))) AS derivedtbl_1 INNER JOIN (SELECT Substation, Feeder, Date1, MW, CONVERT (TIME, Date1, 108) AS time2 FROM stg.feeder_daily AS feeder_daily_1 WHERE (Substation = @subname) AND (Feeder = @feeder) AND (Date1 &gt; CONVERT (DATETIME, @date3, 102)) AND (Date1 &lt; CONVERT (DATETIME, @date4, 102))) AS derivedtbl_2 ON derivedtbl_1.time1 = derivedtbl_2.time2 AND derivedtbl_1.Substation = derivedtbl_2.Substation AND derivedtbl_1.Feeder = derivedtbl_2.Feeder ORDER BY derivedtbl_1.Date1">
+            <SelectParameters>
+                <asp:ControlParameter ControlID="DropDownList1" DefaultValue="BSH" Name="subname" PropertyName="SelectedValue" />
+                <asp:ControlParameter ControlID="DropDownList2" Name="feeder" PropertyName="SelectedValue" />
+                <asp:ControlParameter ControlID="Label1" DefaultValue="" Name="date1" PropertyName="Text" />
+                <asp:ControlParameter ControlID="Label2" DefaultValue="" Name="date2" PropertyName="Text" />
+                <asp:ControlParameter ControlID="Label3" Name="date3" PropertyName="Text" />
+                <asp:ControlParameter ControlID="Label4" Name="date4" PropertyName="Text" />
+            </SelectParameters>
+        </asp:SqlDataSource>
+       
+        <asp:SqlDataSource ID="SqlDataSource4" runat="server" ConnectionString="<%$ ConnectionStrings:SA_SystemConnectionString %>" SelectCommand="SELECT Feedername, Feeder FROM scada.View_feedername WHERE (Feedername LIKE + @feeder + '%') ORDER BY Feedername">
+            <SelectParameters>
+                <asp:ControlParameter ControlID="DropDownList1" Name="feeder" PropertyName="SelectedValue" />
+            </SelectParameters>
+        </asp:SqlDataSource>
+       
+    </form>
+    
+
+        </div>
+
+    <poy:footer ID="UCfooter" runat="server" />
+    <poy:js ID="UCjs" runat="server" />
+</body>
+</html>
